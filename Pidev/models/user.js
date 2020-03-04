@@ -4,6 +4,7 @@ var userSchema = new mongoose.Schema({
   prenom : {type : String},
   password : {type:String , required : true},
   email : {type : String , required : true},
+  resetPasswordToken: {type : String},
   role : {type : String , default : null}
 })
 var u1 = mongoose.model('User', userSchema);

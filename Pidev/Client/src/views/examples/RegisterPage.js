@@ -60,8 +60,9 @@ class RegisterPage extends Component {
         axios
             .post("http://localhost:3000/users/forgot", authentication)
             .then(res => {
+
                 localStorage.setItem('token', res.data);
-                alert("An e-mail has been sent to "+authentication.email+" with further instructions")
+                alert("An e-mail has been sent to "+authentication.email+" with further instructions" )
             })
             .catch(err => {
                 console.log("error")

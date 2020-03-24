@@ -51,10 +51,23 @@ class RegisterPage extends Component {
             });
           }
         })
-        .catch(err => {
-          console.log("error");
-        });
+
   }
+    forgot() {
+        const authentication = {
+            email: document.getElementById('login').value
+        };
+        axios
+            .post("http://localhost:3000/users/forgot", authentication)
+            .then(res => {
+                localStorage.setItem('token', res.data);
+                alert("An e-mail has been sent to "+authentication.email+" with further instructions")
+            })
+            .catch(err => {
+                console.log("error")
+
+            });
+    }
   render(){
   return (
     <>
@@ -82,17 +95,13 @@ class RegisterPage extends Component {
                   <Button block className="btn-round" color="danger" onClick={this.login.bind(this)}>
                     Login
                   </Button>
+                    <div className="forgot">
+                    <Button
+                        className="btn-round" color="danger" onClick={this.forgot.bind(this)}>
+                        Forgot password?
+                    </Button>
+                    </div>
                 </Form>
-                <div className="forgot">
-                  <Button
-                    className="btn-link"
-                    color="danger"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Forgot password?
-                  </Button>
-                </div>
               </Card>
             </Col>
           </Row>

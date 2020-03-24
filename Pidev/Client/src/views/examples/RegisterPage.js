@@ -26,6 +26,7 @@ import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import NavbarLogin from "../../components/Navbars/NavbarLogin";
 class RegisterPage extends Component {
   login() {
     const authentication = {
@@ -41,12 +42,12 @@ class RegisterPage extends Component {
 
           if(jwt_decode(res.data).user.role === null){
             this.props.history.push({
-              pathname: "/test"
+              pathname: "/profile-page"
             })
           }
           else{
             this.props.history.push({
-              pathname: "/test"
+              pathname: "/profile-page"
             });
           }
         })
@@ -57,7 +58,7 @@ class RegisterPage extends Component {
   render(){
   return (
     <>
-      <ExamplesNavbar />
+      <NavbarLogin />
       <div
         className="page-header"
         style={{

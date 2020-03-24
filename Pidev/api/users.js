@@ -92,8 +92,8 @@ router.post('/forgot', function(req, res, next) {
         from: 'azizbenrekaya@gmail.com',
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-            'http://' + req.headers.host + '/users/reset/' + user.email+ '\n\n' +
+            'Please click on the following link, or paste this into your browser to complete the process:\n\n'
+            + token + '\n\n' +
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -120,7 +120,7 @@ router.post('/forgot', function(req, res, next) {
 router.post('/reset/', function(req, res) {
   async.waterfall([
     function(done) {
-      User.findOne({email: req.body.email}, function(err, user) {
+      User.findOne({resetPasswordToken: req.body.token}, function(err, user) {
         if (!user) {
          res.status(401).json("email n'existe pas")
         }

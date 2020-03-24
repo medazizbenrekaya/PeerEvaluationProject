@@ -7,9 +7,9 @@ var userSchema = new mongoose.Schema({
   resetPasswordToken: {type : String},
   role : {type : String , default : null}
 })
-var u1 = mongoose.model('User', userSchema);
-u1.create({ nom:'aziz',prenom:'aziz',password:'aziz',email:'aziz'}, function (err, small) {
-  if (err) return handleError(err);
-  // saved!
-});
+// var u1 = mongoose.model('User', userSchema);
+// u1.create({ nom:'aziz',prenom:'aziz',password:'aziz',email:'aziz'}, function (err, small) {
+//   if (err) return handleError(err);
+//   // saved!
+// });
 module.exports = mongoose.model('User',userSchema)

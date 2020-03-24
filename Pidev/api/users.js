@@ -83,7 +83,7 @@ router.post('/forgot', function(req, res, next) {
         service: 'Gmail',
         auth: {
           user: 'adembenzarb@gmail.com',
-          pass: 50502450
+          pass: 'Adem50502450'
         }
       });
       //https://myaccount.google.com/lesssecureapps

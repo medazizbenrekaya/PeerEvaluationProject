@@ -7,6 +7,7 @@ var User = require('../models/user.js');
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
+const { spawn } = require('child_process')
 
 router.post("/",(req,res)=>{
   var user = new User(req.body)
@@ -92,7 +93,7 @@ router.post('/forgot', function(req, res, next) {
         from: 'azizbenrekaya@gmail.com',
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-            'Please click on the following link, or paste this into your browser to complete the process:\n\n'
+            'Please click on the following link http://localhost:3001/reset, and paste this code in the token placeholder that is in your browser to complete the process:\n\n'
             + token + '\n\n' +
             'url reset password'+'\n\n'
             +
@@ -119,45 +120,6 @@ router.post('/forgot', function(req, res, next) {
   });
 });*/
 
-// router.post('/reset/', function(req, res) {
-//   async.waterfall([
-//     function(done) {
-//       User.findOne({resetPasswordToken: req.body.token}, function(err, user) {
-//         if (!user) {
-//          res.status(401).json("email n'existe pas")
-//         }
-//         user.password= bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-//         user.save((err, user) => {
-//           if (err) res.json(err);
-//           else res.json(user);
-//         });
-//         res.status(200).json("c bon")
-//
-//       });
-//     },
-//     // function(user, done) {
-//     //   var smtpTransport = nodemailer.createTransport({
-//     //     service: 'Gmail',
-//     //     auth: {
-//     //       user: user.email,
-//     //       pass: user.password
-//     //     }
-//     //   });
-//     //   var mailOptions = {
-//     //     to: user.email,
-//     //     from: 'adembenzarb@gmail.com',
-//     //     subject: 'Your password has been changed',
-//     //     text: 'Hello,\n\n' +
-//     //         'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-//     //   };
-//     //   smtpTransport.sendMail(mailOptions, function(err) {
-//     //
-//     //     res.status(200).json("Success! Your password has been changed.")
-//     //   });
-//     // }
-//   ], function(err) {
-//   });
-// });
 router.post('/reset/', (req, res) =>{
 
       User.findOne({resetPasswordToken: req.body.token} ,(err,user)=> {
@@ -170,7 +132,9 @@ router.post('/reset/', (req, res) =>{
 
       });
     }
-);
+  );
+
+
 
 
 module.exports = router;

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --config nodemon.json"
+
   },
   "dependencies": {
     "async": "^3.2.0",

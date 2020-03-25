@@ -98,8 +98,8 @@ function NavbarProfile() {
                     isOpen={navbarCollapse}
                 >
                     <Nav navbar>
-                        <NavItem>
-                            <NavLink to="/index" tag={Link}>
+                        <NavItem >
+                            <NavLink to="/index" tag={Link}  >
                                 <i className="nc-icon nc-layout-11" /> Logout
                             </NavLink>
                         </NavItem>

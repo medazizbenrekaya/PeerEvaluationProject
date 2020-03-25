@@ -94,6 +94,8 @@ router.post('/forgot', function(req, res, next) {
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
             'Please click on the following link, or paste this into your browser to complete the process:\n\n'
             + token + '\n\n' +
+            'url reset password'+'\n\n'
+            +
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -117,54 +119,58 @@ router.post('/forgot', function(req, res, next) {
   });
 });*/
 
-router.post('/reset/', function(req, res) {
-  async.waterfall([
-    function(done) {
-      User.findOne({resetPasswordToken: req.body.token}, function(err, user) {
+// router.post('/reset/', function(req, res) {
+//   async.waterfall([
+//     function(done) {
+//       User.findOne({resetPasswordToken: req.body.token}, function(err, user) {
+//         if (!user) {
+//          res.status(401).json("email n'existe pas")
+//         }
+//         user.password= bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+//         user.save((err, user) => {
+//           if (err) res.json(err);
+//           else res.json(user);
+//         });
+//         res.status(200).json("c bon")
+//
+//       });
+//     },
+//     // function(user, done) {
+//     //   var smtpTransport = nodemailer.createTransport({
+//     //     service: 'Gmail',
+//     //     auth: {
+//     //       user: user.email,
+//     //       pass: user.password
+//     //     }
+//     //   });
+//     //   var mailOptions = {
+//     //     to: user.email,
+//     //     from: 'adembenzarb@gmail.com',
+//     //     subject: 'Your password has been changed',
+//     //     text: 'Hello,\n\n' +
+//     //         'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+//     //   };
+//     //   smtpTransport.sendMail(mailOptions, function(err) {
+//     //
+//     //     res.status(200).json("Success! Your password has been changed.")
+//     //   });
+//     // }
+//   ], function(err) {
+//   });
+// });
+router.post('/reset/', (req, res) =>{
+
+      User.findOne({resetPasswordToken: req.body.token} ,(err,user)=> {
         if (!user) {
-         res.status(401).json("email n'existe pas")
+          res.status(401).json("email n'existe pas")
         }
         user.password= bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-        user.save((err, user) => {
-          if (err) res.json(err);
-          else res.json(user);
-        });
+        user.save();
         res.status(200).json("c bon")
-        // user.setPassword(req.body.password, function(err) {
-        //     user.resetPasswordToken = undefined;
-        //     user.save(function(err) {
-        //       req.logIn(user, function(err) {
-        //         done(err, user);
-        //       });
-        //     });
-        //   })
-
 
       });
-    },
-    // function(user, done) {
-    //   var smtpTransport = nodemailer.createTransport({
-    //     service: 'Gmail',
-    //     auth: {
-    //       user: user.email,
-    //       pass: user.password
-    //     }
-    //   });
-    //   var mailOptions = {
-    //     to: user.email,
-    //     from: 'adembenzarb@gmail.com',
-    //     subject: 'Your password has been changed',
-    //     text: 'Hello,\n\n' +
-    //         'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-    //   };
-    //   smtpTransport.sendMail(mailOptions, function(err) {
-    //
-    //     res.status(200).json("Success! Your password has been changed.")
-    //   });
-    // }
-  ], function(err) {
-  });
-});
+    }
+);
 
 
 module.exports = router;

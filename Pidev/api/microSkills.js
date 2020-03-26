@@ -1,41 +1,95 @@
-var express = require('express');
-var router = express.Router();
-var microSkills = require('../models/microSkills.js');
+var express = require('express')
+var router = express.Router()
+var user = require('../models/user')
+var ms = require('../models/microskills')
 
-router.post("/Ajout", (req, res) => {
-    microSkills.findOne({ nom: req.body.nom }).then(microskills => {
-        if (!microskills) {
-            var microskills = new microSkills({
-                nom : req.body.nom,
-                description : req.body.description,
-                macroSkills: req.body.macroSkills,
 
-            });
 
-            microskills.save((err, microskills) => {
-                if (err) res.json(err);
-                else res.json(microskills);
-            });
-        }else {
-            res.json({error : "micro skills already used"})
-        }
+
+
+
+
+router.post("/ajouterMS", (req, res) => {
+    var micro = new ms(req.body);
+    micro.save((err, c) => {
+        if (err) res.json(err);
+        else res.json(c);
     });
 });
 
+router.post("/accepter/:id", (req, res) => {
+    var x = true
+
+    user.findOne({email: req.body.email}, (err, u) => {
+        ms.findOne({_id: req.params.id}, (err, c) => {
+
+            u.microskills.forEach(function (ee) {
+                if(ee.id==c.id){
+                    x=false;
+
+                }
+
+            })
+
+
+            if(x==false)
+                res.status(401).json({info :"Vous l'avez déja"})
+
+            else{
+                u.microskills.push(c)
+                console.log(c)
+                u.save(function (err) {
+                    if (err)
+                        console.log('error')
+                    else
+                        res.json('success')
+                });
+            }});
+    });
+})
+
 
 router.get("/Afficher",(req,res,next)=>{
-    microSkills.find((err,microSkills)=>{
+    ms.find((err,microSkills)=>{
         if(err) res.json(err)
         else res.json(microSkills)
     })
 })
 
 router.post('/update', function(req, res) {
-    microSkills.findOneAndUpdate({_id : req.body._id } , req.body , { res: true} , function (err,microSkills) {
+    ms.findOneAndUpdate({_id : req.body._id } , req.body , { res: true} , function (err,microSkills) {
         if (err) res.json(err)
         else res.json(microSkills)
     });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;

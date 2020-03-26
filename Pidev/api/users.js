@@ -5,6 +5,7 @@ var passport = require("passport");
 var bcrypt = require("bcrypt-nodejs");
 var User = require('../models/user.js');
 var async = require("async");
+var ms = require('../models/microskills')
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var Team = require('../models/team');
@@ -149,7 +150,65 @@ router.post("/getmembers", (req, res) => {
     });
 })
 
-
+// router.post("/note/:id", (req, res) => {
+//
+//
+//   User.findOne({email: req.body.email}, (err, u) => {
+//
+//     ms.findOne({_id:req.params.id},(err,m) =>{
+//       m.macroskills.forEach(function (r) {
+//         if(r.nom == req.body.nom){
+//           r.note = req.body.note
+// //           r.save()
+// //           m.save()
+// //           u.save()
+// //           res.json(200)
+//         }
+//         else
+//           res.json(401)
+//
+//
+//       })
+//     })
+//
+//   });
+//
+// }
+//
+// ).catch(err){
+//   console.log((err))
+//
+// }
+// router.post("/note/:id", (req, res) => {
+//
+//
+//   User.findOne({email: req.body.email}, (err, u) => {
+//     ms.findOne({_id: req.params.id}, (err, c) => {
+//
+//       c.macroskills.forEach(function (ee) {
+//         if(ee._id==req.body.id){
+//           ee.note = req.body.note
+//           console.log(ee)
+//       c.macroskills = ee.macroskills
+//           c.save()
+//         u.microskills = c.microskills
+//           u.save()
+//
+//            res.json(200)
+//
+//
+//         }
+//         else{
+//           res.json(401)
+//          console.log("NOO")
+//
+//         }
+//
+//       })
+//
+//      });
+//   });
+// })
 
 
 

@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --config nodemon.json"
-
   },
   "dependencies": {
     "async": "^3.2.0",
@@ -19,6 +18,7 @@
     "mongoose": "^5.4.20",
     "morgan": "~1.9.1",
     "nodemailer": "^6.4.4",
+    "nodemon": "^2.0.2",
     "passport": "^0.4.1",
     "pug": "2.0.0-beta11"
   }

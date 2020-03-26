@@ -35,7 +35,7 @@ class Register extends Component {
             password : document.getElementById('password').value,
             nom:document.getElementById('nom').value,
             prenom:document.getElementById('prenom').value,
-            role:null
+            role:document.getElementById('role').value
         };
         axios.post("http://localhost:3000/users/register", bod).then(res => {
             console.log('succes')
@@ -72,6 +72,12 @@ class Register extends Component {
                                         <Input placeholder="Nom" type="text" id="nom" />
                                         <label>Prenom</label>
                                         <Input placeholder="Prenom" type="text" id="prenom" />
+                                        <label>Role</label>
+                                        <select name="role" id="role">
+                                            <option>Student</option>
+                                            <option>Teacher</option>
+                                            <option>Stakeholder</option>
+                                        </select>
                                         <Button block className="btn-round" color="danger" onClick={this.Register.bind(this)}>
                                            Register
                                         </Button>

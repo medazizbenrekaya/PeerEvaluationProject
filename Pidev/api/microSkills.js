@@ -36,6 +36,44 @@ router.post('/update', function(req, res) {
         else res.json(microSkills)
     });
 
+router.get("/Afficher",(req,res,next)=>{
+    ms.find((err,microSkills)=>{
+        if(err) res.json(err)
+        else res.json(microSkills)
+    })
+})
+
+router.post('/update', function(req, res) {
+    ms.findOneAndUpdate({_id : req.body._id } , req.body , { res: true} , function (err,microSkills) {
+        if (err) res.json(err)
+        else res.json(microSkills)
+    });
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;

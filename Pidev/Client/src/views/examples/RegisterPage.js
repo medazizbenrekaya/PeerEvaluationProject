@@ -26,6 +26,7 @@ import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import NavbarLogin from "../../components/Navbars/NavbarLogin";
 class RegisterPage extends Component {
   login() {
     const authentication = {
@@ -41,23 +42,37 @@ class RegisterPage extends Component {
 
           if(jwt_decode(res.data).user.role === null){
             this.props.history.push({
-              pathname: "/test"
+              pathname: "/profile-page"
             })
           }
           else{
             this.props.history.push({
-              pathname: "/test"
+              pathname: "/profile-page"
             });
           }
         })
-        .catch(err => {
-          console.log("error");
-        });
+
   }
+    forgot() {
+        const authentication = {
+            email: document.getElementById('login').value
+        };
+        axios
+            .post("http://localhost:3000/users/forgot", authentication)
+            .then(res => {
+
+                localStorage.setItem('token', res.data);
+                alert("An e-mail has been sent to "+authentication.email+" with further instructions" )
+            })
+            .catch(err => {
+                console.log("error")
+
+            });
+    }
   render(){
   return (
     <>
-      <ExamplesNavbar />
+      <NavbarLogin />
       <div
         className="page-header"
         style={{
@@ -81,17 +96,13 @@ class RegisterPage extends Component {
                   <Button block className="btn-round" color="danger" onClick={this.login.bind(this)}>
                     Login
                   </Button>
+                    <div className="forgot">
+                    <Button
+                        className="btn-round" color="danger" onClick={this.forgot.bind(this)}>
+                        Forgot password?
+                    </Button>
+                    </div>
                 </Form>
-                <div className="forgot">
-                  <Button
-                    className="btn-link"
-                    color="danger"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Forgot password?
-                  </Button>
-                </div>
               </Card>
             </Col>
           </Row>

@@ -48,6 +48,7 @@ function LandingPage() {
       document.body.classList.remove("profile-page");
     };
   });
+
   return (
     <>
       <ExamplesNavbar />

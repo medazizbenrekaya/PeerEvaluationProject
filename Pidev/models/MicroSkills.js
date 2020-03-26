@@ -10,3 +10,4 @@ var microskillsSchema = new mongoose.Schema({
     ]
 
 })
+module.exports = mongoose.model('MicroSkill',microskillsSchema)

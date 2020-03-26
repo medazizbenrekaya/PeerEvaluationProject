@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var Team = require('../models/team');
 var MS = require('../models/microskills').schema
+var team = require('../models/team')
 var userSchema = new mongoose.Schema({
   nom : {type : String , trim : true},
   prenom : {type : String},
@@ -8,6 +9,10 @@ var userSchema = new mongoose.Schema({
   email : {type : String , required : true},
   resetPasswordToken: {type : String},
   role : {type : String , default : null},
+  team :{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Team', default:null
+  },
   microskills:[MS]
 
 

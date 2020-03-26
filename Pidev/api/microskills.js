@@ -37,6 +37,7 @@ router.post("/accepter/:id", (req, res) => {
 
             else{
                 u.microskills.push(c)
+                u.save()
                 console.log(c)
                 u.save(function (err) {
                     if (err)

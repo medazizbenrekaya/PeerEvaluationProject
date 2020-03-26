@@ -35,6 +35,8 @@ router.post("/accepter/:id", (req, res) => {
                 res.status(401).json({info :"tu est deja dans la team"})
 
             else{
+                u.team = c._id
+                u.save()
                 c.members.push(u)
                 console.log(c)
                 c.save(function (err) {
@@ -58,6 +60,39 @@ router.get("/getmembers/:id", (req, res) => {
                 res.status(401).json('Team Introuvable')
         });
 
+})
+
+router.post("/noter", (req, res) => {
+    var x = true
+
+    user.findOne({email: req.body.email}, (err, u) => {
+        Team.findOne({_id: req.params.id}, (err, c) => {
+
+            c.members.forEach(function (ee) {
+                if(ee.id==u.id){
+                    x=false;
+
+                }
+
+            })
+
+
+            if(x==false)
+                res.status(401).json({info :"tu est deja dans la team"})
+
+            else{
+                u.team = c._id
+                u.save()
+                c.members.push(u)
+                console.log(c)
+                c.save(function (err) {
+                    if (err)
+                        console.log('error')
+                    else
+                        res.json('success')
+                });
+            }});
+    });
 })
 
 

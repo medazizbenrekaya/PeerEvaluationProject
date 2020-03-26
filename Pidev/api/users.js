@@ -95,6 +95,8 @@ router.post('/forgot', function(req, res, next) {
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
             'Please click on the following link http://localhost:3001/reset, and paste this code in the token placeholder that is in your browser to complete the process:\n\n'
             + token + '\n\n' +
+            'url reset password'+'\n\n'
+            +
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -122,7 +124,7 @@ router.post('/reset/', (req, res) =>{
 
       User.findOne({resetPasswordToken: req.body.token} ,(err,user)=> {
         if (!user) {
-         res.status(401).json("email n'existe pas")
+          res.status(401).json("email n'existe pas")
         }
         user.password= bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
         user.save();

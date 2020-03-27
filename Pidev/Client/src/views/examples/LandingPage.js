@@ -58,13 +58,11 @@ function LandingPage() {
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Let's talk product</h2>
+                <h2 className="title">Let's learn more about our site</h2>
                 <h5 className="description">
-                  This is the paragraph where you can write more details about
-                  your product. Keep you user engaged by providing meaningful
-                  information. Remember that by this time, the user is curious,
-                  otherwise he wouldn't scroll to get here. Add a button if you
-                  want the user to see more.
+                  This is the perfect place where you can evaluate your teammates skills
+                  and yours too by giving notes to each student in every skill , so everyone
+                  will know better their difficulties and train harder to build better projects
                 </h5>
                 <br />
                 <Button
@@ -155,20 +153,20 @@ function LandingPage() {
           <Container>
             <h2 className="title">Let's talk about us</h2>
             <Row>
-              <Col md="4">
+              <Col md="3">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/clem-onojeghuo-3.jpg")}
+                        src={require("assets/img/faces/me.jpg")}
                       />
                     </a>
                   </div>
                   <CardBody>
-                    <a href="#pablo" onClick={e => e.preventDefault()}>
+                    <a href="#iheb" onClick={e => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Henry Ford</CardTitle>
+                        <CardTitle tag="h4">Iheb Zouaghi</CardTitle>
                         <h6 className="card-category">Product Manager</h6>
                       </div>
                     </a>
@@ -206,20 +204,20 @@ function LandingPage() {
                   </CardFooter>
                 </Card>
               </Col>
-              <Col md="4">
+              <Col md="3">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/joe-gardner-2.jpg")}
+                        src={require("assets/img/faces/hama.jpg")}
                       />
                     </a>
                   </div>
                   <CardBody>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Sophie West</CardTitle>
+                        <CardTitle tag="h4">Mohamed Boufaied</CardTitle>
                         <h6 className="card-category">Designer</h6>
                       </div>
                     </a>
@@ -258,20 +256,20 @@ function LandingPage() {
                   </CardFooter>
                 </Card>
               </Col>
-              <Col md="4">
+              <Col md="3">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        src={require("assets/img/faces/aziz.jpg")}
                       />
                     </a>
                   </div>
                   <CardBody>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Robert Orben</CardTitle>
+                        <CardTitle tag="h4">Aziz Ben Rkaya</CardTitle>
                         <h6 className="card-category">Developer</h6>
                       </div>
                     </a>
@@ -304,6 +302,57 @@ function LandingPage() {
                       color="link"
                       href="#pablo"
                       onClick={e => e.preventDefault()}
+                    >
+                      <i className="fa fa-linkedin" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col md="3">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a href="#pablo" onClick={e => e.preventDefault()}>
+                      <img
+                          alt="..."
+                          src={require("assets/img/faces/adem.jpg")}
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a href="#iheb" onClick={e => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Adem Ben Zarb</CardTitle>
+                        <h6 className="card-category">Developper</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      Teamwork is so important that it is virtually impossible
+                      for you to reach the heights of your capabilities or make
+                      the money that you want without becoming very good at it.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                        className="btn-just-icon btn-neutral"
+                        color="link"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                    >
+                      <i className="fa fa-twitter" />
+                    </Button>
+                    <Button
+                        className="btn-just-icon btn-neutral ml-1"
+                        color="link"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                    >
+                      <i className="fa fa-google-plus" />
+                    </Button>
+                    <Button
+                        className="btn-just-icon btn-neutral ml-1"
+                        color="link"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
                     >
                       <i className="fa fa-linkedin" />
                     </Button>

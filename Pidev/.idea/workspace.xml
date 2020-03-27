@@ -4,7 +4,6 @@
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/microSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microSkills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/MicroSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/MicroSkills.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,6 +65,7 @@
       <workItem from="1584705182781" duration="558000" />
       <workItem from="1584805719238" duration="714000" />
       <workItem from="1585056294470" duration="17442000" />
+      <workItem from="1585321977367" duration="174000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

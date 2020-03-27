@@ -7,6 +7,7 @@ var User = require('../models/user.js');
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
+var Team = require('../models/team');
 const { spawn } = require('child_process')
 
 router.post("/",(req,res)=>{
@@ -72,7 +73,7 @@ router.post('/forgot', function(req, res, next) {
         if (!user) {
           res.status(401).json("email n'existe pas")
         }
-        user.resetPasswordToken = token;
+        uresetPaser.sswordToken = token;
 
         user.save(function(err) {
           done(err, token, user);
@@ -95,8 +96,6 @@ router.post('/forgot', function(req, res, next) {
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
             'Please click on the following link http://localhost:3001/reset, and paste this code in the token placeholder that is in your browser to complete the process:\n\n'
             + token + '\n\n' +
-            'url reset password'+'\n\n'
-            +
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -133,6 +132,21 @@ router.post('/reset/', (req, res) =>{
       });
     }
   );
+
+
+
+
+router.post("/getmembers", (req, res) => {
+
+
+    User.findOne({email: req.body.email}, (err, u) => {
+        console.log(u.team)
+        Team.findOne({_id:u.team}, (err, c) => {
+            res.status(200).json(c.members)
+           });
+    });
+})
+
 
 
 

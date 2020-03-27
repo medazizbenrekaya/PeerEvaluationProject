@@ -53,21 +53,18 @@ function LandingPageHeader() {
         <div className="filter" />
         <Container>
           <div className="motto text-center">
-            <h1>Example page</h1>
-            <h3>Start designing your landing page here.</h3>
+            <h1>Peer Evaluation</h1>
+            <h3>Evalute each other to build a better project.</h3>
             <br />
             <Button
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              href="http://producaounb.com.br/pumav01/?fbclid=IwAR34AHgQSN1x9e6IKBeRHVZWRPjDfJlsQDTcns6GLuHBNDVB32JdlNvp7Ps"
               className="btn-round mr-1"
               color="neutral"
               target="_blank"
               outline
             >
-              <i className="fa fa-play" />
-              Watch video
-            </Button>
-            <Button className="btn-round" color="neutral" type="button" outline>
-              Download
+              <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+              Visit PUMA
             </Button>
           </div>
         </Container>

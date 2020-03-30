@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+var eval = require('./evaluation').schema
 var MicroSkillsSchema = new mongoose.Schema({
     nom : {type : String , trim : true , required : true},
     description : {type:String , required : true},

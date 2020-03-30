@@ -159,7 +159,7 @@ function LandingPage() {
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/me.jpg")}
+                        src={require("assets/img/faces/adem.jpg")}
                       />
                     </a>
                   </div>
@@ -210,7 +210,7 @@ function LandingPage() {
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/hama.jpg")}
+                        src={require("assets/img/faces/adem.jpg")}
                       />
                     </a>
                   </div>
@@ -262,7 +262,7 @@ function LandingPage() {
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/aziz.jpg")}
+                        src={require("assets/img/faces/adem.jpg")}
                       />
                     </a>
                   </div>

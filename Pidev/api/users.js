@@ -73,7 +73,7 @@ router.post('/forgot', function(req, res, next) {
         if (!user) {
           res.status(401).json("email n'existe pas")
         }
-        uresetPaser.sswordToken = token;
+        user.resetPasswordToken = token;
 
         user.save(function(err) {
           done(err, token, user);
@@ -108,16 +108,6 @@ router.post('/forgot', function(req, res, next) {
     res.redirect('/forgot');
   });
 });
-
-/*router.get('/reset/:token', function(req, res) {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    if (!user) {
-      req.flash('error', 'Password reset token is invalid or has expired.');
-      return res.redirect('/forgot');
-    }
-    res.render('reset', {token: req.params.token});
-  });
-});*/
 
 router.post('/reset/', (req, res) =>{
 

@@ -9,7 +9,6 @@ var ms = require('../models/microSkills')
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var Team = require('../models/team');
-var evaluation = require('../models/evaluation');
 const { spawn } = require('child_process')
 
 router.post("/",(req,res)=>{
@@ -75,7 +74,7 @@ router.post('/forgot', function(req, res, next) {
         if (!user) {
           res.status(401).json("email n'existe pas")
         }
-        user.resetPasswordToken = token;
+        uresetPaser.sswordToken = token;
 
         user.save(function(err) {
           done(err, token, user);
@@ -149,22 +148,21 @@ router.post("/getmembers", (req, res) => {
             res.status(200).json(c.members)
            });
     });
-});
+})
 
 // router.post("/note/:id", (req, res) => {
 //
 //
 //   User.findOne({email: req.body.email}, (err, u) => {
 //
-//
-//     u.microskills.findOne({_id:req.params.id},(err,m) =>{
+//     ms.findOne({_id:req.params.id},(err,m) =>{
 //       m.macroskills.forEach(function (r) {
 //         if(r.nom == req.body.nom){
 //           r.note = req.body.note
-//           r.save()
-//           m.save()
-//           u.save()
-//           res.json(200)
+// //           r.save()
+// //           m.save()
+// //           u.save()
+// //           res.json(200)
 //         }
 //         else
 //           res.json(401)
@@ -177,36 +175,40 @@ router.post("/getmembers", (req, res) => {
 //
 // }
 //
-// )
-router.post("/note/:id", (req, res) => {
-
-
-    User.findOne({email: req.body.email}, (err, u) => {
-        u.microskills.forEach(n => {
-            if(n._id == req.params.id){
-                n.macroskills.forEach(m => {
-                    if(m.nom == req.body.nom) {
-                        evaluation = {
-                            voteur: req.body.voteur,
-                            note: req.body.note
-                        };
-                        m.notes.push(evaluation)
-                        m.save()
-                        n.save()
-                        u.save()
-                        res.json(200)
-                    }
-                })
-
-            }
-            else
-                res.status(401).json("vous avez déja voté")
-        });
-
-
-
-       });
-})
+// ).catch(err){
+//   console.log((err))
+//
+// }
+// router.post("/note/:id", (req, res) => {
+//
+//
+//   User.findOne({email: req.body.email}, (err, u) => {
+//     ms.findOne({_id: req.params.id}, (err, c) => {
+//
+//       c.macroskills.forEach(function (ee) {
+//         if(ee._id==req.body.id){
+//           ee.note = req.body.note
+//           console.log(ee)
+//       c.macroskills = ee.macroskills
+//           c.save()
+//         u.microskills = c.microskills
+//           u.save()
+//
+//            res.json(200)
+//
+//
+//         }
+//         else{
+//           res.json(401)
+//          console.log("NOO")
+//
+//         }
+//
+//       })
+//
+//      });
+//   });
+// })
 
 
 

@@ -34,6 +34,7 @@ import RegisterPage from "views/examples/RegisterPage.js";
 import Test from "./components/test";
 import Register from "./components/Register";
 import ResetPw from "./components/ResetPw";
+import TeacherPage from "./views/examples/TeacherPage";
 
 
 
@@ -54,6 +55,10 @@ ReactDOM.render(
       <Route
         path="/profile-page"
         render={props => <ProfilePage {...props} />}
+      />
+      <Route
+          path="/teacher-page"
+          render={props => <TeacherPage {...props} />}
       />
       <Route
           path="/reset"

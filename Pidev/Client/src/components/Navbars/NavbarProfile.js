@@ -16,7 +16,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React,{Component} from "react";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
@@ -29,7 +29,7 @@ import {
     NavItem,
     NavLink,
     Nav,
-    Container
+    Container, Button
 } from "reactstrap";
 
 function NavbarProfile() {
@@ -40,7 +40,12 @@ function NavbarProfile() {
         setNavbarCollapse(!navbarCollapse);
         document.documentElement.classList.toggle("nav-open");
     };
+    const logout=()=>{
+        localStorage.clear()
+        console.log(localStorage)
+        alert("bye bye")
 
+    }
     React.useEffect(() => {
         const updateNavbarColor = () => {
             if (
@@ -62,6 +67,7 @@ function NavbarProfile() {
             window.removeEventListener("scroll", updateNavbarColor);
         };
     });
+
     return (
         <Navbar
             className={classnames("fixed-top", navbarColor)}
@@ -76,6 +82,7 @@ function NavbarProfile() {
                         target="_blank"
                         title="Coded by Creative Tim"
                         tag={Link}
+                        onClick={logout}
                     >
                         Peer Evaluation
 
@@ -85,7 +92,6 @@ function NavbarProfile() {
                         className={classnames("navbar-toggler navbar-toggler", {
                             toggled: navbarCollapse
                         })}
-                        onClick={toggleNavbarCollapse}
                     >
                         <span className="navbar-toggler-bar bar1" />
                         <span className="navbar-toggler-bar bar2" />
@@ -99,7 +105,8 @@ function NavbarProfile() {
                 >
                     <Nav navbar>
                         <NavItem >
-                            <NavLink to="/index" tag={Link}  >
+                            <NavLink to="/index" tag={Link}
+                                     onClick={logout}>
                                 <i className="nc-icon nc-layout-11" /> Logout
                             </NavLink>
                         </NavItem>

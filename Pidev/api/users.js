@@ -98,8 +98,6 @@ router.post('/forgot', function(req, res, next) {
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
             'Please click on the following link http://localhost:3001/reset, and paste this code in the token placeholder that is in your browser to complete the process:\n\n'
             + token + '\n\n' +
-            'url reset password'+'\n\n'
-            +
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -112,16 +110,6 @@ router.post('/forgot', function(req, res, next) {
     res.redirect('/forgot');
   });
 });
-
-/*router.get('/reset/:token', function(req, res) {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    if (!user) {
-      req.flash('error', 'Password reset token is invalid or has expired.');
-      return res.redirect('/forgot');
-    }
-    res.render('reset', {token: req.params.token});
-  });
-});*/
 
 router.post('/reset/', (req, res) =>{
 

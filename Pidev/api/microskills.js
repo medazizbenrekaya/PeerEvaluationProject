@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var user = require('../models/user')
-var ms = require('../models/microSkills')
+var ms = require('../models/microskills')
 
 
 

@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/Teacher.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/adem.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/student.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/evaluation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbars/NavbarProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbars/NavbarProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/LandingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/MicroSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/MicroSkills.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +72,7 @@
       <workItem from="1585249138672" duration="2283000" />
       <workItem from="1585255136851" duration="974000" />
       <workItem from="1585308752213" duration="4109000" />
-      <workItem from="1585573155721" duration="7540000" />
+      <workItem from="1585573155721" duration="9655000" />
     </task>
     <servers />
   </component>

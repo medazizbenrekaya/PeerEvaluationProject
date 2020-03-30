@@ -48,7 +48,8 @@ class TeacherPage extends  Component {
 
         const bod = {
             nom: document.getElementById('nom').value,
-            description:document.getElementById('desc').value,
+            description:document.getElementById('desc').value
+
         };
         axios.post("localhost:3000/ms/ajouterMS", bod).then(res => {
             console.log('succes')

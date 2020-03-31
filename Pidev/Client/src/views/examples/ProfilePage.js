@@ -39,6 +39,7 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
+import jwt_decode from "jwt-decode";
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = React.useState("1");
@@ -67,14 +68,14 @@ function ProfilePage() {
               <img
                 alt="..."
                 className="img-circle img-no-padding img-responsive"
-                src={require("assets/img/faces/joe-gardner-2.jpg")}
+                src={require("assets/img/faces/student.png")}
               />
             </div>
             <div className="name">
               <h4 className="title">
-                Jane Faker <br />
+                {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br />
               </h4>
-              <h6 className="description">Music Producer</h6>
+              <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
             </div>
           </div>
           <Row>

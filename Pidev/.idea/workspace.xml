@@ -4,7 +4,6 @@
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/MicroSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/MicroSkills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,11 +26,12 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Client/src/assets/img/faces" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\Client\src\assets\img\faces" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev" />
       <recent name="C:\Users\Titou\Desktop\Pidev\Pidev\api" />
       <recent name="C:\Users\Titou\Desktop\Pidev\Pidev\models" />
@@ -65,8 +65,12 @@
       <workItem from="1583359376517" duration="1206000" />
       <workItem from="1584705182781" duration="558000" />
       <workItem from="1584805719238" duration="714000" />
-      <workItem from="1585056294470" duration="17442000" />
-      <workItem from="1585321977367" duration="6920000" />
+      <workItem from="1585056294470" duration="18691000" />
+      <workItem from="1585232049137" duration="1567000" />
+      <workItem from="1585249138672" duration="2283000" />
+      <workItem from="1585255136851" duration="974000" />
+      <workItem from="1585308752213" duration="4109000" />
+      <workItem from="1585573155721" duration="10048000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

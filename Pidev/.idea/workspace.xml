@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/MicroSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/MicroSkills.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +69,9 @@
       <workItem from="1585249138672" duration="2283000" />
       <workItem from="1585255136851" duration="974000" />
       <workItem from="1585308752213" duration="4109000" />
-      <workItem from="1585573155721" duration="10048000" />
+      <workItem from="1585573155721" duration="10724000" />
+      <workItem from="1585671583512" duration="463000" />
+      <workItem from="1585678780598" duration="6056000" />
     </task>
     <servers />
   </component>

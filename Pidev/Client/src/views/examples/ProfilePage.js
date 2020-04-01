@@ -32,8 +32,7 @@ import {
   TabPane,
   Container,
   Row,
-  Col,
-  ListGroup, ListGroupItem
+  Col
 } from "reactstrap";
 
 
@@ -44,7 +43,7 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 
 
@@ -128,13 +127,6 @@ class ProfilePage extends  Component {
           <h3> {this.state.tab[1]}</h3><br/>
           <h3> {this.state.tab[2]}</h3><br/>
           <h3> {this.state.tab[3]}</h3><br/>
-          <ListGroup>
-            <ListGroupItem>Cras justo odio</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-          </ListGroup>
 
 
           {/* Tab panes */}

@@ -31,7 +31,11 @@ import {
     TabPane,
     Container,
     Row,
-    Col, Card
+    Col, Card,
+    InputGroupAddon,
+    InputGroupText,
+    Form,
+
 } from "reactstrap";
 
 // core components
@@ -41,11 +45,14 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import InputGroup from "reactstrap/es/InputGroup";
+import SectionButtons from "../index-sections/SectionButtons";
 
 class TeacherPage extends  Component {
     constructor(props){
         super(props)
-        this.state = {m: [],x:[]};
+        this.state = {m: [],x:[]
+        };
     }
 
     addmacro(){
@@ -55,13 +62,8 @@ class TeacherPage extends  Component {
 
         };
         this.state.m.push(bod2)
-        var c = document.createElement("option");
-        c.text = bod2.nom
-      console.log(this.e)
-        this.e.add(c)
-
-       // this.document.getElementById('clear').value = null
         console.log(this.state.m)
+
 
     }
     Ajouter() {
@@ -80,6 +82,7 @@ class TeacherPage extends  Component {
 
         });
     }
+
     render() {
         return (
             <>
@@ -127,41 +130,66 @@ class TeacherPage extends  Component {
                                 <div className="filter" />
                                 <Container>
                                     <Row>
-                                        <Col className="ml-auto mr-auto" lg="4">
-                                            <Card className="card-register ml-auto mr-auto">
-                                                <h3 className="title mx-auto">Add Micro !</h3>
-                                                <div className="social-line text-center">
+                                        <Col className="ml-auto mr-auto" md="8">
+                                            <h2 className="text-center">ADD MacroSkill</h2>
+                                            <Form className="contact-form">
+                                                <Row>
+                                                    <Col md="6">
+                                                        <label>Name</label>
+                                                        <Input placeholder="Name" type="text" id="nom" />
+                                                    </Col>
+                                                </Row>
+                                                <label>Description</label>
+                                                <Input
+                                                    rows="4"
+                                                    placeholder="Description" type="textarea" id="desc"
+                                                />
+                                                <Row>
+                                                    <Container>
+                                                        <Row>
+                                                            <Col className="ml-auto mr-auto" md="8">
+                                                                <h2 className="text-center">Add MicroSkill for This MacroSkill</h2>
+                                                                <Form className="contact-form">
+                                                                    <Row>
+                                                                        <Col md="6">
+                                                                            <label>Name of MacroSkill  :</label>
+                                                                            <Input placeholder="Name of macroSkill..." type="text" id="nommacro" />
+                                                                        </Col>
+                                                                    </Row>
+                                                                    <label>Description of MacroSkill   :</label>
+                                                                    <Input
+                                                                        rows="4"
+                                                                        placeholder="Description of MacroSkill..." type="textarea" id="descmacro"/>
+                                                                    <Row>
+                                                                        <Col className="ml-auto mr-auto" md="4">
+                                                                            <Button className="mr-1 btn btn-outline-danger btn-sm" color="orange" size="lg"
+                                                                                    onClick={this.addmacro.bind(this)}>
+                                                                                ADD Macro
+                                                                            </Button>
+                                                                        </Col>
+                                                                    </Row>
+                                                                    <Row>
+                                                                        <label>names of microskill already added     :</label>
 
-                                                </div>
-                                                <>
-                                                    <label>Nom Micro</label>
-                                                    <Input placeholder="Nom" type="text" id="nom" />
-                                                    <label>Description MicroSkill</label>
-                                                    <Input placeholder="Description" type="textarea" id="desc" />
-                                                    <select name="role" id="ms">
-
-                                                    </select>
-                                                    <div id="clear"className="social-line text-center">
-                                                        Concerning your micro :
-                                                        <label>add macro</label>
-                                                        <Input placeholder="Nom" type="text" id="nommacro" />
-                                                        <label>Description MicroSkill</label>
-                                                        <Input placeholder="Description" type="textarea" id="descmacro" />
-                                                        <Button block className="btn-round" color="danger" onClick={this.addmacro.bind(this)}> add macro </Button>
-                                                    </div>
-
-                                                    <Button block className="btn-round" color="danger" onClick={this.Ajouter.bind(this)}>
-                                                        ADD
-                                                    </Button>
-                                                </>
-
-                                            </Card>
+                                                                    </Row>
+                                                                </Form>
+                                                            </Col>
+                                                        </Row>
+                                                    </Container>
+                                                </Row>
+                                                <Row>
+                                                    <Col className="ml-auto mr-auto" md="4">
+                                                        <Button className="btn-fill" color="danger" size="lg" onClick={this.Ajouter.bind(this)}>
+                                                            ADD
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
+                                            </Form>
                                         </Col>
                                     </Row>
                                 </Container>
                             </div>
                         </>
-
                     </Container>
                 </div>
                 <DemoFooter/>

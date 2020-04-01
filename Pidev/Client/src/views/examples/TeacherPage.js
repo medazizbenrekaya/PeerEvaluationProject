@@ -43,15 +43,39 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 class TeacherPage extends  Component {
+    constructor(props){
+        super(props)
+        this.state = {m: [],x:[]};
+    }
+
+    addmacro(){
+        const bod2 = {
+            nom: document.getElementById('nommacro').value,
+            description:document.getElementById('descmacro').value
+
+        };
+        this.state.m.push(bod2)
+        var c = document.createElement("option");
+        c.text = bod2.nom
+      console.log(this.e)
+        this.e.add(c)
+
+       // this.document.getElementById('clear').value = null
+        console.log(this.state.m)
+
+    }
     Ajouter() {
 
 
         const bod = {
             nom: document.getElementById('nom').value,
-            description:document.getElementById('desc').value
+            description:document.getElementById('desc').value,
+            macroskills: this.state.m
+
 
         };
-        axios.post("localhost:3000/ms/ajouterMS", bod).then(res => {
+
+        axios.post("http://localhost:3000/ms/ajouterMS", bod).then(res => {
             console.log('succes')
 
         });
@@ -114,6 +138,17 @@ class TeacherPage extends  Component {
                                                     <Input placeholder="Nom" type="text" id="nom" />
                                                     <label>Description MicroSkill</label>
                                                     <Input placeholder="Description" type="textarea" id="desc" />
+                                                    <select name="role" id="ms">
+
+                                                    </select>
+                                                    <div id="clear"className="social-line text-center">
+                                                        Concerning your micro :
+                                                        <label>add macro</label>
+                                                        <Input placeholder="Nom" type="text" id="nommacro" />
+                                                        <label>Description MicroSkill</label>
+                                                        <Input placeholder="Description" type="textarea" id="descmacro" />
+                                                        <Button block className="btn-round" color="danger" onClick={this.addmacro.bind(this)}> add macro </Button>
+                                                    </div>
 
                                                     <Button block className="btn-round" color="danger" onClick={this.Ajouter.bind(this)}>
                                                         ADD

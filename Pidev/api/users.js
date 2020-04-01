@@ -138,6 +138,36 @@ router.post("/getmembers", (req, res) => {
            });
     });
 });
+router.post("/TeamMembers", (req, res) => {
+
+   var membres = []
+    var str = String
+    User.findOne({email: req.body.email}, (err, u) => {
+        console.log(u.team)
+        Team.findOne({_id:u.team}, (err, c) => {
+            c.members.forEach(m => {
+                if(m.email != req.body.email ){
+                   str = m.nom + ' '+ m.prenom
+                    membres.push(str)
+                }
+            })
+            res.json(membres)
+           // res.status(200).json(c)
+        });
+    });
+});
+
+router.post("/TeamName", (req, res) => {
+    var str = String
+    User.findOne({email: req.body.email}, (err, u) => {
+        console.log(u.team)
+        Team.findOne({_id:u.team}, (err, c) => {
+
+            res.json(c.name)
+            // res.status(200).json(c)
+        });
+    });
+});
 
 // router.post("/note/:id", (req, res) => {
 //

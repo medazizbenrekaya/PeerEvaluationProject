@@ -139,6 +139,8 @@ router.post("/getmembers", (req, res) => {
     });
 });
 
+
+
 // router.post("/note/:id", (req, res) => {
 //
 //
@@ -196,6 +198,13 @@ router.post("/note/:id", (req, res) => {
        });
 })
 
+router.post('/update', function(req, res) {
+    User.findOneAndUpdate({_id : req.body._id} , req.body , { res: true} , function (err,u) {
+        if (err) res.json(err)
+        else res.json(u)
+    });
+
+});
 
 
 module.exports = router;

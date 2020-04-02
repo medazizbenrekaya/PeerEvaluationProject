@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/MicroSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/MicroSkills.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microskills.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/microskills.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +76,7 @@
       <workItem from="1585255136851" duration="974000" />
       <workItem from="1585308752213" duration="4109000" />
       <workItem from="1585573155721" duration="10048000" />
+      <workItem from="1585745699804" duration="18278000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

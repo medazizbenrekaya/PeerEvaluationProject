@@ -25,6 +25,7 @@ import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
+import {Link, Redirect} from "react-router-dom";
 import jwt_decode from "jwt-decode";
 class Register extends Component {
     Register() {
@@ -39,10 +40,16 @@ class Register extends Component {
         };
         axios.post("http://localhost:3000/users/register", bod).then(res => {
             console.log('succes')
+            this.props.history.push("/login");
+
+
+
 
         });
+
     }
     render(){
+
         return (
             <>
                 <ExamplesNavbar />
@@ -68,9 +75,9 @@ class Register extends Component {
                                         <Input placeholder="Password" type="password" id="password" />
                                         <label>Repeat Password</label>
                                         <Input placeholder="Password" type="password" id="password" />
-                                        <label>Nom</label>
+                                        <label>First Name</label>
                                         <Input placeholder="Nom" type="text" id="nom" />
-                                        <label>Prenom</label>
+                                        <label>Last Name</label>
                                         <Input placeholder="Prenom" type="text" id="prenom" />
                                         <label>Role</label>
                                         <select name="role" id="role">
@@ -80,6 +87,7 @@ class Register extends Component {
                                         </select>
                                         <Button block className="btn-round" color="danger" onClick={this.Register.bind(this)}>
                                            Register
+
                                         </Button>
                                     </>
 

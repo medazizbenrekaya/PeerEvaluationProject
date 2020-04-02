@@ -57,6 +57,20 @@ router.get("/Afficher",(req,res,next)=>{
     })
 })
 
+router.get("/details/:id", (req, res) => {
+    var x = true
+
+
+    ms.findOne({_id: req.params.id}, (err, c) => {
+
+        if(c)
+            res.json(c.macroskills)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
+
 router.post('/update', function(req, res) {
     ms.findOneAndUpdate({_id : req.body._id } , req.body , { res: true} , function (err,microSkills) {
         if (err) res.json(err)

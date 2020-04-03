@@ -4,6 +4,7 @@ var jwt = require("jsonwebtoken");
 var passport = require("passport");
 var bcrypt = require("bcrypt-nodejs");
 var User = require('../models/user.js');
+var User2 = require('../models/user.js');
 var async = require("async");
 var ms = require('../models/microskills')
 var nodemailer = require("nodemailer");
@@ -138,23 +139,42 @@ router.post("/getmembers", (req, res) => {
            });
     });
 });
-router.post("/TeamMembers", (req, res) => {
-
-   var membres = []
+router.post("/TeamMembers2", async (req, res) => {
+    var membres = []
     var str = String
-    User.findOne({email: req.body.email}, (err, u) => {
-        console.log(u.team)
-        Team.findOne({_id:u.team}, (err, c) => {
-            c.members.forEach(m => {
-                if(m.email != req.body.email ){
-                   str = m.nom + ' '+ m.prenom
-                    membres.push(str)
+   await User.findOne({email: req.body.email}, async (err, u) => {
+        await Team.findOne({_id:u.team}, async (err, c) => {
+            await c.members.forEach(async m => {
+                if(m.email != req.body.email )
+                {
+                     await User2.find({email:m.email},async(err,u2) => {
+
+                      await membres.push(u2)
+
+                       console.log(membres)
+                    })
                 }
             })
-            res.json(membres)
-           // res.status(200).json(c)
         });
-    });
+       res.status(200).json(membres)
+    })
+    ;
+});
+router.post("/TeamMembers", async (req, res) => {
+    var membres = []
+    var str = String
+    await User.findOne({email: req.body.email}, async (err, u) => {
+        await Team.findOne({_id:u.team}, async (err, c) => {
+            await c.members.forEach(async m => {
+                if(m.email != req.body.email )
+                {
+                 membres.push(m)
+                }
+            })
+        });
+        res.status(200).json(membres)
+    })
+    ;
 });
 
 router.post("/TeamName", (req, res) => {
@@ -196,12 +216,12 @@ router.post("/TeamName", (req, res) => {
 // }
 //
 // )
-router.post("/note/:id", (req, res) => {
+router.post("/note",  (req, res) => {
 
 
-    User.findOne({email: req.body.email}, (err, u) => {
+    User.findOne({email: req.body.email},  (err, u) => {
         u.microskills.forEach(n => {
-            if(n._id == req.params.id){
+            if(n.nom == req.body.M){
                 n.macroskills.forEach(m => {
                     if(m.nom == req.body.nom) {
                         evaluation = {
@@ -212,13 +232,13 @@ router.post("/note/:id", (req, res) => {
                         m.save()
                         n.save()
                         u.save()
-                        res.json(200)
+                        res.status(200).json('done')
                     }
+
                 })
 
             }
-            else
-                res.status(401).json("vous avez déja voté")
+
         });
 
 

@@ -35,6 +35,8 @@ import Test from "./components/test";
 import Register from "./components/Register";
 import ResetPw from "./components/ResetPw";
 import TeacherPage from "./views/examples/TeacherPage";
+import Evaluation from "./views/examples/Evaluation";
+import Peer from "./views/examples/Peer";
 
 
 
@@ -76,6 +78,14 @@ ReactDOM.render(
       <Route
           path="/test"
           render={props => <Test {...props} />}
+      />
+      <Route
+          path="/evaluate"
+          render={props => <Evaluation{...props} />}
+      />
+      <Route
+          path="/peer"
+          render={props => <Peer{...props} />}
       />
       <Redirect to="/index" />
     </Switch>

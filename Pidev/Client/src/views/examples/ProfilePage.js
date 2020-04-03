@@ -40,162 +40,102 @@ import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
+import {Component} from "react"
 
-function ProfilePage() {
-  const [activeTab, setActiveTab] = React.useState("1");
 
-  const toggle = tab => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
 
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("landing-page");
-    return function cleanup() {
-      document.body.classList.remove("landing-page");
+class ProfilePage extends Component {
+
+  detail(id) {
+    axios.get("http://localhost:3000/users/details/"+id).then(res => {
+      console.log('succes')
+    });
+  }
+  edit(){
+    const bod = {
+      _id:document.getElementById('id').value,
+      nom:document.getElementById('nom').value,
+      prenom:document.getElementById('prenom').value,
+
     };
-  });
-  return (
-      <>
-        <NavbarProfile />
-        <ProfilePageHeader />
-        <div className="section profile-content">
-          <Container>
-            <div className="owner">
-              <div className="avatar">
-                <img
-                    alt="..."
-                    className="img-circle img-no-padding img-responsive"
-                    src={require("assets/img/faces/student.png")}
-                />
+    axios.post("http://localhost:3000/users/update", bod).then(res => {
+      console.log('succes')
+
+    });
+  }
+
+
+  render()
+  {
+    const listmacro = jwt_decode(localStorage.token).user.microskills.map(
+        (link) => <li key={link.nom} > {link.nom}   {link.description}   </li>
+    );
+    return (
+        <>
+          <NavbarProfile/>
+          <ProfilePageHeader/>
+          <div className="section profile-content">
+            <Container>
+              <div className="owner">
+                <div className="avatar">
+                  <img
+                      alt="..."
+                      className="img-circle img-no-padding img-responsive"
+                      src={require("assets/img/faces/student.png")}
+                  />
+                </div>
+                <div className="name">
+                  <h4 className="title">
+                    {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
+                  </h4>
+                  <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
+                </div>
               </div>
-              <div className="name">
-                <h4 className="title">
-                  {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br />
-                </h4>
-                <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
+              <Row>
+                <Col className="ml-auto mr-auto text-center" md="6">
+                  <p>
+                    Current team :
+                    {jwt_decode(localStorage.token).user.team}
+                  </p>
+                  <br/>
+                  <label>Edit Profile</label>
+                  <br/>
+                  <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>
+                  <label>First Name</label>
+                  <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nom" />
+                  <label>Last Name</label>
+                  <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenom"/>
+                  <br/>
+                  <Button className="btn-round" color="default" onClick={this.edit.bind(this)} outline>
+                    <i className="fa fa-cog"/> edit
+                  </Button>
+                </Col>
+              </Row>
+              <br/>
+              <div className="nav-tabs-navigation">
+                <div className="nav-tabs-wrapper">
+
+                  <h4>My Macro skills : </h4>
+                  <h6> {listmacro} </h6>
+
+                </div>
               </div>
-            </div>
-            <Row>
-              <Col className="ml-auto mr-auto text-center" md="6">
-                <p>
-                  An artist of considerable range, Jane Faker — the name taken by
-                  Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                  and records all of his own music, giving it a warm, intimate
-                  feel with a solid groove structure.
-                </p>
-                <br />
-                <Button className="btn-round" color="default" outline>
-                  <i className="fa fa-cog" /> Settings
-                </Button>
-              </Col>
-            </Row>
-            <br />
-            <div className="nav-tabs-navigation">
-              <div className="nav-tabs-wrapper">
-                <Nav role="tablist" tabs>
-                  <NavItem>
-                    <NavLink
-                        className={activeTab === "1" ? "active" : ""}
-                        onClick={() => {
-                          toggle("1");
-                        }}
-                    >
-                      Follows
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                        className={activeTab === "2" ? "active" : ""}
-                        onClick={() => {
-                          toggle("2");
-                        }}
-                    >
-                      Following
-                    </NavLink>
-                  </NavItem>
-                </Nav>
+              <div className="nav-tabs-navigation">
+                <div className="nav-tabs-wrapper">
+
+                  <h4>My Projects : </h4>
+                  <h6>  </h6>
+
+                </div>
               </div>
-            </div>
-            {/* Tab panes */}
-            <TabContent className="following" activeTab={activeTab}>
-              <TabPane tabId="1" id="follows">
-                <Row>
-                  <Col className="ml-auto mr-auto" md="6">
-                    <ul className="list-unstyled follows">
-                      <li>
-                        <Row>
-                          <Col className="ml-auto mr-auto" lg="2" md="4" xs="4">
-                            <img
-                                alt="..."
-                                className="img-circle img-no-padding img-responsive"
-                                src={require("assets/img/faces/clem-onojeghuo-2.jpg")}
-                            />
-                          </Col>
-                          <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">
-                            <h6>
-                              Flume <br />
-                              <small>Musical Producer</small>
-                            </h6>
-                          </Col>
-                          <Col className="ml-auto mr-auto" lg="3" md="4" xs="4">
-                            <FormGroup check>
-                              <Label check>
-                                <Input
-                                    defaultChecked
-                                    defaultValue=""
-                                    type="checkbox"
-                                />
-                                <span className="form-check-sign" />
-                              </Label>
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                      </li>
-                      <hr />
-                      <li>
-                        <Row>
-                          <Col className="mx-auto" lg="2" md="4" xs="4">
-                            <img
-                                alt="..."
-                                className="img-circle img-no-padding img-responsive"
-                                src={require("assets/img/faces/ayo-ogunseinde-2.jpg")}
-                            />
-                          </Col>
-                          <Col lg="7" md="4" xs="4">
-                            <h6>
-                              Banks <br />
-                              <small>Singer</small>
-                            </h6>
-                          </Col>
-                          <Col lg="3" md="4" xs="4">
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign" />
-                              </Label>
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                      </li>
-                    </ul>
-                  </Col>
-                </Row>
-              </TabPane>
-              <TabPane className="text-center" tabId="2" id="following">
-                <h3 className="text-muted">Not following anyone yet :(</h3>
-                <Button className="btn-round" color="warning">
-                  Find artists
-                </Button>
-              </TabPane>
-            </TabContent>
-          </Container>
-        </div>
-        <DemoFooter />
-      </>
-  );
+
+            </Container>
+          </div>
+          <DemoFooter/>
+        </>
+    );
+  }
 }
 
 export default ProfilePage;

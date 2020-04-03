@@ -94,6 +94,11 @@ router.post("/noter", (req, res) => {
             }});
     });
 })
-
+router.get("/Afficher",(req,res,next)=>{
+    Team.find((err,team)=>{
+        if(err) res.json(err)
+        else res.json(team)
+    })
+})
 
 module.exports = router;

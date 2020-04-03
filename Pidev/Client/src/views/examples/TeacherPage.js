@@ -68,7 +68,16 @@ class TeacherPage extends  Component {
         }
 
         //this.state.activeTab=tab
+
     }
+    toggle  (tab) {
+      if(this.state.activeTab!==tab){
+          this.setState({activeTab:tab})
+          console.log(this.state.activeTab);
+      }
+
+        //this.state.activeTab=tab
+}
 
     addmacro(){
         const bod2 = {

@@ -28,15 +28,18 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import NavbarLogin from "../../components/Navbars/NavbarLogin";
 class RegisterPage extends Component {
+
   login() {
     const authentication = {
       email: document.getElementById('login').value,
       password: document.getElementById('password').value
     };
+
     axios
         .post("http://localhost:3000/users/login", authentication)
         .then(res => {
           localStorage.setItem('token', res.data);
+
           console.log(jwt_decode(res.data).user.role)
           console.log(jwt_decode(res.data).user.role,jwt_decode(res.data).user.nom,jwt_decode(res.data).user.prenom)
 
@@ -69,7 +72,8 @@ class RegisterPage extends Component {
 
             });
     }
-  render(){
+  render()
+  {
   return (
     <>
       <NavbarLogin />
@@ -90,7 +94,7 @@ class RegisterPage extends Component {
                 </div>
                 <Form className="register-form">
                   <label>Email</label>
-                  <Input placeholder="Email" type="text" id="login" />
+                  <Input placeholder="email" type="text" id="login" />
                   <label>Password</label>
                   <Input placeholder="Password" type="password" id="password" />
                   <Button block className="btn-round" color="danger" onClick={this.login.bind(this)}>

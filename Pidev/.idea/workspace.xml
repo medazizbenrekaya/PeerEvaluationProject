@@ -3,15 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microskills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/team.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/microskills.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

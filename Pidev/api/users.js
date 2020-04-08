@@ -13,7 +13,9 @@ var crypto = require("crypto");
 var Team = require('../models/team');
 var evaluation = require('../models/evaluation');
 var seflEvaluation = require('../models/SelfEvaluation');
-const { spawn } = require('child_process')
+const { spawn } = require('child_process');
+var uuidv4 = require('uuid/v4');
+var multer = require('multer');
 
 router.post("/",(req,res)=>{
   var user = new User(req.body)
@@ -38,7 +40,8 @@ router.post("/register", (req, res) => {
         prenom : req.body.prenom,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
-        role : req.body.role
+        role : req.body.role,
+          image: req.body.image
       });
       user.save((err, user) => {
         if (err) res.json(err);
@@ -285,9 +288,9 @@ router.post("/Selfnote",  (req, res) => {
                             note: req.body.note
                         };
                         m.notes.push(seflEvaluation)
-                        m.save
-                        n.save
-                        u.save
+                        m.save()
+                        n.save()
+                        u.save()
                         res.status(200).json('done')
                     }
 
@@ -302,5 +305,52 @@ router.post("/Selfnote",  (req, res) => {
     });
 })
 
+
+const DIR = './Client/src/assets/img/faces';
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, DIR);
+    },
+    filename: (req, file, cb) => {
+        const fileName = file.originalname.toLowerCase().split(' ').join('-');
+        cb(null, uuidv4() + '-' + fileName)
+    }
+});
+
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+
+router.post('/user-profile', upload.single('image'), (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host')
+    User.findOneAndUpdate({_id : req.body._id} ,  {image:  req.file.filename } , { res: true} , function (err,u) {
+        if (err) res.json(err)
+        else res.json(u)
+    });
+
+})
+
+router.post("/findimage/:email", (req, res) => {
+    var x = true
+
+
+    User.findOne({email: req.params.email}, (err, c) => {
+
+        if(c)
+            res.json(c.image)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
 
 module.exports = router;

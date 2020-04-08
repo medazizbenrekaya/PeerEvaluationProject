@@ -44,6 +44,7 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import  "../../assets/css/colors.css";
 
 
 
@@ -60,8 +61,10 @@ class SelfEvaluation extends  Component {
         super(props)
         this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,show1:true};
 
+
     }
     note(){
+
         const n ={
             email:jwt_decode(localStorage.token).user.email,
             voteur:jwt_decode(localStorage.token).user._id,
@@ -69,6 +72,8 @@ class SelfEvaluation extends  Component {
             note:document.getElementById('n').value,
             M:document.getElementById('exampleSelect1').value
         }
+
+
         axios.post("http://localhost:3000/users/Selfnote",n).then(res => {
 
          window.alert("ok")
@@ -116,6 +121,7 @@ class SelfEvaluation extends  Component {
 
         return (
             <>
+
                 <NavbarProfile />
                 <ProfilePageHeader />
                 <div className="section profile-content">
@@ -171,7 +177,7 @@ class SelfEvaluation extends  Component {
                                     </Input>
 
                                 </FormGroup>
-                                {this.state.show? <Label for="exampleSelect2">Notez :<select id="n"><option color="green">1</option><option >2</option><option color="green">3</option><option color="green">4</option><option color="green">5</option></select></Label> :null} <br/>
+                                {this.state.show? <Label for="exampleSelect2">Notez :<select id="n" className="select" ><option className="red">1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></Label> :null} <br/>
 
 
 

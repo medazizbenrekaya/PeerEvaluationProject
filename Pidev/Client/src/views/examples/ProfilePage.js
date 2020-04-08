@@ -50,7 +50,7 @@ class ProfilePage extends Component {
 
   constructor(props){
     super(props)
-    this.state = {show:false,tab1:'',tab2:'',show1:false};
+    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null};
 
   }
 
@@ -97,6 +97,24 @@ class ProfilePage extends Component {
     });
   }
 
+  fileSelectedHandler = event =>
+  { this.setState({
+    selectedFile: event.target.files[0]
+  })
+  }
+
+  fileUploadHandler = () => {
+    const fd = FormData();
+    fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
+    fd.append('_id',jwt_decode(localStorage.token).user._id)
+    axios.post("http://localhost:3000/users/user-profile",fd).then(res => {
+
+      console.log(res)
+
+    });
+  }
+
+
 
   render()
 {
@@ -129,9 +147,19 @@ class ProfilePage extends Component {
                 <img
                     alt="..."
                     className="img-circle img-no-padding img-responsive"
-                    src={require("assets/img/faces/student.png")}
+
+                src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}
+
                 />
+
               </div>
+
+              <div className="section profile-content">
+                <input type="file" onChange={this.fileSelectedHandler} />
+                <button onClick={this.fileUploadHandler}>upload</button>
+              </div>
+
+
               <div className="name">
                 <h4 className="title">
                   {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>

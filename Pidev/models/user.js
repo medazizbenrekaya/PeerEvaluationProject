@@ -13,7 +13,8 @@ var userSchema = new mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:'Team', default:null
   },
-  microskills:[MS]
+  microskills:[MS],
+  image : {type:String}
 
 
 })

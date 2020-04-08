@@ -101,6 +101,7 @@ class TeacherPage extends  Component {
         const bod = {
             nom: document.getElementById('nom').value,
             description:document.getElementById('desc').value,
+            type:document.getElementById('type').value,
             macroskills: this.state.m
 
 
@@ -205,13 +206,24 @@ class TeacherPage extends  Component {
                                                                                 <label>Name</label>
                                                                                 <Input placeholder="Name" type="text" id="nom" />
                                                                             </Col>
+
                                                                         </Row>
+
                                                                         <label>Description</label>
                                                                         <Input
                                                                             rows="4"
                                                                             placeholder="Description" type="textarea" id="desc"
                                                                         />
                                                                         <Row>
+                                                                            <label>Type</label>
+                                                                            <select name="type" id="type">
+                                                                                <option>Hard Skill</option>
+                                                                                <option>Soft Skill</option>
+                                                                            </select>
+                                                                        </Row>
+
+                                                                        <Row>
+
                                                                             <Container>
                                                                                 <Row>
                                                                                     <Col className="ml-auto mr-auto" md="8">

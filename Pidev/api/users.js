@@ -1,3 +1,4 @@
+
 var express = require('express')
 var router = express.Router()
 var jwt = require("jsonwebtoken");
@@ -11,6 +12,7 @@ var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var Team = require('../models/team');
 var evaluation = require('../models/evaluation');
+var seflEvaluation = require('../models/SelfEvaluation');
 const { spawn } = require('child_process')
 
 router.post("/",(req,res)=>{
@@ -231,9 +233,9 @@ router.post("/note",  (req, res) => {
                             note: req.body.note
                         };
                         m.notes.push(evaluation)
-                        m.save()
-                        n.save()
-                        u.save()
+                        m.save
+                        n.save
+                        u.save
                         res.status(200).json('done')
                     }
 
@@ -255,6 +257,50 @@ router.post('/update', function(req, res) {
     });
 
 });
+
+router.post("/find/:email", (req, res) => {
+    var x = true
+
+
+    User.findOne({email: req.params.email}, (err, c) => {
+
+        if(c)
+            res.json(c.microskills)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
+
+router.post("/Selfnote",  (req, res) => {
+
+
+    User.findOne({email: req.body.email},  (err, u) => {
+        u.microskills.forEach(n => {
+            if(n.nom == req.body.M){
+                n.macroskills.forEach(m => {
+                    if(m.nom == req.body.nom) {
+                        seflEvaluation = {
+                            voteur: req.body.voteur,
+                            note: req.body.note
+                        };
+                        m.notes.push(seflEvaluation)
+                        m.save
+                        n.save
+                        u.save
+                        res.status(200).json('done')
+                    }
+
+                })
+
+            }
+
+        });
+
+
+
+    });
+})
 
 
 module.exports = router;

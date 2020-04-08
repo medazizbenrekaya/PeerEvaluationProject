@@ -84,6 +84,22 @@ router.post("/find", (req, res) => {
 
 })
 
+router.post("/find/:nom", (req, res) => {
+    var x = true
+
+
+    ms.findOne({nom: req.params.nom}, (err, c) => {
+
+        if(c)
+            res.json(c.macroskills)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
+
+
+
 
 router.get("/details/:id", (req, res) => {
     var x = true

@@ -204,7 +204,7 @@ class ProfilePage extends Component {
                   <table border="3" width="500">
                     <thead>
                     <tr>
-                      <td>Macro Skills</td>
+                      <td>Micro Skills</td>
                     </tr>
                     </thead>
                     <tbody>

@@ -59,7 +59,16 @@ class TeacherPage extends  Component {
             activeTab:"1"
 
         };
+        this.state = {tab1:''};
 
+
+    }
+    componentDidMount() {
+        axios.get("http://localhost:3000/ms/Afficher").then(res => {
+            this.setState({tab1:res.data})
+            console.log('succes')
+
+        });
     }
     toggle  (tab) {
         if(this.state.activeTab!==tab){
@@ -78,6 +87,7 @@ class TeacherPage extends  Component {
 
         //this.state.activeTab=tab
 }
+
 
     addmacro(){
         const bod2 = {
@@ -112,6 +122,60 @@ class TeacherPage extends  Component {
 
         });
     }
+    edit(){
+        const bod = {
+            _id:document.getElementById('id').value,
+            nom:document.getElementById('nom').value,
+            prenom:document.getElementById('prenom').value,
+
+        };
+        axios.post("http://localhost:3000/users/update", bod).then(res => {
+            console.log('succes')
+
+
+        });
+    }
+
+    filter()
+    {
+        const t = {
+            type:document.getElementById('select').value
+        }
+        console.log(t.role)
+        axios.post("http://localhost:3000/ms/type", t ).then(res => {
+            this.setState({tab1:res.data})
+
+            console.log(res.data)
+        });
+    }
+    find()
+    {
+        const t =
+            {
+                nom:document.getElementById('text').value
+            }
+        axios.post("http://localhost:3000/ms/nom", t ).then(res => {
+            this.setState({tab1:res.data})
+
+            console.log(res.data)
+        });
+    }
+    fileSelectedHandler = event =>
+    { this.setState({
+        selectedFile: event.target.files[0]
+    })
+    }
+
+    fileUploadHandler = () => {
+        const fd = FormData();
+        fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
+        fd.append('_id',jwt_decode(localStorage.token).user._id)
+        axios.post("http://localhost:3000/users/user-profile",fd).then(res => {
+
+            console.log(res)
+
+        });
+    }
 
     render() {
         return (
@@ -125,9 +189,19 @@ class TeacherPage extends  Component {
                                 <img
                                     alt="..."
                                     className="img-circle img-no-padding img-responsive"
-                                    src={require("assets/img/faces/Teacher.jpg")}
+
+                                    src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}
+
                                 />
+
                             </div>
+
+                            <div className="section profile-content">
+                                <input type="file" onChange={this.fileSelectedHandler} />
+                                <button onClick={this.fileUploadHandler}>upload</button>
+                            </div>
+
+
                             <div className="name">
                                 <h4 className="title">
                                     {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
@@ -138,17 +212,24 @@ class TeacherPage extends  Component {
                         <Row>
                             <Col className="ml-auto mr-auto text-center" md="6">
                                 <p>
-                                    An artist of considerable range, Jane Faker — the name taken by
-                                    Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                                    and records all of his own music, giving it a warm, intimate
-                                    feel with a solid groove structure.
+                                    Current team :
+                                    {jwt_decode(localStorage.token).user.team  }
                                 </p>
                                 <br/>
-                                <Button className="btn-round" color="default" outline>
-                                    <i className="fa fa-cog"/> Settings
+                                <label>Edit Profile</label>
+                                <br/>
+                                <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>
+                                <label>First Name</label>
+                                <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nom" />
+                                <label>Last Name</label>
+                                <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenom"/>
+                                <br/>
+                                <Button className="btn-round" color="default" onClick={this.edit.bind(this)} outline>
+                                    <i className="fa fa-cog"/> edit
                                 </Button>
                             </Col>
                         </Row>
+                        <br/>
                         <br/>
                         <div className="nav-tabs-navigation">
                             <div className="nav-tabs-wrapper">
@@ -168,7 +249,7 @@ class TeacherPage extends  Component {
                                                             <NavLink
                                                                 className={this.state.activeTab === "1" ? "active" : ""}
                                                                 onClick={() => {this.toggle("1")}}>
-                                                                MacroSkills
+                                                                Add MacroSkills
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
@@ -178,7 +259,7 @@ class TeacherPage extends  Component {
                                                                     this.toggle("2");
                                                                 }}
                                                             >
-                                                                Profile
+                                                                See MacroSkills
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
@@ -273,7 +354,68 @@ class TeacherPage extends  Component {
                                                     </div>
                                                 </TabPane>
                                                 <TabPane tabId="2">
-                                                    <p>Here is your profile.</p>
+                                                    <Col className="ml-auto mr-auto" md="8">
+
+                                                        <h1>Macro Skills Table</h1>
+                                                        <center> <table>
+                                                            <tr>
+                                                                <td>Filter
+                                                                </td>
+                                                                <td>
+                                                                    <Input type="select" id="select" >
+                                                                        <option onClick={this.componentDidMount.bind(this)}>
+                                                                            All Macro Skills
+                                                                        </option>
+                                                                        <option value="Hard Skill" onClick={this.filter.bind(this)}>
+                                                                            Hard Skills
+                                                                        </option>
+                                                                        <option value="Soft Skill" onClick={this.filter.bind(this)}>
+                                                                            Soft Skills
+                                                                        </option>
+                                                                    </Input >
+                                                                </td>
+                                                            </tr>
+                                                        </table></center>
+                                                        <br/>   <br/>   <br/>
+
+                                                        <table className="table-responsive-md">
+                                                            <tr>
+                                                                <td> <Input type="text" id="text"  /></td>
+                                                                <td>         <button onClick={this.find.bind(this)}>Search</button></td>
+                                                            </tr>
+
+                                                        </table>
+                                                        <div className="table-responsive">
+
+                                                            <table className="table">
+                                                                <thead className="table table-info">
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Description</th>
+                                                                    <th>Type</th>
+                                                                    <th>Nombre Micro Skills</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                                </thead>
+                                                                {this.state.tab1   && this.state.tab1.map((team) =>  <tbody className="table table-active" key={team._id}  >
+
+                                                                    <tr>
+                                                                        <td>{team.nom}</td>
+                                                                        <td>{team.description}</td>
+                                                                        <td>{team.type}</td>
+                                                                        <td>{team.macroskills.length}</td>
+                                                                        <Input id="email"  hidden />
+                                                                        <td><button className="btn-danger" >Delete</button></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                )}
+
+                                                            </table>
+                                                        </div></Col>
+
+
+
+
                                                 </TabPane>
                                                 <TabPane tabId="3">
                                                     <p>Here are your messages.</p>

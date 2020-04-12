@@ -3,15 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microskills.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,16 +32,16 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/esprit 4éme/2e semt/nodeJs/myapp" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\admin" />
       <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\models" />
       <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\examples" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\Client\src\assets\img\faces" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev" />
-      <recent name="C:\Users\Titou\Desktop\Pidev\Pidev\api" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -119,7 +117,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Client/src/views/examples/Evaluation.js</url>
-          <line>149</line>
+          <line>150</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>

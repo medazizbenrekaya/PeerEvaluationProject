@@ -353,4 +353,47 @@ router.post("/findimage/:email", (req, res) => {
 
 })
 
+router.post("/role", (req, res) => {
+
+    User.find({role : req.body.role},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+router.post("/email", (req, res) => {
+
+    User.find({email : req.body.email},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
+router.get("/allUser", (req, res) => {
+
+    User.find((err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+           res.json(c)
+    });
+
+})
+
+router.get('/delete/:email',function (req , res , nect) {
+  //remove
+    User.find({ "email" : req.params.email } , function (err, obj) {
+        if (err) throw err;
+
+    });
+});
+
 module.exports = router;

@@ -1,3 +1,4 @@
+
 var express = require('express')
 var router = express.Router()
 var jwt = require("jsonwebtoken");
@@ -12,7 +13,10 @@ var crypto = require("crypto");
 var Team = require('../models/team');
 var Project = require('../models/project');
 var evaluation = require('../models/evaluation');
-const { spawn } = require('child_process')
+var seflEvaluation = require('../models/SelfEvaluation');
+const { spawn } = require('child_process');
+var uuidv4 = require('uuid/v4');
+var multer = require('multer');
 
 router.post("/",(req,res)=>{
   var user = new User(req.body)
@@ -37,7 +41,8 @@ router.post("/register", (req, res) => {
         prenom : req.body.prenom,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
-        role : req.body.role
+        role : req.body.role,
+          image: req.body.image
       });
       user.save((err, user) => {
         if (err) res.json(err);
@@ -190,31 +195,33 @@ router.post("/TeamName", async(req, res) => {
     });
 });
 
+
+
 router.post("/projects",async (req, res) => {
 
-   await User.findOne({email: req.body.email}, async(err, u) => {
-         var projects=[]
-       await u.projet.forEach( async pr => {
-           console.log(pr)
-           projects.push(pr)
-           projects.save
-       });
+    await User.findOne({email: req.body.email}, async(err, u) => {
+        var projects=[]
+        await u.projet.forEach( async pr => {
+            console.log(pr)
+            projects.push(pr)
+            projects.save
+        });
 
-         var names=[]
-       for(i=0;i<projects.length;i++){
-           var l = projects.length
-           console.log(l)
+        var names=[]
+        for(i=0;i<projects.length;i++){
+            var l = projects.length
+            console.log(l)
 
 
-           await Project.findOne({_id:projects[i]}).then(px=>{names.push(px.nom);names.save;console.log(names)
-                   if( i === projects.length - 1) {
-                       res.json(names)
-                   }
-           }
+            await Project.findOne({_id:projects[i]}).then(px=>{names.push(px.nom);names.save;console.log(names)
+                    if( i === projects.length - 1) {
+                        res.json(names)
+                    }
+                }
 
-           )
+            )
 
-       }
+        }
 
 
 
@@ -226,28 +233,28 @@ router.post("/projects",async (req, res) => {
 router.post("/note",  (req, res) => {
     Project.findOneAndUpdate({nom:req.body.project} ,(err,proj) => {
         proj.team.members.forEach( async arr => {
-         if(arr.email == req.body.email) {
-             await  arr.microskills.forEach(n => {
-                 if (n.nom == req.body.M) {
-                     n.macroskills.forEach(async m => {
-                         if (m.nom == req.body.nom) {
-                             evaluation = {
-                                 voteur: req.body.voteur,
-                                 note: req.body.note
-                             };
-                             m.notes.push(evaluation)
-                             console.log(m.notes)
-                             arr.microskills.macroskills = m
-                             arr.microskills = n
-                           await  proj.save()
-                             res.status(200).json('done')
-                         }
-                     })
-                 }
-             });
-         }
-     })
- })
+            if(arr.email == req.body.email) {
+                await  arr.microskills.forEach(n => {
+                    if (n.nom == req.body.M) {
+                        n.macroskills.forEach(async m => {
+                            if (m.nom == req.body.nom) {
+                                evaluation = {
+                                    voteur: req.body.voteur,
+                                    note: req.body.note
+                                };
+                                m.notes.push(evaluation)
+                                console.log(m.notes)
+                                arr.microskills.macroskills = m
+                                arr.microskills = n
+                                await  proj.save()
+                                res.status(200).json('done')
+                            }
+                        })
+                    }
+                });
+            }
+        })
+    })
     ;
 })
 
@@ -258,6 +265,7 @@ router.post('/update', function(req, res) {
     });
 
 });
+
 
 router.post("/stats",  (req, res) => {
     var tab = []
@@ -300,6 +308,142 @@ router.post("/stats",  (req, res) => {
     });
 })
 
+
+
+router.post("/find/:email", (req, res) => {
+    var x = true
+
+
+    User.findOne({email: req.params.email}, (err, c) => {
+
+        if(c)
+            res.json(c.microskills)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
+
+router.post("/Selfnote",  (req, res) => {
+
+
+    User.findOne({email: req.body.email},  (err, u) => {
+        u.microskills.forEach(n => {
+            if(n.nom == req.body.M){
+                n.macroskills.forEach(m => {
+                    if(m.nom == req.body.nom) {
+                        seflEvaluation = {
+                            voteur: req.body.voteur,
+                            note: req.body.note
+                        };
+                        m.notes.push(seflEvaluation)
+                        m.save()
+                        n.save()
+                        u.save()
+                        res.status(200).json('done')
+                    }
+
+                })
+
+            }
+
+        });
+
+
+
+    });
+})
+
+
+const DIR = './Client/src/assets/img/faces';
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, DIR);
+    },
+    filename: (req, file, cb) => {
+        const fileName = file.originalname.toLowerCase().split(' ').join('-');
+        cb(null, uuidv4() + '-' + fileName)
+    }
+});
+
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+
+router.post('/user-profile', upload.single('image'), (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host')
+    User.findOneAndUpdate({_id : req.body._id} ,  {image:  req.file.filename } , { res: true} , function (err,u) {
+        if (err) res.json(err)
+        else res.json(u)
+    });
+
+})
+
+router.post("/findimage/:email", (req, res) => {
+    var x = true
+
+
+    User.findOne({email: req.params.email}, (err, c) => {
+
+        if(c)
+            res.json(c.image)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
+
+router.post("/role", (req, res) => {
+
+    User.find({role : req.body.role},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+router.post("/email", (req, res) => {
+
+    User.find({email : req.body.email},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
+router.get("/allUser", (req, res) => {
+
+    User.find((err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+           res.json(c)
+    });
+
+})
+
+router.get('/delete/:email',function (req , res , nect) {
+  //remove
+    User.find({ "email" : req.params.email } , function (err, obj) {
+        if (err) throw err;
+
+    });
+});
 
 
 module.exports = router;

@@ -49,6 +49,28 @@ router.post("/accepter/:id", (req, res) => {
     });
 })
 
+router.post("/type", (req, res) => {
+
+    ms.find({type : req.body.type},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+router.post("/nom", (req, res) => {
+
+    ms.find({nom : req.body.nom},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
 
 router.get("/Afficher",(req,res,next)=>{
     ms.find((err,microSkills)=>{
@@ -83,6 +105,22 @@ router.post("/find", (req, res) => {
     });
 
 })
+
+router.post("/find/:nom", (req, res) => {
+    var x = true
+
+
+    ms.findOne({nom: req.params.nom}, (err, c) => {
+
+        if(c)
+            res.json(c.macroskills)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
+
+
 
 
 router.get("/details/:id", (req, res) => {

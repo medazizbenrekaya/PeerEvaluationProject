@@ -18,7 +18,8 @@ var userSchema = new mongoose.Schema({
   projet:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Project',default:null
-  }]
+  }],
+  image : {type:String}
 
 
 })

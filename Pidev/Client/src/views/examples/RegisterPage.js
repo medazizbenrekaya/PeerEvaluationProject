@@ -43,11 +43,21 @@ class RegisterPage extends Component {
           console.log(jwt_decode(res.data).user.role)
           console.log(jwt_decode(res.data).user.role,jwt_decode(res.data).user.nom,jwt_decode(res.data).user.prenom)
 
-          if(jwt_decode(res.data).user.role === null){
+          if(jwt_decode(res.data).user.role === 'Student'){
             this.props.history.push({
               pathname: "/profile-page"
             })
           }
+          else if(jwt_decode(res.data).user.role === 'Teacher'){
+                this.props.history.push({
+                    pathname: "/teacher-page"
+                })
+            }
+            else if(jwt_decode(res.data).user.role === 'Admin'){
+                this.props.history.push({
+                    pathname: "/admin"
+                })
+            }
           else{
             this.props.history.push({
               pathname: "/profile-page"

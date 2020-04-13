@@ -36,7 +36,8 @@ class Register extends Component {
             password : document.getElementById('password').value,
             nom:document.getElementById('nom').value,
             prenom:document.getElementById('prenom').value,
-            role:document.getElementById('role').value
+            role:document.getElementById('role').value,
+            image: document.getElementById('image').value
         };
         axios.post("http://localhost:3000/users/register", bod).then(res => {
             console.log('succes')
@@ -85,6 +86,7 @@ class Register extends Component {
                                             <option>Teacher</option>
                                             <option>Stakeholder</option>
                                         </select>
+                                        <Input value="student.png" type="text" id="image"  hidden/>
                                         <Button block className="btn-round" color="danger" onClick={this.Register.bind(this)}>
                                            Register
 

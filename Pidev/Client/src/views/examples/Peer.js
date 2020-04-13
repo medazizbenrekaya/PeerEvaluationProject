@@ -240,6 +240,23 @@ descrip(){
 
 
 
+                        <ListGroup as="ul" >
+                            <center> <ListGroupItem as="li" active>Team {this.state.team}</ListGroupItem></center>
+                            <ListGroupItem as="li">{this.state.tab && this.state.tab[0]['nom'] +' '+this.state.tab[0]['prenom'] }
+                                <Link to={{pathname:'/evaluate', YO :this.state.tab[0]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>
+                            </ListGroupItem>
+                            <ListGroupItem as="li" >{this.state.tab && this.state.tab[1]['nom'] +' '+this.state.tab[1]['prenom']}
+                                <Link to={{pathname:'/evaluate', YO :this.state.tab[1]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>
+                            </ListGroupItem>
+
+                            <ListGroupItem as="li" >{ jwt_decode(localStorage.token).user.nom } { jwt_decode(localStorage.token).user.prenom}
+                            <Link to={{pathname:'/selfEvaluation'}}><i className="nc-icon nc-layout-11" /> Self Evaluate ! </Link>
+                            </ListGroupItem>
+
+                        </ListGroup>
+                        {/* Tab panes */}
+
+
                     </Container>
 
                 </div>

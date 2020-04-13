@@ -50,26 +50,8 @@ import  "../../assets/css/colors.css";
 
 
 
-class Evaluation extends  Component {
+class SelfEvaluation extends  Component {
     componentDidMount() {
-        const t = {
-            email: jwt_decode(localStorage.token).user.email }
-        test: axios.post("http://localhost:3000/users/TeamName",t).then(res => {
-            this.setState({team : res.data})
-        })
-        const members =     axios.post("http://localhost:3000/users/TeamMembers",t).then(res => {
-
-            this.setState({tab:res.data})
-
-
-
-        });
-        const TEST = this.props.location.YO
-        const TEST2 = this.props.location.X
-   console.log(TEST)
-        console.log(TEST2)
-        this.setState({TEST: TEST})
-        console.log(this.state.TEST)
 
     };
 
@@ -77,18 +59,24 @@ class Evaluation extends  Component {
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false};
+        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,show1:true};
+
 
     }
     note(){
+
         const n ={
-            email:this.state.TEST['email'],voteur:jwt_decode(localStorage.token).user._id,
+            email:jwt_decode(localStorage.token).user.email,
+            voteur:jwt_decode(localStorage.token).user._id,
             nom:document.getElementById('exampleSelect2').value,
             note:document.getElementById('n').value,
             M:document.getElementById('exampleSelect1').value
         }
-        axios.post("http://localhost:3000/users/note",n).then(res => {
 
+
+        axios.post("http://localhost:3000/users/Selfnote",n).then(res => {
+
+         window.alert("ok")
             console.log("succes")
 
 
@@ -98,24 +86,33 @@ class Evaluation extends  Component {
     }
 
 
-    find(){
+
+    showN()
+    {
+        this.setState({show:true})
+    }
+
+    see()
+    {
+        this.setState({show1:true})
+        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
+            this.setState({tab2:res.data})
+            console.log('succes')
+
+        });
+    }
+    show(){
+
         const t = {
             nom:document.getElementById('exampleSelect1').value
         }
-        console.log(t)
-        const members =     axios.post("http://localhost:3000/ms/find",t).then(res => {
+        console.log(t.nom)
 
-                this.setState({tab2:res.data})
-            console.log(t)
+        const micro = axios.post("http://localhost:3000/ms/find/"+t.nom).then(res => {
+            this.setState({tab1:res.data})
+            console.log('succes')
 
-            console.log("succes")
-
-
-
-            });
-    }
-    show(){
-        this.setState({show:true})
+        });
     }
 
     render(){
@@ -124,6 +121,7 @@ class Evaluation extends  Component {
 
         return (
             <>
+
                 <NavbarProfile />
                 <ProfilePageHeader />
                 <div className="section profile-content">
@@ -138,7 +136,7 @@ class Evaluation extends  Component {
                             </div>
                             <div className="name">
                                 <h4 className="title">
-                                    You will evaluate {this.state.TEST && this.state.TEST['nom'] + ' '+ this.state.TEST['prenom']} <br />
+                                    You will evaluate Yourself <br />
                                 </h4>
                                 <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
                             </div>
@@ -158,6 +156,7 @@ class Evaluation extends  Component {
                         </Row>
                         <br />
                         <div>
+                            <button onClick={this.see.bind(this)}>Start</button>
                             <Form>
                                 <FormGroup>
                                     <Label for="exampleEmail">Evaluator : {jwt_decode(localStorage.token).user.nom }  {jwt_decode(localStorage.token).user.prenom}</Label>
@@ -165,18 +164,22 @@ class Evaluation extends  Component {
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Macro !</Label>
                                     <Input type="select" name="select" id="exampleSelect1">
-                                        {this.state.TEST && this.state.TEST['microskills'].map((team) =><optgroup key={team.nom} label={team.type}><option onClick={this.find.bind(this)}   key={team.nom} value={team.nom}  >{team.nom}</option> </optgroup> )}
+                                        {this.state.tab2   && this.state.tab2.map((team) =><optgroup label={team.type}> <option  onClick={this.show.bind(this)} key={team.nom} value={team.nom}  >{team.nom}</option></optgroup>  )}
+
                                     </Input>
 
                                 </FormGroup>
+
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Micro !</Label>
                                     <Input type="select" name="select" id="exampleSelect2" >
-                                        {this.state.tab2 && this.state.tab2.map((team) => <option onClick={this.show.bind(this)} key={team.nom} value={team.nom}  >{team.nom}</option>)}
-
+                                        {this.state.tab1 && this.state.tab1.map((detail) => <option onClick={this.showN.bind(this)}  key={detail.nom} value={detail.nom} > {detail.nom} </option>)}
                                     </Input>
+
                                 </FormGroup>
                                 {this.state.show? <Label for="exampleSelect2">Notez :<select id="n" className="select" ><option className="red">1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></Label> :null} <br/>
+
+
 
 
                                 <Button onClick={this.note.bind(this)}>Noter!</Button>
@@ -194,4 +197,4 @@ class Evaluation extends  Component {
         );}
 }
 
-export default Evaluation;
+export default SelfEvaluation;

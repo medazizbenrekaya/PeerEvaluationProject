@@ -3418,6 +3418,13 @@ License - nucleoapp.com/license/
   border-radius: 50% !important;
   max-width: 100%; }
 
+.img-circle2 {
+  background-color: #FFFFFF;
+  margin-bottom: 10px;
+  padding: 4px;
+  border-radius: 50% !important;
+  max-height: 20%; }
+
 .img-thumbnail {
   border: 0 none;
   border-radius: 12px;

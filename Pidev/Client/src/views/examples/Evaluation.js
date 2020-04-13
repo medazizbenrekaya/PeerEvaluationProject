@@ -64,7 +64,9 @@ class Evaluation extends  Component {
 
         });
         const TEST = this.props.location.YO
+        const TEST2 = this.props.location.X
    console.log(TEST)
+        console.log(TEST2)
         this.setState({TEST: TEST})
         console.log(this.state.TEST)
 

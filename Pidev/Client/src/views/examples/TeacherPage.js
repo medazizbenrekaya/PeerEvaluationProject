@@ -56,10 +56,10 @@ class TeacherPage extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1"
+            activeTab:"1",tab1:''
 
         };
-        this.state = {tab1:''};
+
 
 
     }
@@ -82,7 +82,7 @@ class TeacherPage extends  Component {
     toggle  (tab) {
       if(this.state.activeTab!==tab){
           this.setState({activeTab:tab})
-          console.log(this.state.activeTab);
+
       }
 
         //this.state.activeTab=tab
@@ -117,16 +117,21 @@ class TeacherPage extends  Component {
 
         };
 
+
         axios.post("http://localhost:3000/ms/ajouterMS", bod).then(res => {
+
+            window.location.reload()
             console.log('succes')
+
+
 
         });
     }
     edit(){
         const bod = {
             _id:document.getElementById('id').value,
-            nom:document.getElementById('nom').value,
-            prenom:document.getElementById('prenom').value,
+            nom:document.getElementById('nomU').value,
+            prenom:document.getElementById('prenomU').value,
 
         };
         axios.post("http://localhost:3000/users/update", bod).then(res => {
@@ -146,6 +151,17 @@ class TeacherPage extends  Component {
             this.setState({tab1:res.data})
 
             console.log(res.data)
+        });
+    }
+    delete(a)
+    {
+
+        console.log(a)
+
+
+        axios.get("http://localhost:3000/ms/delete/"+a ).then(res => {
+            window.location.reload()
+            console.log("succes")
         });
     }
     find()
@@ -220,9 +236,9 @@ class TeacherPage extends  Component {
                                 <br/>
                                 <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>
                                 <label>First Name</label>
-                                <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nom" />
+                                <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nomU" />
                                 <label>Last Name</label>
-                                <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenom"/>
+                                <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenomU"/>
                                 <br/>
                                 <Button className="btn-round" color="default" onClick={this.edit.bind(this)} outline>
                                     <i className="fa fa-cog"/> edit
@@ -400,12 +416,12 @@ class TeacherPage extends  Component {
                                                                 {this.state.tab1   && this.state.tab1.map((team) =>  <tbody className="table table-active" key={team._id}  >
 
                                                                     <tr>
-                                                                        <td>{team.nom}</td>
+                                                                        <td>{team.nom}
+                                                                        </td>
                                                                         <td>{team.description}</td>
                                                                         <td>{team.type}</td>
                                                                         <td>{team.macroskills.length}</td>
-                                                                        <Input id="email"  hidden />
-                                                                        <td><button className="btn-danger" >Delete</button></td>
+                                                                        <td><button className="btn-danger" onClick={this.delete.bind(this , team._id)} >Delete</button></td>
                                                                     </tr>
                                                                     </tbody>
                                                                 )}

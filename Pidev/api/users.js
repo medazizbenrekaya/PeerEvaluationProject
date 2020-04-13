@@ -390,7 +390,7 @@ router.get("/allUser", (req, res) => {
 
 router.get('/delete/:email',function (req , res , nect) {
   //remove
-    User.find({ "email" : req.params.email } , function (err, obj) {
+    User.remove({ "email" : req.params.email } , function (err, obj) {
         if (err) throw err;
 
     });

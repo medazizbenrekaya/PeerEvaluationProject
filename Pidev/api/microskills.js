@@ -145,6 +145,14 @@ router.post('/update', function(req, res) {
 
 });
 
+router.get('/delete/:id',function (req , res , nect) {
+    //remove
+    ms.remove({ _id : req.params.id } , function (err, obj) {
+        if (err) throw err;
+
+    });
+});
+
 
 
 

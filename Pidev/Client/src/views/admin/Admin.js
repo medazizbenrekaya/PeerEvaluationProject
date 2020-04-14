@@ -94,13 +94,13 @@ class Admin extends Component {
       console.log(res.data)
     });
   }
-  delete()
+  delete(a)
   {
-    const t = {
-      id:document.getElementById('email').value
-    }
-    console.log(t.id)
-    axios.get("http://localhost:3000/users/delete/"+t.id ).then(res => {
+
+    console.log(a)
+
+
+    axios.get("http://localhost:3000/users/delete/"+a ).then(res => {
 
       console.log("succes")
     });
@@ -224,8 +224,7 @@ class Admin extends Component {
                                         <td>{team.prenom}</td>
                                         <td>{team.email}</td>
                                         <td>{team.role}</td>
-                                        <Input id="email" value={team.email} hidden />
-                                        <td><button className="btn-danger" onClick={this.delete.bind(this)}>Delete</button></td>
+                                        <td><button className="btn-danger" onClick={this.delete.bind(this , team.email)}>Delete</button></td>
                                       </tr>
                                       </tbody>
                                   )}

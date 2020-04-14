@@ -37,6 +37,7 @@ import ResetPw from "./components/ResetPw";
 import TeacherPage from "./views/examples/TeacherPage";
 import Evaluation from "./views/examples/Evaluation";
 import Peer from "./views/examples/Peer";
+import Admin from "./views/examples/admin";
 
 
 
@@ -74,6 +75,10 @@ ReactDOM.render(
       <Route
         path="/login"
         render={props => <RegisterPage {...props} />}
+      />
+      <Route
+          path="/admin"
+          render={props => <Admin {...props} />}
       />
       <Route
           path="/test"

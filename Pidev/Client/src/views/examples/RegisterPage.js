@@ -20,14 +20,22 @@ import React, { Component } from "react";
 
 
 // reactstrap components
-import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
+import { Button, Card, Form, Input, Container, Row, Col,Alert } from "reactstrap";
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import NavbarLogin from "../../components/Navbars/NavbarLogin";
+import {timeout, times} from "async";
 class RegisterPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+            visible2: false
+        };
+    }
 
   login() {
     const authentication = {
@@ -38,22 +46,31 @@ class RegisterPage extends Component {
     axios
         .post("http://localhost:3000/users/login", authentication)
         .then(res => {
-          localStorage.setItem('token', res.data);
+                localStorage.setItem('token', res.data);
 
-          console.log(jwt_decode(res.data).user.role)
-          console.log(jwt_decode(res.data).user.role,jwt_decode(res.data).user.nom,jwt_decode(res.data).user.prenom)
+                console.log(jwt_decode(res.data).user.role)
+                    if (jwt_decode(res.data).user.etat === true) {
+                        if (jwt_decode(res.data).user.role === "Teacher") {
+                            this.props.history.push({
+                                pathname: "/teacher-page"
+                            })
+                        } else if (jwt_decode(res.data).user.role === "Student") {
+                            this.props.history.push({
+                                pathname: "/profile-page"
+                            });
+                        } else if (jwt_decode(res.data).user.role === "Admin") {
+                            this.props.history.push({
+                                pathname: "/admin"
+                            });
+                        }
+                    } else {
 
-          if(jwt_decode(res.data).user.role === null){
-            this.props.history.push({
-              pathname: "/profile-page"
-            })
-          }
-          else{
-            this.props.history.push({
-              pathname: "/profile-page"
-            });
-          }
-        })
+                        this.setState({visible: true});
+                        localStorage.clear()
+                    }
+
+            }
+        )
 
   }
     forgot() {
@@ -87,8 +104,16 @@ class RegisterPage extends Component {
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
+
               <Card className="card-register ml-auto mr-auto">
                 <h3 className="title mx-auto">Welcome</h3>
+                  <Alert color="danger" isOpen={this.state.visible} >
+                      <b>votre compte n'est pas activer</b>
+                      <br/><b>Vous allez recvoir un email d'acceptation ou refuse </b>
+                  </Alert>
+                  <Alert color="danger" isOpen={this.state.visible2} >
+                      <b>Verifier vos paramétres </b>
+                  </Alert>
                 <div className="social-line text-center">
 
                 </div>

@@ -64,7 +64,7 @@ class Evaluation extends  Component {
 
         });
         const TEST = this.props.location.YO
-   console.log(TEST)
+        console.log(TEST)
         this.setState({TEST: TEST})
         console.log(this.state.TEST)
 
@@ -87,6 +87,8 @@ class Evaluation extends  Component {
         axios.post("http://localhost:3000/users/note",n).then(res => {
 
             console.log("succes")
+            alert("vous avez noter votre camarade")
+            window.location.reload(false);
 
 
 
@@ -94,16 +96,10 @@ class Evaluation extends  Component {
 
     }
     find(){
-        const t = {
-            nom:document.getElementById('exampleSelect1').value
-        }
-        const members =     axios.post("http://localhost:3000/ms/find",t).then(res => {
-
-                this.setState({tab2:res.data})
-
-
-
-            });
+        const t = {nom:document.getElementById('exampleSelect1').value}
+        axios.post("http://localhost:3000/ms/find",t).then(res => {
+            this.setState({tab2:res.data})
+        });
     }
     show(){
         this.setState({show:true})
@@ -156,7 +152,7 @@ class Evaluation extends  Component {
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Macro !</Label>
                                     <Input type="select" name="select" id="exampleSelect1">
-                                        {this.state.TEST && this.state.TEST['microskills'].map((team) => <option  onClick={this.find.bind(this)}  key={team.nom} value={team.nom}  >{team.nom}</option>)}
+                                        {this.state.TEST && this.state.TEST['microskills'].map((team) => <option  onClick= {this.find.bind(this)} key={team.nom} value={team.nom} >{team.nom}</option>)}
                                     </Input>
                                 </FormGroup>
                                 <FormGroup>

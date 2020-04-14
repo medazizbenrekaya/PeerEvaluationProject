@@ -102,12 +102,10 @@ class TeacherPage extends  Component {
             nom: document.getElementById('nom').value,
             description:document.getElementById('desc').value,
             macroskills: this.state.m
-
-
         };
-
         axios.post("http://localhost:3000/ms/ajouterMS", bod).then(res => {
             console.log('succes')
+            window.location.reload(false);
 
         });
     }
@@ -115,8 +113,9 @@ class TeacherPage extends  Component {
     render() {
         return (
             <>
-                <NavbarProfile/>
+
                 <ProfilePageHeader/>
+                <NavbarProfile/>
                 <div className="section profile-content">
                     <Container>
                         <div className="owner">

@@ -29,12 +29,14 @@ import {
     NavItem,
     NavLink,
     Nav,
-    Container, Button
+    Container, Button,
+    Modal
 } from "reactstrap";
 
 function NavbarProfile() {
     const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
     const [navbarCollapse, setNavbarCollapse] = React.useState(false);
+    const [loginModal, setLoginModal] = React.useState(false);
 
     const toggleNavbarCollapse = () => {
         setNavbarCollapse(!navbarCollapse);
@@ -43,7 +45,6 @@ function NavbarProfile() {
     const logout=()=>{
         localStorage.clear()
         console.log(localStorage)
-        alert("bye bye")
 
     }
     React.useEffect(() => {
@@ -105,10 +106,33 @@ function NavbarProfile() {
                 >
                     <Nav navbar>
                         <NavItem >
-                            <NavLink to="/index" tag={Link}
-                                     onClick={logout}>
+                            <NavLink
+                                     onClick={() => setLoginModal(true)}>
                                 <i className="nc-icon nc-layout-11" /> Logout
                             </NavLink>
+                            <Modal
+                                isOpen={loginModal}
+                                toggle={() => setLoginModal(false)}
+                                modalClassName="modal-register"
+                            >
+                                <div className="modal-header no-border-header text-center">
+                                    <button
+                                        aria-label="Close"
+                                        className="close"
+                                        data-dismiss="modal"
+                                        type="button"
+                                        onClick={() => setLoginModal(false)}
+                                    >
+                                        <span aria-hidden={true}>×</span>
+                                    </button>
+                                    <p>Logout</p>
+                                </div>
+                                <div className="modal-body">
+                                    <Button block className="btn-round" color="default" onClick={logout} to="/index" tag={Link}>
+                                        Logout
+                                    </Button>
+                                </div>
+                            </Modal>
                         </NavItem>
 
 

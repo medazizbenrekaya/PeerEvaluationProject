@@ -1,7 +1,9 @@
 var express = require('express')
 var router = express.Router()
 var Team = require('../models/team');
-var user = require('../models/user')
+var user = require('../models/user');
+var project = require('../models/project');
+var micro = require('../models/microskills');
 
 
 
@@ -100,5 +102,53 @@ router.get("/Afficher",(req,res,next)=>{
         else res.json(team)
     })
 })
+router.post("/accepter2/:id", (req, res) => {
+    var x = true
 
+    project.findOne({_id: req.body.id}, (err, u) => {
+        Team.findOne({_id: req.params.id}, (err, c) => {
+
+            c.projects.forEach(function (ee) {
+                if(ee.id==u.id){
+                    x=false;
+
+                }
+
+            })
+
+
+            if(x==false)
+                res.status(401).json({info :"tu est deja dans le projet"})
+
+            else{
+                u.team = c._id
+                u.save()
+                c.projects.push(u)
+                console.log(c)
+                c.save(function (err) {
+                    if (err)
+                        console.log('error')
+                    else
+                        res.json('success')
+                });
+            }});
+    });
+})
+
+router.post("/affecter", (req, res) => {
+    tab=req.body.teams
+    tab.forEach(function (e) {
+        Team.findOne({name: e.name}, (err, t) => {
+            t.members.forEach(function (a) {
+                micro=req.body.micro
+                a.microskills.push(micro)
+                a.microskills.save
+            })
+            t.save
+        })
+        e.save
+        console.log(e)
+    })
+    res.status(200).json({info :"succes"})
+})
 module.exports = router;

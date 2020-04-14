@@ -162,7 +162,6 @@ router.post("/TeamMembers2", async (req, res) => {
 });
 router.post("/TeamMembers", async (req, res) => {
     var membres = []
-    var str = String
     await User.findOne({email: req.body.email}, async (err, u) => {
         await Team.findOne({_id:u.team}, async (err, c) => {
             await c.members.forEach(async m => {
@@ -189,35 +188,6 @@ router.post("/TeamName", (req, res) => {
     });
 });
 
-
-
-// router.post("/note/:id", (req, res) => {
-//
-//
-//   User.findOne({email: req.body.email}, (err, u) => {
-//
-//
-//     u.microskills.findOne({_id:req.params.id},(err,m) =>{
-//       m.macroskills.forEach(function (r) {
-//         if(r.nom == req.body.nom){
-//           r.note = req.body.note
-//           r.save()
-//           m.save()
-//           u.save()
-//           res.json(200)
-//         }
-//         else
-//           res.json(401)
-//
-//
-//       })
-//     })
-//
-//   });
-//
-// }
-//
-// )
 router.post("/note",  (req, res) => {
 
 
@@ -257,4 +227,182 @@ router.post('/update', function(req, res) {
 });
 
 
+router.post("/stats",  (req, res) => {
+    var tab = []
+    User.findOne({email: req.body.email},  (err, u) => {
+        u.microskills.forEach(n => {
+            var microskill = n.nom
+            var note = new Number(0)
+            var t = 0
+            var s = 0
+
+            n.macroskills.forEach(m => {
+
+                var total = new Number(0)
+                if (m.notes.length !== 0) {
+                    m.notes.forEach(e => {
+
+                        t = t + 1
+                        s = s + e.note
+                    })
+                    total = total + (s / t)
+                    console.log(s,t)
+                    console.log(total)
+                    note =  total + note
+                    s=0
+                    t=0
+                    console.log(note)
+                }
+
+
+
+            })
+            var x = {
+                micro : microskill,
+                note: note
+            };
+            tab.push(x)
+            tab.save});
+        res.status(200).json(tab)
+    });
+})
+
+
+router.get("/allstudent",  (req, res) => {
+    User.find({role:"Student"}, (err, u) => {
+        res.json(u)    })
+
+})
+
+
+router.get("/allteacher",  (req, res) => {
+    User.find({role:"Teacher"}, (err, u) => {
+
+        res.json(u);
+
+
+    })
+
+})
+router.post('/accepter', function(req, res, next) {
+    User.findOne({email: req.body.email} , function (err,u) {
+        async.waterfall([
+            function() {
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'adembenzarb@gmail.com',
+                        pass: 'Adem50502450'
+                    }
+                });
+                var mailOptions = {
+                    to: req.body.email,
+                    from: 'peer@gmail.com',
+                    subject: 'Acceptation',
+                    text: 'votre demande a été accepter vous pouvez maintenant connecté .\n\n'+
+                        "utliser votre mail et mot de passe pour s'authentifier"
+                };
+                smtpTransport.sendMail(mailOptions, function(err) {
+                    console.log('mail sent');
+
+                });
+            }])
+        u.etat=true;
+        u.save();
+
+        res.status(200).json("vous pouvez maintenant connecter")
+           });
+
+});
+router.post('/refuser', function(req, res, next) {
+    User.findOne({email: req.body.email} , function (err,u) {
+        async.waterfall([
+            function() {
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'adembenzarb@gmail.com',
+                        pass: 'Adem50502450'
+                    }
+                });
+                var mailOptions = {
+                    to: req.body.email,
+                    from: 'peer@gmail.com',
+                    subject: 'Réfuse',
+                    text: 'votre demande a été rejeter et supprimer veillez contacter administration .\n\n'
+                };
+                smtpTransport.sendMail(mailOptions, function(err) {
+                    console.log('mail sent');
+
+                });
+            }])
+        u.remove(u);
+
+        res.status(200).json("votre demande refuser")
+    });
+
+});
+
+router.get("/nbstudent",  (req, res) => {
+    User.find({role:"Student"}, (err, u) => {
+        res.json(u.length);
+    })
+})
+router.get("/nbsteacehr",  (req, res) => {
+    User.find({role:"Teacher"}, (err, u) => {
+        res.json(u.length);
+    })
+})
+router.get("/nbteacherA",  (req, res) => {
+    var i = 0
+    User.find({role: "Teacher"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== false) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
+router.get("/nbstudentA",  (req, res) => {
+    var i = 0
+    User.find({role: "Student"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== false) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
+router.get("/nbteacherNA",  (req, res) => {
+    var i = 0
+    User.find({role: "Teacher"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== true) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
+router.get("/nbstudentNA",  (req, res) => {
+    var i = 0
+    User.find({role: "Student"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== true) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
 module.exports = router;

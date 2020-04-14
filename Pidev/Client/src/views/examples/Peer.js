@@ -60,50 +60,22 @@ class Peer extends  Component {
     componentDidMount() {
         const t = {
             email: jwt_decode(localStorage.token).user.email }
-        test: axios.post("http://localhost:3000/users/TeamName",t).then(res => {
-            this.setState({team : res.data})
-        })
-        const members =     axios.post("http://localhost:3000/users/TeamMembers",t).then(res => {
+        // test: axios.post("http://localhost:3000/users/TeamName",t).then(res => {
+        //     this.setState({team : res.data})
+        // })
+        // const members =     axios.post("http://localhost:3000/users/TeamMembers",t).then(res => {
+        //
+        //     this.setState({tab:res.data})
+        //     // console.log(this.state.tab)
+        //
+        //
+        // });
+        const st = {
+            email: jwt_decode(localStorage.token).user.email ,
+            project :document.getElementById('project').value
 
-            this.setState({tab:res.data})
-            // console.log(this.state.tab)
+        }
 
-
-        });
-        const s =     axios.post("http://localhost:3000/users/stats",t).then(res => {
-
-            this.setState({stats:res.data})
-            console.log(this.state.stats)
-
-            this.state.stats.map(e=>{
-
-
-                this.state.tab2.push(e.micro)
-                this.state.tab3.push(e.note)
-
-            })
-            console.log(this.state.tab2)
-            console.log(this.state.tab3)
-            const d = {
-                labels: ['Communication', 'JavaScript', 'DataScience', 'LeaderShip','Confidence'],
-                // labels: this.state.tab2 && this.state.tab2,
-                datasets: [
-                    {
-                        label: 'Your Evaluation ! ',
-                        backgroundColor: 'rgba(179,181,198,0.2)',
-                        borderColor: 'rgba(179,181,198,1)',
-                        pointBackgroundColor: 'rgba(179,181,198,1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(179,181,198,1)',
-                        // data:this.state.tab3 && this.state.tab3
-                        data: [12,20,10,8,18]
-                    }
-                ]
-            };
-            this.setState({data:d})
-
-        });
         test2: axios.post("http://localhost:3000/users/projects",t).then(res => {
             this.setState({project : res.data}
 
@@ -127,6 +99,46 @@ descrip(){
         console.log(this.state.team)
 
     })
+    const st = {
+        email: jwt_decode(localStorage.token).user.email ,
+        project :document.getElementById('project').value
+
+    }
+    const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
+
+        this.setState({stats:res.data})
+        console.log(this.state.stats)
+
+        this.state.stats.map(e=>{
+
+
+            this.state.tab2.push(e.micro)
+            this.state.tab3.push(e.note)
+
+        })
+        console.log(this.state.tab2)
+        console.log(this.state.tab3)
+
+        const d = {
+            labels: ['Communication', 'JavaScript', 'DataScience', 'LeaderShip','Confidence'],
+            // labels: this.state.tab2 && this.state.tab2,
+            datasets: [
+                {
+                    label: 'Your Evaluation ! ',
+                    backgroundColor: 'rgba(179,181,198,0.2)',
+                    borderColor: 'rgba(179,181,198,1)',
+                    pointBackgroundColor: 'rgba(179,181,198,1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(179,181,198,1)',
+                    // data:this.state.tab3 && this.state.tab3
+                    data: [12,20,10,8,18]
+                }
+            ]
+        };
+        this.setState({data:d})
+
+    });
 
 }
 
@@ -158,7 +170,7 @@ descrip(){
                                 <h4 className="title">
                                     {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br />
                                 </h4>
-                                <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
+
                             </div>
                         </div>
                         <Row>
@@ -189,14 +201,14 @@ descrip(){
                         <Media>
                             <Media >
                                 <Input type="select" name="select" id="project">
-                                    {this.state.project && this.state.project.map((team) => <option  onClick={this.descrip.bind(this)} key={team} value={team}  >{team}</option>)}
+                                    {this.state.project && this.state.project.map((team) => <option id="project" onClick={this.descrip.bind(this)} key={team} value={team}  >{team}</option>)}
                                 </Input>
                             </Media>
                                 <Media body>
                                     <Media heading>
 
-                                        <h7> Description:</h7>
-                                        <h6> {this.state.p && this.state.p['description']}</h6>
+
+                                         {this.state.p && this.state.p['description']}
 
                                         <Table bordered>
                                             <thead>
@@ -240,20 +252,20 @@ descrip(){
 
 
 
-                        <ListGroup as="ul" >
-                            <center> <ListGroupItem as="li" active>Team {this.state.team}</ListGroupItem></center>
-                            <ListGroupItem as="li">{this.state.tab && this.state.tab[0]['nom'] +' '+this.state.tab[0]['prenom'] }
-                                <Link to={{pathname:'/evaluate', YO :this.state.tab[0]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>
-                            </ListGroupItem>
-                            <ListGroupItem as="li" >{this.state.tab && this.state.tab[1]['nom'] +' '+this.state.tab[1]['prenom']}
-                                <Link to={{pathname:'/evaluate', YO :this.state.tab[1]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>
-                            </ListGroupItem>
+                        {/*<ListGroup as="ul" >*/}
+                        {/*    <center> <ListGroupItem as="li" active>Team {this.state.team}</ListGroupItem></center>*/}
+                        {/*    <ListGroupItem as="li">{this.state.tab && this.state.tab[0]['nom'] +' '+this.state.tab[0]['prenom'] }*/}
+                        {/*        <Link to={{pathname:'/evaluate', YO :this.state.tab[0]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>*/}
+                        {/*    </ListGroupItem>*/}
+                        {/*    <ListGroupItem as="li" >{this.state.tab && this.state.tab[1]['nom'] +' '+this.state.tab[1]['prenom']}*/}
+                        {/*        <Link to={{pathname:'/evaluate', YO :this.state.tab[1]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>*/}
+                        {/*    </ListGroupItem>*/}
 
-                            <ListGroupItem as="li" >{ jwt_decode(localStorage.token).user.nom } { jwt_decode(localStorage.token).user.prenom}
-                            <Link to={{pathname:'/selfEvaluation'}}><i className="nc-icon nc-layout-11" /> Self Evaluate ! </Link>
-                            </ListGroupItem>
+                        {/*    <ListGroupItem as="li" >{ jwt_decode(localStorage.token).user.nom } { jwt_decode(localStorage.token).user.prenom}*/}
+                        {/*    <Link to={{pathname:'/selfEvaluation'}}><i className="nc-icon nc-layout-11" /> Self Evaluate ! </Link>*/}
+                        {/*    </ListGroupItem>*/}
 
-                        </ListGroup>
+                        {/*</ListGroup>*/}
                         {/* Tab panes */}
 
 

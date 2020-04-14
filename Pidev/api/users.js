@@ -1,4 +1,5 @@
 
+
 var express = require('express')
 var router = express.Router()
 var jwt = require("jsonwebtoken");
@@ -12,6 +13,7 @@ var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var Team = require('../models/team');
 var Project = require('../models/project');
+var Project2 = require('../models/project');
 var evaluation = require('../models/evaluation');
 var seflEvaluation = require('../models/SelfEvaluation');
 const { spawn } = require('child_process');
@@ -231,32 +233,33 @@ router.post("/projects",async (req, res) => {
 });
 
 router.post("/note",  (req, res) => {
-    Project.findOneAndUpdate({nom:req.body.project} ,(err,proj) => {
+    Project.findOne({nom:req.body.project} ,(err,proj) => {
         proj.team.members.forEach( async arr => {
             if(arr.email == req.body.email) {
                 await  arr.microskills.forEach(n => {
                     if (n.nom == req.body.M) {
                         n.macroskills.forEach(async m => {
                             if (m.nom == req.body.nom) {
-                                evaluation = {
+
+                                const evaluat = new evaluation({
                                     voteur: req.body.voteur,
                                     note: req.body.note
-                                };
-                                m.notes.push(evaluation)
-                                console.log(m.notes)
-                                arr.microskills.macroskills = m
-                                arr.microskills = n
-                                await  proj.save()
-                                res.status(200).json('done')
+                                })
+                                m.notes.push(evaluat)
                             }
                         })
                     }
                 });
             }
         })
+        proj.save()
+        Project2.findOneAndUpdate({ nom : req.body.project}, proj, { new : true},(err,proj) => {res.json('done')})
     })
-    ;
+
+
 })
+
+
 
 router.post('/update', function(req, res) {
     User.findOneAndUpdate({_id : req.body._id} , req.body , { res: true} , function (err,u) {
@@ -269,43 +272,48 @@ router.post('/update', function(req, res) {
 
 router.post("/stats",  (req, res) => {
     var tab = []
-    User.findOne({email: req.body.email},  (err, u) => {
-        u.microskills.forEach(n => {
+    Project.findOne({nom: req.body.project}, (err, proj) => {
+        // User.findOne({email: req.body.email}, (err, u) => {
+        proj.team.members.forEach( async arr => {
+            if(arr.email == req.body.email) {
+            arr.microskills.forEach(n => {
                 var microskill = n.nom
                 var note = new Number(0)
-            var t = 0
-            var s = 0
+                var t = 0
+                var s = 0
 
-                    n.macroskills.forEach(m => {
+                n.macroskills.forEach(m => {
 
-                        var total = new Number(0)
-                        if (m.notes.length !== 0) {
+                    var total = new Number(0)
+                    if (m.notes.length !== 0) {
                         m.notes.forEach(e => {
 
                             t = t + 1
                             s = s + e.note
                         })
-                            total = total + (s / t)
-                            console.log(s,t)
-                            console.log(total)
-                            note =  total + note
-                            s=0
-                            t=0
-                            console.log(note)
-                        }
+                        total = total + (s / t)
+                        console.log(s, t)
+                        console.log(total)
+                        note = total + note
+                        s = 0
+                        t = 0
+                        console.log(note)
+                    }
 
 
-
-    })
-            var x = {
-                micro : microskill,
-                note: note
-            };
+                })
+                var x = {
+                    micro: microskill,
+                    note: note
+                };
 
                 tab.push(x)
-            tab.save});
-        res.status(200).json(tab)
-    });
+                tab.save
+            });
+            res.status(200).json(tab)
+        }
+        });
+    })
 })
 
 

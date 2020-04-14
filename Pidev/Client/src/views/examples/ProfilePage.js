@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -271,7 +253,7 @@ class ProfilePage extends Component {
   }
 
   fileUploadHandler = () => {
-    const fd = FormData();
+    const fd = new FormData();
     fd.append('image',this.state.selectedFile,this.state.selectedFile.name)
     fd.append('_id',jwt_decode(localStorage.token).user._id)
     axios.post("http://localhost:3000/users/user-profile",fd).then(res => {

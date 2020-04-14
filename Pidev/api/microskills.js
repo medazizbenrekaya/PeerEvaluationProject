@@ -62,7 +62,7 @@ router.post("/type", (req, res) => {
 })
 router.post("/nom", (req, res) => {
 
-    ms.find({nom : req.body.nom},(err, c) => {
+    ms.find({nom : new RegExp( req.body.nom , 'i')},(err, c) => {
 
         if(err)
             res.json(err)

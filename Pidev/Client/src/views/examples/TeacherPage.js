@@ -56,12 +56,16 @@ class TeacherPage extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1",tab1:''
+            activeTab:"1",tab1:'',show2:false
 
         };
 
 
 
+    }
+    editable()
+    {
+        this.setState({show2:true})
     }
     componentDidMount() {
         axios.get("http://localhost:3000/ms/Afficher").then(res => {
@@ -127,10 +131,21 @@ class TeacherPage extends  Component {
 
         });
     }
-    edit(){
+    editNom(){
         const bod = {
             _id:document.getElementById('id').value,
             nom:document.getElementById('nomU').value,
+
+        };
+        axios.post("http://localhost:3000/users/update", bod).then(res => {
+            console.log('succes')
+
+
+        });
+    }
+    editPrenom(){
+        const bod = {
+            _id:document.getElementById('id').value,
             prenom:document.getElementById('prenomU').value,
 
         };
@@ -227,22 +242,21 @@ class TeacherPage extends  Component {
                         </div>
                         <Row>
                             <Col className="ml-auto mr-auto text-center" md="6">
-                                <p>
-                                    Current team :
-                                    {jwt_decode(localStorage.token).user.team  }
-                                </p>
+
                                 <br/>
-                                <label>Edit Profile</label>
-                                <br/>
-                                <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>
-                                <label>First Name</label>
-                                <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nomU" />
-                                <label>Last Name</label>
-                                <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenomU"/>
-                                <br/>
-                                <Button className="btn-round" color="default" onClick={this.edit.bind(this)} outline>
+                                <Button className="btn-round" color="default" onClick={this.editable.bind(this)} outline>
                                     <i className="fa fa-cog"/> edit
                                 </Button>
+                                <br/>
+                                {this.state.show2?
+                                    <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>   :null}
+                                {this.state.show2?   <label>First Name</label>  :null}
+                                {this.state.show2?    <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nomU" onChange={this.editNom.bind(this)} />  :null}
+                                {this.state.show2?     <label>Last Name</label>  :null}
+                                {this.state.show2?      <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenomU" onChange={this.editPrenom.bind(this)}/>  :null}
+
+
+
                             </Col>
                         </Row>
                         <br/>
@@ -396,8 +410,8 @@ class TeacherPage extends  Component {
 
                                                         <table className="table-responsive-md">
                                                             <tr>
-                                                                <td> <Input type="text" id="text"  /></td>
-                                                                <td>         <button onClick={this.find.bind(this)}>Search</button></td>
+                                                                <td> <Input type="text" id="text" placeholder="macro skill name" onChange={this.find.bind(this)}  /></td>
+
                                                             </tr>
 
                                                         </table>

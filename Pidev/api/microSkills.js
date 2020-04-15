@@ -61,8 +61,8 @@ router.post("/type", (req, res) => {
 
 })
 router.post("/nom", (req, res) => {
-
-    ms.find({nom : new RegExp( req.body.nom , 'i')},(err, c) => {
+ /*nom : new RegExp( req.body.nom , 'i')*/
+    ms.find({$or: [ {'macroskills.nom':  new RegExp(req.body.nom , 'i')} , {nom : new RegExp(req.body.nom , 'i')} ] },(err, c) => {
 
         if(err)
             res.json(err)

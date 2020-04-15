@@ -88,59 +88,59 @@ class Peer extends  Component {
 
     };
 
-descrip(){
-    const n ={ nom:document.getElementById('project').value}
-    test2: axios.post("http://localhost:3000/project/get",n).then(res => {
-        this.setState({p : res.data})
-        // this.state.p['team']['members'].map(e=>{
-        //
-        var x = this.state.p['team']['members']
-        this.setState({team:x})
-        console.log(this.state.team)
-
-    })
-    const st = {
-        email: jwt_decode(localStorage.token).user.email ,
-        project :document.getElementById('project').value
-
-    }
-    const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
-
-        this.setState({stats:res.data})
-        console.log(this.state.stats)
-
-        this.state.stats.map(e=>{
-
-
-            this.state.tab2.push(e.micro)
-            this.state.tab3.push(e.note)
+    descrip(){
+        const n ={ nom:document.getElementById('project').value}
+        test2: axios.post("http://localhost:3000/project/get",n).then(res => {
+            this.setState({p : res.data})
+            // this.state.p['team']['members'].map(e=>{
+            //
+            var x = this.state.p['team']['members']
+            this.setState({team:x})
+            console.log(this.state.team)
 
         })
-        console.log(this.state.tab2)
-        console.log(this.state.tab3)
+        const st = {
+            email: jwt_decode(localStorage.token).user.email ,
+            project :document.getElementById('project').value
 
-        const d = {
-            labels: ['Communication', 'JavaScript', 'DataScience', 'LeaderShip','Confidence'],
-            // labels: this.state.tab2 && this.state.tab2,
-            datasets: [
-                {
-                    label: 'Your Evaluation ! ',
-                    backgroundColor: 'rgba(179,181,198,0.2)',
-                    borderColor: 'rgba(179,181,198,1)',
-                    pointBackgroundColor: 'rgba(179,181,198,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(179,181,198,1)',
-                    // data:this.state.tab3 && this.state.tab3
-                    data: [12,20,10,8,18]
-                }
-            ]
-        };
-        this.setState({data:d})
+        }
+        const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
 
-    });
+            this.setState({stats:res.data})
+            console.log(this.state.stats)
 
-}
+            this.state.stats.map(e=>{
+
+
+                this.state.tab2.push(e.micro)
+                this.state.tab3.push(e.note)
+
+            })
+            console.log(this.state.tab2)
+            console.log(this.state.tab3)
+
+            const d = {
+                labels: ['Communication', 'JavaScript', 'DataScience', 'LeaderShip','Confidence'],
+                // labels: this.state.tab2 && this.state.tab2,
+                datasets: [
+                    {
+                        label: 'Your Evaluation ! ',
+                        backgroundColor: 'rgba(179,181,198,0.2)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgba(179,181,198,1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(179,181,198,1)',
+                        // data:this.state.tab3 && this.state.tab3
+                        data: [12,20,10,8,18]
+                    }
+                ]
+            };
+            this.setState({data:d})
+
+        });
+
+    }
 
 
     constructor(props){
@@ -152,7 +152,7 @@ descrip(){
 
     render(){
 
-    return (
+        return (
             <>
                 <NavbarProfile />
                 <ProfilePageHeader />
@@ -177,7 +177,7 @@ descrip(){
                             <Col className="ml-auto mr-auto text-center" md="6">
                                 <p>
                                     Esprit Student that is trying to use PeerEvaluation
-                                <br/> <br/> <br/> <br/>
+                                    <br/> <br/> <br/> <br/>
 
 
                                 </p>
@@ -204,49 +204,50 @@ descrip(){
                                     {this.state.project && this.state.project.map((team) => <option id="project" onClick={this.descrip.bind(this)} key={team} value={team}  >{team}</option>)}
                                 </Input>
                             </Media>
-                                <Media body>
-                                    <Media heading>
+                            <Media body>
+                                <Media heading>
 
 
-                                         {this.state.p && this.state.p['description']}
+                                    {this.state.p && this.state.p['description']}
 
-                                        <Table bordered>
-                                            <thead>
-                                            <tr>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Evaluation !</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>{this.state.team && this.state.team[0]['nom']}</td>
-                                                <td>{this.state.team && this.state.team[0]['prenom']}</td>
-                                                <td><Link to={{pathname: '/evaluate', X:this.state.p, YO: this.state.team[0]}}> <i
-                                                    className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
-                                            </tr>
+                                    <Table bordered>
+                                        <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
 
-                                            <tr>
-                                                <td>{this.state.team && this.state.team[1]['nom']}</td>
-                                                <td>{this.state.team && this.state.team[1]['prenom']}</td>
-                                                <td><Link to={{pathname: '/evaluate', X:this.state.p, YO: this.state.team[1]}}> <i
-                                                    className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
-                                            </tr>
-                                            {this.state.team[2] != null &&
-                                            <tr>
-                                                <td>{this.state.team && this.state.team[2]['nom']}</td>
-                                                <td>{this.state.team && this.state.team[2]['prenom']}</td>
-                                                <td><Link to={{pathname: '/evaluate', X:this.state.p,YO: this.state.team[2]}}> <i
-                                                    className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
-                                            </tr>
-                                            }
-                                            </tbody>
-                                        </Table>
+                                            <th>Evaluation !</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{this.state.team && this.state.team[0]['nom']}</td>
+                                            <td>{this.state.team && this.state.team[0]['prenom']}</td>
+                                            <td><Link to={{pathname: '/evaluate', X:this.state.p, YO: this.state.team[0]}}> <i
+                                                className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
+                                        </tr>
 
-                                    </Media>
-
+                                        <tr>
+                                            <td>{this.state.team && this.state.team[1]['nom']}</td>
+                                            <td>{this.state.team && this.state.team[1]['prenom']}</td>
+                                            <td><Link to={{pathname: '/evaluate', X:this.state.p, YO: this.state.team[1]}}> <i
+                                                className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
+                                        </tr>
+                                        {this.state.team[2] != null &&
+                                        <tr>
+                                            <td>{this.state.team && this.state.team[2]['nom']}</td>
+                                            <td>{this.state.team && this.state.team[2]['prenom']}</td>
+                                            <td><Link to={{pathname: '/evaluate', X:this.state.p,YO: this.state.team[2]}}> <i
+                                                className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
+                                        </tr>
+                                        }
+                                        </tbody>
+                                    </Table>
 
                                 </Media>
+
+
+                            </Media>
 
                         </Media>
 

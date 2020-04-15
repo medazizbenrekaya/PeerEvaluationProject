@@ -2,21 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/admin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/project.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/project.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/src/assets/css/colors.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/027ab116-d16b-46af-8871-995a120790fe-hama.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/c3284beb-ac18-4494-afbc-6de7d37ed533-adem.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/SelfEvaluation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbars/NavbarProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbars/NavbarProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/assets/css/paper-kit.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/assets/css/paper-kit.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/microSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microSkills.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/project.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/team.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/team.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/microskills.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/project.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,15 +54,16 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Client/src/assets/img/faces" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../esprit 4éme/2e semt/nodeJs/myapp" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\admin" />
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\models" />
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\examples" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\Client\src\assets\img\faces" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev" />
-      <recent name="C:\Users\Titou\Desktop\Pidev\Pidev\api" />
-      <recent name="C:\Users\Titou\Desktop\Pidev\Pidev\models" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -97,6 +110,8 @@
       <workItem from="1586611751512" duration="1304000" />
       <workItem from="1586785352479" duration="11048000" />
       <workItem from="1586875359419" duration="2509000" />
+      <workItem from="1586879922982" duration="1192000" />
+      <workItem from="1586940236852" duration="1867000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>
@@ -127,5 +142,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added role" />
     <option name="LAST_COMMIT_MESSAGE" value="added role" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Client/src/views/examples/Evaluation.js</url>
+          <line>150</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

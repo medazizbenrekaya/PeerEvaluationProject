@@ -36,6 +36,7 @@ import Register from "./components/Register";
 import ResetPw from "./components/ResetPw";
 import TeacherPage from "./views/examples/TeacherPage";
 import Evaluation from "./views/examples/Evaluation";
+import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
 import Admin from "./views/examples/admin";
 
@@ -89,9 +90,18 @@ ReactDOM.render(
           render={props => <Evaluation{...props} />}
       />
       <Route
+          path="/selfEvaluation"
+          render={props => <SelfEvaluation{...props} />}
+      />
+      <Route
           path="/peer"
           render={props => <Peer{...props} />}
       />
+      <Route
+          path="/admin"
+          render={props => <Admin{...props} />}
+      />
+
       <Redirect to="/index" />
     </Switch>
   </BrowserRouter>,

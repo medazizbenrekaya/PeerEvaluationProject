@@ -1,9 +1,8 @@
 var express = require('express')
 var router = express.Router()
 var Team = require('../models/team');
-var user = require('../models/user');
-var project = require('../models/project');
-var micro = require('../models/microskills');
+var user = require('../models/user')
+var micro = require('../models/microskills')
 
 
 
@@ -137,18 +136,38 @@ router.post("/accepter2/:id", (req, res) => {
 
 router.post("/affecter", (req, res) => {
     tab=req.body.teams
+   // console.log(tab)
     tab.forEach(function (e) {
         Team.findOne({name: e.name}, (err, t) => {
             t.members.forEach(function (a) {
-                micro=req.body.micro
+                user.findOne({email: a.email}, (err, tes) => {
+                    var x  = false
+                    micro = req.body.micro
+                    tes.microskills.forEach(function (aaa) {
+                        if(aaa.nom == micro.nom)
+
+                            x = true
+                    })
+                 if(x===false) {
+                tes.microskills.push(micro)
+
+                    tes.save() }
+
+                })
+                micro = req.body.micro
                 a.microskills.push(micro)
-                a.microskills.save
+                a.save()
+
+                //console.log(a)
+
             })
-            t.save
+            t.save()
+              // console.log(t)
         })
-        e.save
-        console.log(e)
+        //console.log(e)
+
     })
-    res.status(200).json({info :"succes"})
+    res.status(200).json(tab)
 })
+
 module.exports = router;

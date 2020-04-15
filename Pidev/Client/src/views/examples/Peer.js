@@ -143,7 +143,44 @@ descrip(){
 
     });
 
-}
+        }
+        const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
+
+            this.setState({stats:res.data})
+            console.log(this.state.stats)
+
+            this.state.stats.map(e=>{
+
+
+                this.state.tab2.push(e.micro)
+                this.state.tab3.push(e.note)
+
+            })
+            console.log(this.state.tab2)
+            console.log(this.state.tab3)
+
+            const d = {
+                labels: ['Communication', 'JavaScript', 'DataScience', 'LeaderShip','Confidence'],
+                // labels: this.state.tab2 && this.state.tab2,
+                datasets: [
+                    {
+                        label: 'Your Evaluation ! ',
+                        backgroundColor: 'rgba(179,181,198,0.2)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgba(179,181,198,1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(179,181,198,1)',
+                        // data:this.state.tab3 && this.state.tab3
+                        data: [12,20,10,8,18]
+                    }
+                ]
+            };
+            this.setState({data:d})
+
+        });
+
+    }
 
 
     constructor(props){
@@ -155,7 +192,7 @@ descrip(){
 
     render(){
 
-    return (
+        return (
             <>
                 <NavbarProfile />
                 <ProfilePageHeader />

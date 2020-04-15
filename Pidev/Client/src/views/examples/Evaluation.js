@@ -51,11 +51,13 @@ class Evaluation extends  Component {
         const TEST = this.props.location.YO
         const TEST2 = this.props.location.X['nom']
         this.setState({teamname:this.props.location.X['nom']})
-        console.log(this.state.teamname)
-   console.log(TEST)
+
+
 
         this.setState({TEST: TEST})
+        console.log(this.props.location.YO['microskills'])
         console.log(this.state.TEST)
+
 
     };
 

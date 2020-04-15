@@ -30,9 +30,28 @@ import index from "async";
 
 class ProfilePage extends Component {
 
-  constructor(props){
+    componentDidMount() {
+        this.setState({show1:true})
+        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
+            this.setState({tab2:res.data})
+            console.log('succes')
+
+        });
+        const t = {
+            email: jwt_decode(localStorage.token).user.email }
+
+        axios.post("http://localhost:3000/users/projects",t).then(res => {
+            this.setState({tab6 : res.data})
+            console.log(res.data)
+            console.log('succes')
+
+
+        });
+    }
+
+    constructor(props){
     super(props)
-    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false};
+    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:''};
 
   }
 
@@ -69,24 +88,24 @@ class ProfilePage extends Component {
 
         });
     }
-  see()
-  {
-    this.setState({show1:true})
-    const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
-      this.setState({tab2:res.data})
-      console.log('succes')
+    back()
+    {
+        this.setState({show1:true,show:false})
+        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
+            this.setState({tab2:res.data})
+            console.log('succes')
 
-    });
-  }
-  show(){
-    this.setState({show:true})
-    const t = {
-      nom:document.getElementById('macro').value
+        });
     }
-    console.log(t.nom)
 
-    const micro = axios.post("http://localhost:3000/ms/find/"+t.nom).then(res => {
-      this.setState({tab1:res.data})
+
+  show(a){
+    this.setState({show:true})
+
+
+
+    const micro = axios.post("http://localhost:3000/ms/find/"+a).then(res => {
+      this.setState({tab1:res.data,tab2:'',nomMicro:a})
       console.log('succes')
 
     });
@@ -165,10 +184,7 @@ class ProfilePage extends Component {
             </div>
             <Row>
               <Col className="ml-auto mr-auto text-center" md="6">
-                <p>
-                  Current team :
-                  {jwt_decode(localStorage.token).user.team  }
-                </p>
+
                 <br/>
                   <Button className="btn-round" color="default" onClick={this.editable.bind(this)} outline>
                       <i className="fa fa-cog"/> edit
@@ -189,28 +205,56 @@ class ProfilePage extends Component {
               <div className="nav-tabs-wrapper">
 
                 <h4>My Macro skills : </h4>
-                <button onClick={this.see.bind(this)}>See</button>
-                {this.state.show1?
-                <Input type="select" name="select" id="macro" >
-                  {this.state.tab2   && this.state.tab2.map((team) =><optgroup label={team.type}> <option  onClick={this.show.bind(this)} key={team.nom} value={team.nom}  >{team.nom}</option></optgroup>  )}
+                  <table className="table">
+                      <thead className="table table-info">
+                      <tr>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Type</th>
+                          <th>Number of Micro Skills</th>
+                          <th>Actions</th>
+                      </tr>
+                      </thead>
 
-                </Input> :null}
 
-                {this.state.show? <label>micro Skills :  </label>  :null}
-                {this.state.tab1 && this.state.tab1.map((detail) => <li  key={detail.nom} >
-                  <table border="3" width="500">
-                    <thead>
-                    <tr>
-                      <td>Micro Skills</td>
-                    </tr>
-                    </thead>
-                    <tbody>
+                  {this.state.tab2   && this.state.tab2.map((t) =>
+                      <tbody className="table table-active" key={t._id}  >
+
+                      <tr>
+                          <td>{t.nom}
+                          </td>
+                          <td>{t.description}</td>
+                          <td>{t.type}</td>
+                          <td>{t.macroskills.length}</td>
+                          <td><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button></td>
+                      </tr>
+                      </tbody>
+                      )}
+                 </table>
+
+
+
+
+                {this.state.show?
+                  <table className="table">
+                      <thead className="table table-info">
+                      <tr>
+                          <td>Micro Skills of {this.state.nomMicro}</td>
+                      </tr>
+                      </thead>
+                {this.state.tab1 && this.state.tab1.map((detail) => <tbody className="table table-active"  key={detail.nom} >
+
+
                     <tr>
                       <td >{detail.nom}</td>
                     </tr>
+
+
                     </tbody>
-                  </table>
-                </li>)}
+
+              )}
+                      <tr><td colSpan="1">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
+                  </table> :null}
 
 
 
@@ -220,8 +264,25 @@ class ProfilePage extends Component {
               <div className="nav-tabs-wrapper">
 
                 <h4>My Project : </h4>
-                <h6>  </h6>
+                  <table className="table">
+                      <thead className="table table-info">
+                      <tr>
+                          <th>Name</th>
+                          <th>Actions</th>
+                      </tr>
+                      </thead>
 
+
+                      {this.state.tab6   && this.state.tab6.map((t) =>
+                          <tbody className="table table-active" key={t}  >
+
+                          <tr>
+                              <td>{t}</td>
+                              <td><button className="btn-info" >Details</button></td>
+                          </tr>
+                          </tbody>
+                      )}
+                  </table>
               </div>
             </div>
 

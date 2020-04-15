@@ -7,6 +7,9 @@
       <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microskills.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

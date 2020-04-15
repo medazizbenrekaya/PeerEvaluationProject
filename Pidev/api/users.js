@@ -45,7 +45,167 @@ router.post("/register", (req, res) => {
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
         role : req.body.role,
           image: req.body.image
+
       });
+      ms1 = new ms({
+            nom:"Communication",
+          type:"Soft Skills",
+                macroskills:
+            [
+                {
+                    nom:"Timeliness of information provided"
+
+                },
+                {
+                    nom:"Effectiveness of means of communications Used"
+
+                },
+                {
+                    nom:"Interpersonal communication"
+
+                },   {
+                nom:"Language Used"
+
+            }
+
+
+            ]
+      })
+        ms3 = new ms({
+            nom:"Leadership",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {
+                        nom:"Motivation"
+
+                    },
+                    {
+                        nom:"Good interpersonal relationship"
+
+                    },
+                    {
+                        nom:"Proactivity"
+
+                    },   {
+                    nom:"Cooperation efficiency"
+
+                }
+
+
+                ]
+
+
+        })
+        ms4 = new ms({
+            nom:"Effectiveness",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {
+                        nom:"Availibality to solve problems"
+
+                    },
+                    {
+                        nom:"Assertiveness to perform tasks"
+
+                    },
+                    {
+                        nom:"Resilience"
+
+                    },   {
+                    nom:"Execution's Pace"
+
+                }
+
+
+                ]
+
+
+        })
+        ms5 = new ms({
+            nom:"Professionalism",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {nom:"Puntualitty at mettings"
+
+                    },
+                    {
+                        nom:"Punctual delivery of activites or tasks"
+
+                    },
+                    {
+                        nom:"Teamwork"
+
+                    },   {
+                    nom:"Cooperation"
+
+                }
+
+
+                ]
+
+
+        })
+        ms6 = new ms({
+            nom:"Managing Skils",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {
+                        nom:"Planning"
+
+                    },
+                    {
+                        nom:"Organization"
+
+                    },
+                    {
+                        nom:"Resource allocation"
+
+                    },   {
+                    nom:"Decision making"
+
+                }
+
+
+                ]
+
+
+        })
+        ms7 = new ms({
+                nom:"Cognitive Ability",
+            type:"Soft Skills",
+                macroskills:
+                    [
+                        {
+                            nom:"Speed of Information Processing"
+
+                        },
+                        {
+                            nom:"Working Memory"
+
+                        },
+                        {nom:"Sustained Attention"
+
+                        },   {
+                        nom:"Flexibility"
+
+                    }
+
+
+                    ]
+
+
+            }
+        )
+        user.microskills.push(ms1)
+        user.microskills.push(ms3)
+        user.microskills.push(ms4)
+        user.microskills.push(ms5)
+        user.microskills.push(ms6)
+        user.microskills.push(ms7)
       user.save((err, user) => {
         if (err) res.json(err);
         else res.json(user);
@@ -170,7 +330,6 @@ router.post("/TeamMembers2", async (req, res) => {
 });
 router.post("/TeamMembers", async (req, res) => {
     var membres = []
-    var str = String
     await User.findOne({email: req.body.email}, async (err, u) => {
         await Team.findOne({_id:u.team}, async (err, c) => {
             await c.members.forEach(async m => {
@@ -454,7 +613,182 @@ router.get('/delete/:email',function (req , res , nect) {
 });
 
 
+router.post("/stats",  (req, res) => {
+    var tab = []
+    User.findOne({email: req.body.email},  (err, u) => {
+        u.microskills.forEach(n => {
+            var microskill = n.nom
+            var note = new Number(0)
+            var t = 0
+            var s = 0
+
+            n.macroskills.forEach(m => {
+
+                var total = new Number(0)
+                if (m.notes.length !== 0) {
+                    m.notes.forEach(e => {
+
+                        t = t + 1
+                        s = s + e.note
+                    })
+                    total = total + (s / t)
+                    console.log(s,t)
+                    console.log(total)
+                    note =  total + note
+                    s=0
+                    t=0
+                    console.log(note)
+                }
 
 
 
+            })
+            var x = {
+                micro : microskill,
+                note: note
+            };
+            tab.push(x)
+            tab.save});
+        res.status(200).json(tab)
+    });
+})
+
+
+router.get("/allstudent",  (req, res) => {
+    User.find({role:"Student"}, (err, u) => {
+        res.json(u)    })
+
+})
+
+
+router.get("/allteacher",  (req, res) => {
+    User.find({role:"Teacher"}, (err, u) => {
+
+        res.json(u);
+
+
+    })
+
+})
+router.post('/accepter', function(req, res, next) {
+    User.findOne({email: req.body.email} , function (err,u) {
+        async.waterfall([
+            function() {
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'adembenzarb@gmail.com',
+                        pass: 'Adem50502450'
+                    }
+                });
+                var mailOptions = {
+                    to: req.body.email,
+                    from: 'peer@gmail.com',
+                    subject: 'Acceptation',
+                    text: 'votre demande a été accepter vous pouvez maintenant connecté .\n\n'+
+                        "utliser votre mail et mot de passe pour s'authentifier"
+                };
+                smtpTransport.sendMail(mailOptions, function(err) {
+                    console.log('mail sent');
+
+                });
+            }])
+        u.etat=true;
+        u.save();
+
+        res.status(200).json("vous pouvez maintenant connecter")
+           });
+
+});
+router.post('/refuser', function(req, res, next) {
+    User.findOne({email: req.body.email} , function (err,u) {
+        async.waterfall([
+            function() {
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'adembenzarb@gmail.com',
+                        pass: 'Adem50502450'
+                    }
+                });
+                var mailOptions = {
+                    to: req.body.email,
+                    from: 'peer@gmail.com',
+                    subject: 'Réfuse',
+                    text: 'votre demande a été rejeter et supprimer veillez contacter administration .\n\n'
+                };
+                smtpTransport.sendMail(mailOptions, function(err) {
+                    console.log('mail sent');
+
+                });
+            }])
+        u.remove(u);
+
+        res.status(200).json("votre demande refuser")
+    });
+
+});
+
+router.get("/nbstudent",  (req, res) => {
+    User.find({role:"Student"}, (err, u) => {
+        res.json(u.length);
+    })
+})
+router.get("/nbsteacehr",  (req, res) => {
+    User.find({role:"Teacher"}, (err, u) => {
+        res.json(u.length);
+    })
+})
+router.get("/nbteacherA",  (req, res) => {
+    var i = 0
+    User.find({role: "Teacher"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== false) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
+router.get("/nbstudentA",  (req, res) => {
+    var i = 0
+    User.find({role: "Student"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== false) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
+router.get("/nbteacherNA",  (req, res) => {
+    var i = 0
+    User.find({role: "Teacher"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== true) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
+router.get("/nbstudentNA",  (req, res) => {
+    var i = 0
+    User.find({role: "Student"}, (err, u) => {
+        u.forEach(e => {
+            if (e.etat !== true) {
+                i++
+            }
+
+        })
+        res.json(i)
+
+    })
+})
 module.exports = router;

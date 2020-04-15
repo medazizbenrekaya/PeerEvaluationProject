@@ -118,8 +118,6 @@ class TeacherPage extends  Component {
             description:document.getElementById('desc').value,
             type:document.getElementById('type').value,
             macroskills: this.state.m
-
-
         };
 
 
@@ -127,6 +125,7 @@ class TeacherPage extends  Component {
 
             window.location.reload()
             console.log('succes')
+            window.location.reload(false);
 
 
 
@@ -230,8 +229,9 @@ class TeacherPage extends  Component {
     render() {
         return (
             <>
-                <NavbarProfile/>
+
                 <ProfilePageHeader/>
+                <NavbarProfile/>
                 <div className="section profile-content">
                     <Container>
                         <div className="owner">

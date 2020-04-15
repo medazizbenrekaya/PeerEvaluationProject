@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var microskills = require('./routes/microSkills');
 var team = require('./api/team');
+var project = require('./api/project');
 var micros = require('./api/microskills');
 var users = require('./api/users.js');
 var projet = require('./api/project.js');

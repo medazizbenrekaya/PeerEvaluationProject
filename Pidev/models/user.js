@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var Team = require('../models/team');
+var Team = require('./team');
 var MS = require('./microskills').schema
 var team = require('../models/team')
 var Project = require('../models/project')
@@ -10,6 +10,7 @@ var userSchema = new mongoose.Schema({
   email : {type : String , required : true},
   resetPasswordToken: {type : String},
   role : {type : String , default : null},
+  etat:{type  : Boolean , default : false},
   team :{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Team', default:null

@@ -47,6 +47,8 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {Radar} from 'react-chartjs-2';
+import {Carousel} from 'primereact/carousel';
+
 
 
 
@@ -71,7 +73,7 @@ class Peer extends  Component {
         //
         // });
         const st = {
-            email: jwt_decode(localStorage.token).user.email ,
+            email: jwt_decode(localStorage.token).user.email  ,
             project :document.getElementById('project').value
 
         }
@@ -89,6 +91,7 @@ class Peer extends  Component {
     };
 
 descrip(){
+    this.setState({show:true})
     const n ={ nom:document.getElementById('project').value}
     test2: axios.post("http://localhost:3000/project/get",n).then(res => {
         this.setState({p : res.data})
@@ -120,19 +123,19 @@ descrip(){
         console.log(this.state.tab3)
 
         const d = {
-            labels: ['Communication', 'JavaScript', 'DataScience', 'LeaderShip','Confidence'],
+            labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
             // labels: this.state.tab2 && this.state.tab2,
             datasets: [
                 {
                     label: 'Your Evaluation ! ',
-                    backgroundColor: 'rgba(179,181,198,0.2)',
+                    backgroundColor: 'rgba(214, 4, 0, 1)',
                     borderColor: 'rgba(179,181,198,1)',
-                    pointBackgroundColor: 'rgba(179,181,198,1)',
+                    pointBackgroundColor: 'rgba(0, 214, 82, 1)',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
                     pointHoverBorderColor: 'rgba(179,181,198,1)',
                     // data:this.state.tab3 && this.state.tab3
-                    data: [12,20,10,8,18]
+                    data: [12,20,10,8,18,16,19]
                 }
             ]
         };
@@ -145,7 +148,7 @@ descrip(){
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:''};
+        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false};
 
 
     }
@@ -163,7 +166,7 @@ descrip(){
                                 <img
                                     alt="..."
                                     className="img-circle img-no-padding img-responsive"
-                                    src={require("assets/img/faces/student.png")}
+                                    src={require("assets/img/faces/adem.jpg")}
                                 />
                             </div>
                             <div className="name">
@@ -177,78 +180,139 @@ descrip(){
                             <Col className="ml-auto mr-auto text-center" md="6">
                                 <p>
                                     Esprit Student that is trying to use PeerEvaluation
-                                <br/> <br/> <br/> <br/>
+                                <br/>
+                                    <Label for="exampleSelect">Select Project  !</Label>
+                                    <Input type="select" name="select" id="project">
+                                        {this.state.project && this.state.project.map((team) => <option id="project"
+                                                                                                        onClick={this.descrip.bind(this)}
+                                                                                                        key={team}
+                                                                                                        value={team}>{team}</option>)}
+                                    </Input>
+
+                                    { this.state.show == true && <Label for="exampleSelect"> Description :{this.state.p && this.state.p['description']}</Label> }
 
 
                                 </p>
                                 <br />
-
-                                <div>
-                                    <Card style={{width: '50rem',height:'10'} }>
-                                        <CardBody>
-                                            <Radar  data={this.state.data} />
-                                        </CardBody>
-                                    </Card>
-
-                                </div>
-
-
-
                             </Col>
                         </Row>
-                        <br /><br /><br /><br />
-                        <Label for="exampleSelect">Select Project  !</Label>
-                        <Media>
-                            <Media >
-                                <Input type="select" name="select" id="project">
-                                    {this.state.project && this.state.project.map((team) => <option id="project" onClick={this.descrip.bind(this)} key={team} value={team}  >{team}</option>)}
-                                </Input>
-                            </Media>
+                        <br />
+                        {/*<Label for="exampleSelect">Select Project  !</Label>*/}
+                       <Media>
+                                <Media>
+                                    {/*<Input type="select" name="select" id="project">*/}
+                                    {/*    {this.state.project && this.state.project.map((team) => <option id="project"*/}
+                                    {/*                                                                    onClick={this.descrip.bind(this)}*/}
+                                    {/*                                                                    key={team}*/}
+                                    {/*                                                                    value={team}>{team}</option>)}*/}
+                                    {/*</Input>*/}
+                                </Media>
                                 <Media body>
                                     <Media heading>
 
 
-                                         {this.state.p && this.state.p['description']}
 
-                                        <Table bordered>
+
+                                        { this.state.show ==true &&
+
+                                        <Table >
                                             <thead>
                                             <tr>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Evaluation !</th>
+                                                <center>
+
+                                                    Team Members !
+                                                </center>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>{this.state.team && this.state.team[0]['nom']}</td>
-                                                <td>{this.state.team && this.state.team[0]['prenom']}</td>
-                                                <td><Link to={{pathname: '/evaluate', X:this.state.p, YO: this.state.team[0]}}> <i
-                                                    className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
-                                            </tr>
+                                                <td>
+                                                    <div className="car-details">
+                                                        <div className="p-grid p-nogutter">
+                                                            <div className="p-col-12">
+                                                                <img src={require("assets/img/faces/student.png")}/>
+                                                            </div>
+                                                            <div className="p-col-12 car-data">
+                                                                <div className="car-title">Teammate</div>
+                                                                <div
+                                                                    className="car-subtitle">{this.state.team && this.state.team[0]['nom'] + ' ' + this.state.team[0]['prenom']} </div>
+                                                                <div className="car-subtitle"><Link to={{
+                                                                    pathname: '/evaluate',
+                                                                    X: this.state.p,
+                                                                    YO: this.state.team[0]
+                                                                }}> <Button color="warning">Evaluate !</Button>
+                                                                </Link></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="car-details">
+                                                        <div className="p-grid p-nogutter">
+                                                            <div className="p-col-12">
+                                                                <img src={require("assets/img/faces/student.png")}/>
+                                                            </div>
+                                                            <div className="p-col-12 car-data">
+                                                                <div className="car-title">Teammate</div>
+                                                                <div
+                                                                    className="car-subtitle">{this.state.team && this.state.team[1]['nom'] + ' ' + this.state.team[1]['prenom']} </div>
+                                                                <div className="car-subtitle"><Link to={{
+                                                                    pathname: '/evaluate',
+                                                                    X: this.state.p,
+                                                                    YO: this.state.team[1]
+                                                                }}>  <Button color="warning">Evaluate !</Button>
+                                                                </Link></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                {this.state.team[2] != null &&
+                                                <td>
+                                                    <div className="car-details">
+                                                        <div className="p-grid p-nogutter">
+                                                            <div className="p-col-12">
+                                                                <img src={require("assets/img/faces/student.png")}/>
+                                                            </div>
+                                                            <div className="p-col-12 car-data">
+                                                                <div className="car-title">Teammate</div>
+                                                                <div
+                                                                    className="car-subtitle">{this.state.team && this.state.team[2]['nom'] + ' ' + this.state.team[2]['prenom']} </div>
+                                                                <div className="car-subtitle"><Link to={{
+                                                                    pathname: '/evaluate',
+                                                                    X: this.state.p,
+                                                                    YO: this.state.team[2]
+                                                                }}> <Button color="warning">Evaluate !</Button>
+                                                                </Link></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <tr>
-                                                <td>{this.state.team && this.state.team[1]['nom']}</td>
-                                                <td>{this.state.team && this.state.team[1]['prenom']}</td>
-                                                <td><Link to={{pathname: '/evaluate', X:this.state.p, YO: this.state.team[1]}}> <i
-                                                    className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
+                                                </td>
+                                                }
+
                                             </tr>
-                                            {this.state.team[2] != null &&
-                                            <tr>
-                                                <td>{this.state.team && this.state.team[2]['nom']}</td>
-                                                <td>{this.state.team && this.state.team[2]['prenom']}</td>
-                                                <td><Link to={{pathname: '/evaluate', X:this.state.p,YO: this.state.team[2]}}> <i
-                                                    className="nc-icon nc-layout-11"/> Evaluate ! </Link></td>
-                                            </tr>
-                                            }
                                             </tbody>
                                         </Table>
+
+                                        }
 
                                     </Media>
 
 
                                 </Media>
 
-                        </Media>
+                            </Media>
+                        {this.state.show ==true &&
+                            <center>
+                        <div>
+                            <Card style={{width: '50rem',height:'10'} }>
+                                <CardBody>
+                                    <Radar  data={this.state.data} />
+                                </CardBody>
+                            </Card>
+
+
+                        </div>  </center> }
 
 
 

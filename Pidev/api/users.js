@@ -45,7 +45,167 @@ router.post("/register", (req, res) => {
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
         role : req.body.role,
           image: req.body.image
+
       });
+      ms1 = new ms({
+            nom:"Communication",
+          type:"Soft Skills",
+                macroskills:
+            [
+                {
+                    nom:"Timeliness of information provided"
+
+                },
+                {
+                    nom:"Effectiveness of means of communications Used"
+
+                },
+                {
+                    nom:"Interpersonal communication"
+
+                },   {
+                nom:"Language Used"
+
+            }
+
+
+            ]
+      })
+        ms3 = new ms({
+            nom:"Leadership",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {
+                        nom:"Motivation"
+
+                    },
+                    {
+                        nom:"Good interpersonal relationship"
+
+                    },
+                    {
+                        nom:"Proactivity"
+
+                    },   {
+                    nom:"Cooperation efficiency"
+
+                }
+
+
+                ]
+
+
+        })
+        ms4 = new ms({
+            nom:"Effectiveness",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {
+                        nom:"Availibality to solve problems"
+
+                    },
+                    {
+                        nom:"Assertiveness to perform tasks"
+
+                    },
+                    {
+                        nom:"Resilience"
+
+                    },   {
+                    nom:"Execution's Pace"
+
+                }
+
+
+                ]
+
+
+        })
+        ms5 = new ms({
+            nom:"Professionalism",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {nom:"Puntualitty at mettings"
+
+                    },
+                    {
+                        nom:"Punctual delivery of activites or tasks"
+
+                    },
+                    {
+                        nom:"Teamwork"
+
+                    },   {
+                    nom:"Cooperation"
+
+                }
+
+
+                ]
+
+
+        })
+        ms6 = new ms({
+            nom:"Managing Skils",
+            type:"Soft Skills",
+            macroskills:
+                [
+                    {
+                        nom:"Planning"
+
+                    },
+                    {
+                        nom:"Organization"
+
+                    },
+                    {
+                        nom:"Resource allocation"
+
+                    },   {
+                    nom:"Decision making"
+
+                }
+
+
+                ]
+
+
+        })
+        ms7 = new ms({
+                nom:"Cognitive Ability",
+            type:"Soft Skills",
+                macroskills:
+                    [
+                        {
+                            nom:"Speed of Information Processing"
+
+                        },
+                        {
+                            nom:"Working Memory"
+
+                        },
+                        {nom:"Sustained Attention"
+
+                        },   {
+                        nom:"Flexibility"
+
+                    }
+
+
+                    ]
+
+
+            }
+        )
+        user.microskills.push(ms1)
+        user.microskills.push(ms3)
+        user.microskills.push(ms4)
+        user.microskills.push(ms5)
+        user.microskills.push(ms6)
+        user.microskills.push(ms7)
       user.save((err, user) => {
         if (err) res.json(err);
         else res.json(user);

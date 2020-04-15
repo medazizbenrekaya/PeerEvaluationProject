@@ -33,6 +33,7 @@ import  "../../assets/css/colors.css";
 
 
 
+
 class Evaluation extends  Component {
     componentDidMount() {
         const t = {
@@ -80,6 +81,7 @@ class Evaluation extends  Component {
 
 
         });
+        alert("You just evaluated your mate in" +' ' +'Macro :  ' +document.getElementById('exampleSelect2').value)
 
     }
 
@@ -168,6 +170,7 @@ class Evaluation extends  Component {
                                 <Button onClick={this.note.bind(this)}>Noter!</Button>
                             </Form>
                         </div>
+
 
 
                         {/* Tab panes */}

@@ -101,6 +101,38 @@ router.get("/Afficher",(req,res,next)=>{
         else res.json(team)
     })
 })
+router.post("/accepter2/:id", (req, res) => {
+    var x = true
+
+    project.findOne({_id: req.body.id}, (err, u) => {
+        Team.findOne({_id: req.params.id}, (err, c) => {
+
+            c.projects.forEach(function (ee) {
+                if(ee.id==u.id){
+                    x=false;
+
+                }
+
+            })
+
+
+            if(x==false)
+                res.status(401).json({info :"tu est deja dans le projet"})
+
+            else{
+                u.team = c._id
+                u.save()
+                c.projects.push(u)
+                console.log(c)
+                c.save(function (err) {
+                    if (err)
+                        console.log('error')
+                    else
+                        res.json('success')
+                });
+            }});
+    });
+})
 
 router.post("/affecter", (req, res) => {
     tab=req.body.teams
@@ -136,6 +168,30 @@ router.post("/affecter", (req, res) => {
 
     })
     res.status(200).json(tab)
+})
+
+router.get("/allTeam", (req, res) => {
+
+    Team.find((err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
+router.post("/name", (req, res) => {
+
+    Team.find({name : new RegExp(req.body.name , 'i')},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
 })
 
 module.exports = router;

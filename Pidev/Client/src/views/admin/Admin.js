@@ -54,14 +54,26 @@ class Admin extends Component {
 
       console.log('succes')
     });
+
+    axios.get("http://localhost:3000/project/allProject").then(res => {
+      this.setState({tab3:res.data})
+
+      console.log('succes')
+    });
+    axios.get("http://localhost:3000/team/allTeam").then(res => {
+      this.setState({tab4:res.data})
+
+      console.log('succes')
+    });
   }
   constructor(props){
     super(props)
-    this.state = {tab1:'',tab2:''};
+    this.state = {tab1:'',tab2:'',tab3:'',tab4:'',tab5:'',show:false};
     this.state = {m: [],x:[],ms:'',
       activeTab:"1"
 
     };
+
 
   }
 
@@ -117,6 +129,54 @@ class Admin extends Component {
       console.log(res.data)
     });
   }
+  findTeam()
+  {
+    const t =
+        {
+          name:document.getElementById('textTeam').value
+        }
+    axios.post("http://localhost:3000/team/name", t ).then(res => {
+      this.setState({tab4:res.data})
+
+      console.log(res.data)
+    });
+  }
+
+  findProject()
+  {
+    const t =
+        {
+          nom:document.getElementById('textProject').value
+        }
+    axios.post("http://localhost:3000/project/nom", t ).then(res => {
+      this.setState({tab3:res.data})
+
+      console.log(res.data)
+    });
+  }
+  findMembers(id,a)
+  {
+    axios.get("http://localhost:3000/team/getMembers/"+id ).then(res => {
+      this.setState({tab5:res.data,tab4:'',show:true,nom:a,nomT:null})
+
+
+      console.log(res.data)
+    });
+  }
+  back()
+ {
+   axios.get("http://localhost:3000/team/allTeam").then(res => {
+     this.setState({tab4:res.data,tab5:'',show:false})
+
+     console.log('succes')
+   });
+ }
+ findt(nom)
+ {
+   this.setState({nomT:nom,activeTab:"3"})
+
+ }
+
 
 
 
@@ -189,7 +249,7 @@ class Admin extends Component {
                                     <option value="Teacher" onClick={this.filter.bind(this)}>
                                       Teacher
                                     </option>
-                                    <option value="Student" onClick={this.filter.bind(this)}>
+                                    <option value="Student"  onClick={this.filter.bind(this)}>
                                       Student
                                     </option>
                                   </Input >
@@ -200,8 +260,8 @@ class Admin extends Component {
 
                            <table className="table-responsive-md">
                              <tr>
-                               <td> <Input type="text" id="text"  /></td>
-                               <td>         <button onClick={this.find.bind(this)}>Search</button></td>
+                               <td> <Input type="text" id="text" placeholder="User email" onChange={this.find.bind(this)}  /></td>
+
                              </tr>
 
                            </table>
@@ -230,6 +290,9 @@ class Admin extends Component {
                                   )}
 
                                 </table>
+
+
+
                               </div>
 
 
@@ -241,6 +304,110 @@ class Admin extends Component {
                         </Row>
                       </Container>
                     </div>
+                  </TabPane>
+                  <TabPane tabId="2">
+                    <Col className="ml-auto mr-auto" md="8">
+
+                      <h1>Projects List</h1>
+
+                      <table className="table-responsive-md">
+                        <tr>
+                          <td> <Input type="text" id="textProject" placeholder="Project/Team name" onChange={this.findProject.bind(this)} /></td>
+                        </tr>
+
+                      </table>
+                      <div className="table-responsive">
+
+                        <table className="table">
+                          <thead className="table table-info">
+                          <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Team</th>
+                            <th>Actions</th>
+                          </tr>
+                          </thead>
+                          {this.state.tab3   && this.state.tab3.map((t) =>  <tbody className="table table-active" key={t._id}  >
+
+                              <tr>
+                                <td>{t.nom}
+                                </td>
+                                <td>{t.description}</td>
+                                <td>{t.team['name']}</td>
+                                <td><button className="btn-info" onClick={this.findt.bind(this,t.team['name'])} >Details</button></td>
+                              </tr>
+                              </tbody>
+                          )}
+
+                        </table>
+                      </div></Col>
+
+                  </TabPane>
+                  <TabPane tabId="3">
+                    <Col className="ml-auto mr-auto" md="8">
+
+                      <h1>Teams List</h1>
+
+                      <table className="table-responsive-md">
+                        <tr>
+                          {this.state.nomT? <td>Search for : <p> {this.state.nomT} </p></td>  :null}
+                          <td> <Input  type="text" id="textTeam" placeholder={this.state.nomT}   onChange={this.findTeam.bind(this)}  /></td>
+
+                        </tr>
+
+
+                      </table>
+                      <div className="table-responsive">
+
+                        <table className="table">
+                          <thead className="table table-info">
+                          <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Members number</th>
+                            <th>Actions</th>
+                          </tr>
+                          </thead>
+
+                          {this.state.tab4   && this.state.tab4.map((team) =>  <tbody className="table table-active" key={team._id}  >
+
+                              <tr>
+                                <td>{team.name}
+                                </td>
+                                <td>{team.bio}</td>
+                                <td>{team.members.length}</td>
+                                <td><button className="btn-info" onClick={this.findMembers.bind(this,team._id,team.name)} >Details</button></td>
+                              </tr>
+                              </tbody>
+                          )}
+
+                        </table>
+                        {this.state.show? <table className="table">
+                          <thead className="table table-info">
+                          <tr className="table table-active" > <th colSpan="3">Members List of Team :  {this.state.nom} </th></tr>
+                          <tr>
+
+                            <th>First Name </th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                          </tr>
+                          </thead>
+                          {this.state.tab5 && this.state.tab5.map((t) =>  <tbody className="table table-active" key={t._id}  >
+
+                              <tr>
+                                <td>{t.nom}
+                                </td>
+                                <td>{t.prenom}</td>
+                                <td>{t.email}</td>
+
+                              </tr>
+
+                              </tbody>
+                          ) }
+                          <tr><td colSpan="3">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
+                        </table> :null}
+
+                      </div></Col>
                   </TabPane>
                 </TabContent>
               </Col>

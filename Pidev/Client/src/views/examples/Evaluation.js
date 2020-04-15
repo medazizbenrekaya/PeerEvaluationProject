@@ -77,6 +77,8 @@ class Evaluation extends  Component {
         axios.post("http://localhost:3000/users/note",n).then(res => {
 
             console.log("succes")
+            alert("vous avez noter votre camarade")
+            window.location.reload(false);
 
 
 
@@ -153,6 +155,7 @@ class Evaluation extends  Component {
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Macro !</Label>
                                     <Input type="select" name="select" id="exampleSelect1">
+                                        {this.state.TEST && this.state.TEST['microskills'].map((team) => <option  onClick= {this.find.bind(this)} key={team.nom} value={team.nom} >{team.nom}</option>)}
                                         {this.state.TEST && this.state.TEST['microskills'].map((team) =><optgroup key={team.nom} label={team.type}><option onClick={this.find.bind(this)}   key={team.nom} value={team.nom}  >{team.nom}</option> </optgroup> )}
                                     </Input>
 

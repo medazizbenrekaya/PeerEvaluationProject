@@ -1,9 +1,11 @@
 var mongoose = require('mongoose')
 var User = require('./user').schema;
+var Project = require('./project').schema;
 var teamSchema = new mongoose.Schema({
     name : {type : String , trim : true,required : true},
     bio : {type : String},
-    members: [User]
+    members: [User],
+    projects:[Project]
 
 })
  //var u1 = mongoose.model('Team',teamSchema);

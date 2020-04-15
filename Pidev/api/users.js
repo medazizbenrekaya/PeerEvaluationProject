@@ -422,7 +422,7 @@ router.post("/role", (req, res) => {
 })
 router.post("/email", (req, res) => {
 
-    User.find({email : req.body.email},(err, c) => {
+    User.find({email : new RegExp(req.body.email, 'i')},(err, c) => {
 
         if(err)
             res.json(err)

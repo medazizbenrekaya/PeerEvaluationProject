@@ -14,6 +14,17 @@ router.post("/ajouter", (req, res) => {
         else res.json(c);
     });
 });
+router.post("/nom", (req, res) => {
+
+    project.find({$or: [ {'team.name':  new RegExp(req.body.nom , 'i')} , {nom : new RegExp(req.body.nom , 'i')} ] },(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
 
 router.post("/addteam", (req, res) => {
 // ajout de l'id project dans chaque user de la team spécifiée
@@ -50,6 +61,18 @@ router.post("/get", (req, res) => {
 
 
 });
+
+router.get("/allProject", (req, res) => {
+
+    project.find((err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
 
 
 

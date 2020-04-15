@@ -48,10 +48,11 @@ class Evaluation extends  Component {
 
         });
         const TEST = this.props.location.YO
-        console.log(TEST)
-        const TEST2 = this.props.location.X
+        const TEST2 = this.props.location.X['nom']
+        this.setState({teamname:this.props.location.X['nom']})
+        console.log(this.state.teamname)
    console.log(TEST)
-        console.log(TEST2)
+
         this.setState({TEST: TEST})
         console.log(this.state.TEST)
 
@@ -61,11 +62,12 @@ class Evaluation extends  Component {
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false};
+        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:''};
 
     }
     note(){
         const n ={
+            project:this.props.location.X['nom'],
             email:this.state.TEST['email'],voteur:jwt_decode(localStorage.token).user._id,
             nom:document.getElementById('exampleSelect2').value,
             note:document.getElementById('n').value,

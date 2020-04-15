@@ -170,4 +170,28 @@ router.post("/affecter", (req, res) => {
     res.status(200).json(tab)
 })
 
+router.get("/allTeam", (req, res) => {
+
+    Team.find((err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
+router.post("/name", (req, res) => {
+
+    Team.find({name : new RegExp(req.body.name , 'i')},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
 module.exports = router;

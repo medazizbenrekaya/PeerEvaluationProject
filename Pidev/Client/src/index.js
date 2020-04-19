@@ -79,8 +79,8 @@ ReactDOM.render(
         render={props => <RegisterPage {...props} />}
       />
       <Route
-          path="/admin"
-          render={props => <Admin {...props} />}
+          path="/admin2"
+          render={props => <Admin2 {...props} />}
       />
       <Route
           path="/Admin2"

@@ -11,6 +11,8 @@ var userSchema = new mongoose.Schema({
   resetPasswordToken: {type : String},
   role : {type : String , default : null},
   etat:{type  : Boolean , default : false},
+  university:{type  : String , default : null},
+  pays:{type  : String , default : null},
   team :{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Team', default:null

@@ -36,27 +36,15 @@ import  "../../assets/css/colors.css";
 
 class Evaluation extends  Component {
     componentDidMount() {
-        const t = {
-            email: jwt_decode(localStorage.token).user.email }
-        test: axios.post("http://localhost:3000/users/TeamName",t).then(res => {
-            this.setState({team : res.data})
-        })
-        const members =     axios.post("http://localhost:3000/users/TeamMembers",t).then(res => {
 
-            this.setState({tab:res.data})
-
-
-
-        });
         const TEST = this.props.location.YO
-        const TEST2 = this.props.location.X['nom']
-        this.setState({teamname:this.props.location.X['nom']})
+
+
 
 
 
         this.setState({TEST: TEST})
-        console.log(this.props.location.YO['microskills'])
-        console.log(this.state.TEST)
+
 
 
     };
@@ -65,40 +53,38 @@ class Evaluation extends  Component {
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:''};
+        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:'',show1:false,nom:'',nom2:''};
 
     }
     note(){
         const n ={
             project:this.props.location.X['nom'],
-            email:this.state.TEST['email'],voteur:jwt_decode(localStorage.token).user._id,
-            nom:document.getElementById('exampleSelect2').value,
+            email:this.state.TEST['email'],
+            voteur:jwt_decode(localStorage.token).user._id,
+            nom:this.state.nom,
             note:document.getElementById('n').value,
-            M:document.getElementById('exampleSelect1').value
+            M:this.state.nom2
         }
         axios.post("http://localhost:3000/users/note",n).then(res => {
 
             console.log("succes")
             alert("vous avez noter votre camarade")
-            window.location.reload(false);
+
 
 
 
         });
-        alert("You just evaluated your mate in" +' ' +'Macro :  ' +document.getElementById('exampleSelect2').value)
+        alert("You just evaluated your mate in" +' ' +'Macro :  ' +this.state.nom2)
 
     }
 
 
-    find(){
-        const t = {
-            nom:document.getElementById('exampleSelect1').value
-        }
-        console.log(t)
-        const members =     axios.post("http://localhost:3000/ms/find",t).then(res => {
+    find(a){
 
-                this.setState({tab2:res.data})
-            console.log(t)
+        const members =     axios.post("http://localhost:3000/ms/find/"+a).then(res => {
+
+                this.setState({tab2:res.data,show1:true})
+
 
             console.log("succes")
 
@@ -106,8 +92,9 @@ class Evaluation extends  Component {
 
             });
     }
-    show(){
-        this.setState({show:true})
+    show(b,a){
+
+        this.setState({show:true,nom:b,nom2:a})
     }
 
     render(){
@@ -156,21 +143,45 @@ class Evaluation extends  Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Macro !</Label>
-                                    <Input type="select" name="select" id="exampleSelect1">
-                                        {this.state.TEST && this.state.TEST['microskills'].map((team) => <option  onClick= {this.find.bind(this)} key={team.nom} value={team.nom} >{team.nom}</option>)}
-                                        {this.state.TEST && this.state.TEST['microskills'].map((team) =><optgroup key={team.nom} label={team.type}><option onClick={this.find.bind(this)}   key={team.nom} value={team.nom}  >{team.nom}</option> </optgroup> )}
-                                    </Input>
+
+
+
+
+
+                                            {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
+                                                <thead className="table table-info">
+                                                <th>macro skills</th>
+                                                <th>micro skills</th>
+
+                                                </thead>
+                                            <tbody className="table table-active">
+
+                                            <tr>
+                                                <td rowSpan="6"><option id="exampleSelect1">{team.nom}</option></td>
+                                            </tr>
+
+
+
+                                            {team.macroskills.map((t) => <tr border="2"  key={t.nom}><option id="exempleselected" onClick={this.show.bind(this,t.nom,team.nom)}> {t.nom}</option></tr>  )}
+                                            <tr>
+
+
+                                            </tr>
+
+
+                                            </tbody>
+
+                                                </table>
+                                            )}
+
+
+
+
+
+                                    {this.state.show? <h3 >Evaluate  {this.state.nom} of {this.state.nom2} :<select id="n"  className="select" ><option className="red" >1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></h3> :null}
+
 
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="exampleSelect">Select Micro !</Label>
-                                    <Input type="select" name="select" id="exampleSelect2" >
-                                        {this.state.tab2 && this.state.tab2.map((team) => <option onClick={this.show.bind(this)} key={team.nom} value={team.nom}  >{team.nom}</option>)}
-
-                                    </Input>
-                                </FormGroup>
-                                {this.state.show? <Label for="exampleSelect2">Notez :<select id="n" className="select" ><option className="red">1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></Label> :null} <br/>
-
 
                                 <Button onClick={this.note.bind(this)}>Noter!</Button>
                             </Form>

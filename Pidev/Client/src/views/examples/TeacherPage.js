@@ -347,8 +347,8 @@ class TeacherPage extends  Component {
                                                                         <Row>
                                                                             <label>Type</label>
                                                                             <select name="type" id="type">
-                                                                                <option>Hard Skill</option>
-                                                                                <option>Soft Skill</option>
+                                                                                <option>Hard Skills</option>
+                                                                                <option>Soft Skills</option>
                                                                             </select>
                                                                         </Row>
 
@@ -415,10 +415,10 @@ class TeacherPage extends  Component {
                                                                         <option onClick={this.componentDidMount.bind(this)}>
                                                                             All Macro Skills
                                                                         </option>
-                                                                        <option value="Hard Skill" onClick={this.filter.bind(this)}>
+                                                                        <option value="Hard Skills" onClick={this.filter.bind(this)}>
                                                                             Hard Skills
                                                                         </option>
-                                                                        <option value="Soft Skill" onClick={this.filter.bind(this)}>
+                                                                        <option value="Soft Skills" onClick={this.filter.bind(this)}>
                                                                             Soft Skills
                                                                         </option>
                                                                     </Input >
@@ -440,7 +440,6 @@ class TeacherPage extends  Component {
                                                                 <thead className="table table-info">
                                                                 <tr>
                                                                     <th>Name</th>
-                                                                    <th>Description</th>
                                                                     <th>Type</th>
                                                                     <th>Nombre Micro Skills</th>
                                                                     <th>Actions</th>
@@ -450,9 +449,6 @@ class TeacherPage extends  Component {
 
                                                                     <tr>
                                                                         <td>{team.nom}
-
-                                                                        </td>
-                                                                        <td>{team.description}
 
                                                                         </td>
                                                                         <td>{team.type}</td>

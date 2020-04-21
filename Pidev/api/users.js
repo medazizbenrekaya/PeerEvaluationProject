@@ -582,7 +582,7 @@ router.post("/role", (req, res) => {
 })
 router.post("/email", (req, res) => {
 
-    User.find({email : new RegExp(req.body.email, 'i')},(err, c) => {
+    User.find({$or: [{email : new RegExp(req.body.email, 'i')}, {university : new RegExp(req.body.email, 'i')} ,{pays : new RegExp(req.body.email, 'i')}   ]   } ,(err, c) => {
 
         if(err)
             res.json(err)

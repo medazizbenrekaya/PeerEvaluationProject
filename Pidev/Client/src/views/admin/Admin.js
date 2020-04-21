@@ -259,7 +259,7 @@ class Admin extends Component {
 
                            <table className="table-responsive-md">
                              <tr>
-                               <td> <Input type="text" id="text" placeholder="User email" onChange={this.find.bind(this)}  /></td>
+                               <td> <Input type="text" id="text" placeholder="User email/country" onChange={this.find.bind(this)}  /></td>
 
                              </tr>
 

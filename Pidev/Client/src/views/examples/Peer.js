@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 import React,{Component} from "react";
 
@@ -62,16 +45,7 @@ class Peer extends  Component {
     componentDidMount() {
         const t = {
             email: jwt_decode(localStorage.token).user.email }
-        // test: axios.post("http://localhost:3000/users/TeamName",t).then(res => {
-        //     this.setState({team : res.data})
-        // })
-        // const members =     axios.post("http://localhost:3000/users/TeamMembers",t).then(res => {
-        //
-        //     this.setState({tab:res.data})
-        //     // console.log(this.state.tab)
-        //
-        //
-        // });
+
         const st = {
             email: jwt_decode(localStorage.token).user.email  ,
             project :document.getElementById('project').value
@@ -90,24 +64,43 @@ class Peer extends  Component {
 
     };
 
-    descrip(){
-        this.setState({show:true})
-        const n ={ nom:document.getElementById('project').value}
-        test2: axios.post("http://localhost:3000/project/get",n).then(res => {
-            this.setState({p : res.data})
-            // this.state.p['team']['members'].map(e=>{
-            //
-            var x = this.state.p['team']['members']
-            this.setState({team:x})
-            console.log(this.state.team)
+
+descrip(){
+    this.setState({show:true})
+    var T = []
+    const n ={ nom:document.getElementById('project').value}
+    test2: axios.post("http://localhost:3000/project/get",n).then(res => {
+        this.setState({p : res.data})
+        var x = this.state.p['team']['members']
+        this.setState({team:x})
+        console.log(this.state.team)
+        this.state.p['team']['members'].map(t=>{ //chouf mlih
+
+
+            var v = {
+                project :document.getElementById('project').value,
+                voteur : jwt_decode(localStorage.token).user._id,
+                email: t.email
+            }
+            axios.post("http://localhost:3000/project/verifvoteur",v).then(res => {
+
+                if ( this.state.v) {
+                    T = [...this.state.v,res.data]
+                } else {
+                    T.push(res.data)
+                }
+                 this.setState({v : T}, () => console.log(this.state.v)) //test chay
+            })
 
         })
-        const st = {
-            email: jwt_decode(localStorage.token).user.email ,
-            project :document.getElementById('project').value
 
-        }
-        const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
+    })
+    const st = {
+        email: jwt_decode(localStorage.token).user.email ,
+        project :document.getElementById('project').value
+
+    }
+    const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
 
             this.setState({stats:res.data})
             console.log(this.state.stats)
@@ -146,9 +139,11 @@ class Peer extends  Component {
     }
 
 
+
+
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false};
+        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[]};
 
 
     }
@@ -166,7 +161,7 @@ class Peer extends  Component {
                                 <img
                                     alt="..."
                                     className="img-circle img-no-padding img-responsive"
-                                    src={require('assets/img/faces/'+jwt_decode(localStorage.token).user.image)}
+                                    src={require('assets/img/faces/student.png')}
                                 />
                             </div>
                             <div className="name">
@@ -184,7 +179,7 @@ class Peer extends  Component {
                                     <Label for="exampleSelect">Select Project  !</Label>
                                     <Input type="select" name="select" id="project">
                                         {this.state.project && this.state.project.map((team) => <option id="project"
-                                                                                                        onClick={this.descrip.bind(this)}
+                                                                                                        onClick={this.descrip.bind(this) }
                                                                                                         key={team}
                                                                                                         value={team}>{team}</option>)}
                                     </Input>
@@ -197,6 +192,13 @@ class Peer extends  Component {
                             </Col>
                         </Row>
                         <br />
+
+                       <Media >
+                                <Media>
+                                </Media>
+                                <Media body>
+                                    <Media heading>
+
                         {/*<Label for="exampleSelect">Select Project  !</Label>*/}
                         <Media>
                             <Media>
@@ -209,13 +211,9 @@ class Peer extends  Component {
                             </Media>
                             <Media body>
                                 <Media heading>
+                                    {this.state.show == true &&
 
-
-
-
-                                    { this.state.show ==true &&
-
-                                    <Table >
+                                    <Table>
                                         <thead>
                                         <tr>
                                             <center>
@@ -226,120 +224,41 @@ class Peer extends  Component {
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>
-                                                <div className="car-details">
-                                                    <div className="p-grid p-nogutter">
-                                                        <div className="p-col-12">
-                                                            {this.state.team?   <img
-                                                                alt="..."
-                                                                className="img-circle img-no-padding img-responsive"
-                                                                src={require('assets/img/faces/student.png')}
-                                                            /> :null}
-                                                        </div>
+                                            {this.state.p && this.state.p['team']['members'].map((member, index) =>
+                                                <td>
+                                                    <div className="car-details">
+                                                        <div className="p-grid p-nogutter">
+                                                            <div className="p-col-12">
+                                                                <img src={require("assets/img/faces/student.png")}/>
+                                                            </div>
+                                                            <div className="p-col-12 car-data">
+                                                                <div className="car-title">Teammate</div>
+                                                                <div
+                                                                    className="car-subtitle">{this.state.team && member.nom + ' ' + member.prenom} </div>
+                                                                {this.state.v.length &&
+                                                                this.state.v[index] == true ?
+                                                                    <div className="car-subtitle"><Link to={{
+                                                                        pathname: '/evaluate',
+                                                                        X: this.state.p,
+                                                                        YO: member
+                                                                    }}> <Button color="warning">Evaluate
+                                                                        !</Button></Link></div>
+                                                                    :
+                                                                    < label className="label label-success mr-1">Evaluation
+                                                                        Done!</label>
+                                                                }
 
-
-                                                        <div className="p-col-12 car-data">
-                                                            <div className="car-title">Teammate</div>
-                                                            <div
-                                                                className="car-subtitle">{this.state.team && this.state.team[0]['nom'] + ' ' + this.state.team[0]['prenom']} </div>
-                                                            {this.state.team && this.state.team[0]['email'] == jwt_decode(localStorage.token).user.email  &&
-                                                            <div className="car-subtitle"><Link to={{
-                                                                pathname: '/evaluate',
-                                                                X: this.state.p,
-                                                                YO: this.state.team[0]
-                                                            }}> <Button color="warning">Self Evaluate !</Button>
-                                                            </Link></div> }
-                                                            {this.state.team && this.state.team[0]['email'] != jwt_decode(localStorage.token).user.email  &&
-                                                            <div className="car-subtitle"><Link to={{
-                                                                pathname: '/evaluate',
-                                                                X: this.state.p,
-                                                                YO: this.state.team[0]
-                                                            }}> <Button color="warning"> Evaluate !</Button>
-                                                            </Link></div> }
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="car-details">
-                                                    <div className="p-grid p-nogutter">
-                                                        <div className="p-col-12">
-                                                            {this.state.team?   <img
-                                                                alt="..."
-                                                                className="img-circle img-no-padding img-responsive"
-                                                                src={require('assets/img/faces/student.png')}
-                                                            /> :null}
-                                                        </div>
-                                                        <div className="p-col-12 car-data">
-                                                            <div className="car-title">Teammate</div>
-                                                            <div
-                                                                className="car-subtitle">{this.state.team && this.state.team[1]['nom'] + ' ' + this.state.team[1]['prenom']} </div>
-                                                            {this.state.team && this.state.team[1]['email'] == jwt_decode(localStorage.token).user.email  &&
-                                                            <div className="car-subtitle"><Link to={{
-                                                                pathname: '/evaluate',
-                                                                X: this.state.p,
-                                                                YO: this.state.team[1]
-                                                            }}> <Button color="warning">Self Evaluate !</Button>
-                                                            </Link></div> }
-                                                            {this.state.team && this.state.team[1]['email'] != jwt_decode(localStorage.token).user.email  &&
-                                                            <div className="car-subtitle"><Link to={{
-                                                                pathname: '/evaluate',
-                                                                X: this.state.p,
-                                                                YO: this.state.team[1]
-                                                            }}> <Button color="warning"> Evaluate !</Button>
-                                                            </Link></div> }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            {this.state.team[2] != null &&
-                                            <td>
-                                                <div className="car-details">
-                                                    <div className="p-grid p-nogutter">
-                                                        <div className="p-col-12">
-                                                            {this.state.team?   <img
-                                                                alt="..."
-                                                                className="img-circle img-no-padding img-responsive"
-                                                                src={require('assets/img/faces/student.png')}
-                                                            /> :null}
-                                                        </div>
-                                                        <div className="p-col-12 car-data">
-                                                            <div className="car-title">Teammate</div>
-                                                            <div
-                                                                className="car-subtitle">{this.state.team && this.state.team[2]['nom'] + ' ' + this.state.team[2]['prenom']} </div>
-                                                            {this.state.team && this.state.team[2]['email'] == jwt_decode(localStorage.token).user.email  &&
-                                                            <div className="car-subtitle"><Link to={{
-                                                                pathname: '/evaluate',
-                                                                X: this.state.p,
-                                                                YO: this.state.team[2]
-                                                            }}> <Button color="warning">Self Evaluate !</Button>
-                                                            </Link></div> }
-                                                            {this.state.team && this.state.team[2]['email'] != jwt_decode(localStorage.token).user.email  &&
-                                                            <div className="car-subtitle"><Link to={{
-                                                                pathname: '/evaluate',
-                                                                X: this.state.p,
-                                                                YO: this.state.team[2]
-                                                            }}> <Button color="warning"> Evaluate !</Button>
-                                                            </Link></div> }
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </td>
-                                            }
+                                                </td>)}
 
                                         </tr>
                                         </tbody>
                                     </Table>
-
                                     }
 
-                                </Media>
 
-
-                            </Media>
-
-                        </Media>
                         {this.state.show ==true &&
                         <center>
                             <div>
@@ -354,23 +273,10 @@ class Peer extends  Component {
 
 
 
-                        {/*<ListGroup as="ul" >*/}
-                        {/*    <center> <ListGroupItem as="li" active>Team {this.state.team}</ListGroupItem></center>*/}
-                        {/*    <ListGroupItem as="li">{this.state.tab && this.state.tab[0]['nom'] +' '+this.state.tab[0]['prenom'] }*/}
-                        {/*        <Link to={{pathname:'/evaluate', YO :this.state.tab[0]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>*/}
-                        {/*    </ListGroupItem>*/}
-                        {/*    <ListGroupItem as="li" >{this.state.tab && this.state.tab[1]['nom'] +' '+this.state.tab[1]['prenom']}*/}
-                        {/*        <Link to={{pathname:'/evaluate', YO :this.state.tab[1]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>*/}
-                        {/*    </ListGroupItem>*/}
-
-                        {/*    <ListGroupItem as="li" >{ jwt_decode(localStorage.token).user.nom } { jwt_decode(localStorage.token).user.prenom}*/}
-                        {/*    <Link to={{pathname:'/selfEvaluation'}}><i className="nc-icon nc-layout-11" /> Self Evaluate ! </Link>*/}
-                        {/*    </ListGroupItem>*/}
-
-                        {/*</ListGroup>*/}
-                        {/* Tab panes */}
 
 
+
+</Media></Media></Media></Media></Media></Media>
                     </Container>
 
                 </div>

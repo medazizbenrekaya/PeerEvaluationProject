@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +88,8 @@
       <workItem from="1586940236852" duration="1867000" />
       <workItem from="1586950663980" duration="876000" />
       <workItem from="1586954172748" duration="16875000" />
-      <workItem from="1587473792675" duration="4474000" />
+      <workItem from="1587312769113" duration="588000" />
+      <workItem from="1587317856774" duration="109000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

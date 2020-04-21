@@ -62,16 +62,7 @@ class Peer extends  Component {
     componentDidMount() {
         const t = {
             email: jwt_decode(localStorage.token).user.email }
-        // test: axios.post("http://localhost:3000/users/TeamName",t).then(res => {
-        //     this.setState({team : res.data})
-        // })
-        // const members =     axios.post("http://localhost:3000/users/TeamMembers",t).then(res => {
-        //
-        //     this.setState({tab:res.data})
-        //     // console.log(this.state.tab)
-        //
-        //
-        // });
+
         const st = {
             email: jwt_decode(localStorage.token).user.email  ,
             project :document.getElementById('project').value
@@ -92,14 +83,38 @@ class Peer extends  Component {
 
 descrip(){
     this.setState({show:true})
+    var T = []
     const n ={ nom:document.getElementById('project').value}
     test2: axios.post("http://localhost:3000/project/get",n).then(res => {
         this.setState({p : res.data})
-        // this.state.p['team']['members'].map(e=>{
-        //
         var x = this.state.p['team']['members']
         this.setState({team:x})
         console.log(this.state.team)
+        this.state.p['team']['members'].map(t=>{ //chouf mlih
+
+
+            var v = {
+                project :document.getElementById('project').value,
+                voteur : jwt_decode(localStorage.token).user._id,
+                email: t.email
+            }
+            axios.post("http://localhost:3000/project/verifvoteur",v).then(res => {
+
+                if ( this.state.v) {
+                    T = [...this.state.v,res.data]
+                } else {
+                    T.push(res.data)
+                }
+                 this.setState({v : T}, () => console.log(this.state.v)) //test chay
+            })
+
+        })
+             //win bech tjareb enti
+
+
+
+
+
 
     })
     const st = {
@@ -143,12 +158,16 @@ descrip(){
 
     });
 
+
+
+
 }
+
 
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false};
+        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[]};
 
 
     }
@@ -184,7 +203,7 @@ descrip(){
                                     <Label for="exampleSelect">Select Project  !</Label>
                                     <Input type="select" name="select" id="project">
                                         {this.state.project && this.state.project.map((team) => <option id="project"
-                                                                                                        onClick={this.descrip.bind(this)}
+                                                                                                        onClick={this.descrip.bind(this) }
                                                                                                         key={team}
                                                                                                         value={team}>{team}</option>)}
                                     </Input>
@@ -197,15 +216,8 @@ descrip(){
                             </Col>
                         </Row>
                         <br />
-                        {/*<Label for="exampleSelect">Select Project  !</Label>*/}
-                       <Media>
+                       <Media >
                                 <Media>
-                                    {/*<Input type="select" name="select" id="project">*/}
-                                    {/*    {this.state.project && this.state.project.map((team) => <option id="project"*/}
-                                    {/*                                                                    onClick={this.descrip.bind(this)}*/}
-                                    {/*                                                                    key={team}*/}
-                                    {/*                                                                    value={team}>{team}</option>)}*/}
-                                    {/*</Input>*/}
                                 </Media>
                                 <Media body>
                                     <Media heading>
@@ -226,69 +238,32 @@ descrip(){
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>
-                                                    <div className="car-details">
-                                                        <div className="p-grid p-nogutter">
-                                                            <div className="p-col-12">
-                                                                <img src={require("assets/img/faces/student.png")}/>
-                                                            </div>
-                                                            <div className="p-col-12 car-data">
-                                                                <div className="car-title">Teammate</div>
-                                                                <div
-                                                                    className="car-subtitle">{this.state.team && this.state.team[0]['nom'] + ' ' + this.state.team[0]['prenom']} </div>
-                                                                <div className="car-subtitle"><Link to={{
-                                                                    pathname: '/evaluate',
-                                                                    X: this.state.p,
-                                                                    YO: this.state.team[0]
-                                                                }}> <Button color="warning">Evaluate !</Button>
-                                                                </Link></div>
-                                                            </div>
+                                                {this.state.p && this.state.p['team']['members'].map((member,index) =>
+                                                    <td> <div className="car-details">
+                                                    <div className="p-grid p-nogutter">
+                                                        <div className="p-col-12">
+                                                            <img src={require("assets/img/faces/student.png")}/>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div className="car-details">
-                                                        <div className="p-grid p-nogutter">
-                                                            <div className="p-col-12">
-                                                                <img src={require("assets/img/faces/student.png")}/>
-                                                            </div>
-                                                            <div className="p-col-12 car-data">
-                                                                <div className="car-title">Teammate</div>
-                                                                <div
-                                                                    className="car-subtitle">{this.state.team && this.state.team[1]['nom'] + ' ' + this.state.team[1]['prenom']} </div>
-                                                                <div className="car-subtitle"><Link to={{
-                                                                    pathname: '/evaluate',
-                                                                    X: this.state.p,
-                                                                    YO: this.state.team[1]
-                                                                }}>  <Button color="warning">Evaluate !</Button>
-                                                                </Link></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                {this.state.team[2] != null &&
-                                                <td>
-                                                    <div className="car-details">
-                                                        <div className="p-grid p-nogutter">
-                                                            <div className="p-col-12">
-                                                                <img src={require("assets/img/faces/student.png")}/>
-                                                            </div>
-                                                            <div className="p-col-12 car-data">
-                                                                <div className="car-title">Teammate</div>
-                                                                <div
-                                                                    className="car-subtitle">{this.state.team && this.state.team[2]['nom'] + ' ' + this.state.team[2]['prenom']} </div>
-                                                                <div className="car-subtitle"><Link to={{
-                                                                    pathname: '/evaluate',
-                                                                    X: this.state.p,
-                                                                    YO: this.state.team[2]
-                                                                }}> <Button color="warning">Evaluate !</Button>
-                                                                </Link></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        <div className="p-col-12 car-data">
+                                                            <div className="car-title">Teammate</div>
+                                                            <div
+                                                                className="car-subtitle">{this.state.team && member.nom + ' ' + member.prenom} </div>
+                                                            {this.state.v.length &&
+                                                                this.state.v[index] == true ?
+                                                                    <div className="car-subtitle"><Link to={{
+                                                                        pathname: '/evaluate',
+                                                                        X: this.state.p,
+                                                                        YO: member
+                                                                    }}> <Button color="warning">Evaluate
+                                                                        !</Button></Link></div>
+                                                                    :
+                                                                    < label className="label label-success mr-1">Evaluation Done!</label>
+                                                            }
 
-                                                </td>
-                                                }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </td>)}
 
                                             </tr>
                                             </tbody>
@@ -316,21 +291,8 @@ descrip(){
 
 
 
-                        {/*<ListGroup as="ul" >*/}
-                        {/*    <center> <ListGroupItem as="li" active>Team {this.state.team}</ListGroupItem></center>*/}
-                        {/*    <ListGroupItem as="li">{this.state.tab && this.state.tab[0]['nom'] +' '+this.state.tab[0]['prenom'] }*/}
-                        {/*        <Link to={{pathname:'/evaluate', YO :this.state.tab[0]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>*/}
-                        {/*    </ListGroupItem>*/}
-                        {/*    <ListGroupItem as="li" >{this.state.tab && this.state.tab[1]['nom'] +' '+this.state.tab[1]['prenom']}*/}
-                        {/*        <Link to={{pathname:'/evaluate', YO :this.state.tab[1]}}> <i className="nc-icon nc-layout-11" /> Evaluate ! </Link>*/}
-                        {/*    </ListGroupItem>*/}
 
-                        {/*    <ListGroupItem as="li" >{ jwt_decode(localStorage.token).user.nom } { jwt_decode(localStorage.token).user.prenom}*/}
-                        {/*    <Link to={{pathname:'/selfEvaluation'}}><i className="nc-icon nc-layout-11" /> Self Evaluate ! </Link>*/}
-                        {/*    </ListGroupItem>*/}
 
-                        {/*</ListGroup>*/}
-                        {/* Tab panes */}
 
 
                     </Container>

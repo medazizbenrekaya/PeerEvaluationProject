@@ -84,6 +84,7 @@ class Evaluation extends  Component {
         const n ={
             project:this.props.location.X['nom'],
             email:this.state.TEST['email'], voteur:jwt_decode(localStorage.token).user._id, nom:nom, note:e, M:nomteam}
+            console.log(n)
         axios.post("http://localhost:3000/users/note",n).then(res => {
             this.setState({success: _id})
             setTimeout(() =>{
@@ -178,7 +179,7 @@ class Evaluation extends  Component {
                                                     <option className="jaune">3</option>
                                                     <option className="blue">4</option>
                                                     <option className="vert">5</option></select>
-                                                { this.state.success === t._id && < label className="label label-success mr-1">Success</label>  }
+                                                { this.state.success === t._id && < label className="label label-success mr-1">Note Added !</label>  }
                                             </tr>  )
 
                                             }
@@ -202,7 +203,7 @@ class Evaluation extends  Component {
 
                                 </FormGroup>
 
-                                <Button onClick={this.note.bind(this)}>Noter!</Button>
+                                <Button >Valider !</Button>
                             </Form>
                         </div>
 

@@ -613,46 +613,6 @@ router.get('/delete/:email',function (req , res , nect) {
 });
 
 
-router.post("/stats",  (req, res) => {
-    var tab = []
-    User.findOne({email: req.body.email},  (err, u) => {
-        u.microskills.forEach(n => {
-            var microskill = n.nom
-            var note = new Number(0)
-            var t = 0
-            var s = 0
-
-            n.macroskills.forEach(m => {
-
-                var total = new Number(0)
-                if (m.notes.length !== 0) {
-                    m.notes.forEach(e => {
-
-                        t = t + 1
-                        s = s + e.note
-                    })
-                    total = total + (s / t)
-                    console.log(s,t)
-                    console.log(total)
-                    note =  total + note
-                    s=0
-                    t=0
-                    console.log(note)
-                }
-
-
-
-            })
-            var x = {
-                micro : microskill,
-                note: note
-            };
-            tab.push(x)
-            tab.save});
-        res.status(200).json(tab)
-    });
-})
-
 
 router.get("/allstudent",  (req, res) => {
     User.find({role:"Student"}, (err, u) => {

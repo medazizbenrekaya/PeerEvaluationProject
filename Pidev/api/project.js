@@ -3,6 +3,8 @@ var router = express.Router()
 var Team = require('../models/team');
 var user = require('../models/user');
 var project= require('../models/project')
+var project2= require('../models/project')
+var micro = require('../models/microskills')
 
 
 
@@ -71,6 +73,61 @@ router.get("/allProject", (req, res) => {
         else
             res.json(c)
     });
+
+})
+
+router.post("/verifvoteur",  (req, res) => {
+    project.findOne({nom:req.body.project} ,(err,proj) => {
+        var verif = true
+        console.log(proj)
+        proj.team.members.forEach( async arr => {
+            if(arr.email == req.body.email) {
+                await  arr.microskills.forEach(n => {
+
+                        n.macroskills.forEach(async m => {
+                            m.notes.forEach(notes => {
+                                if(notes.voteur == req.body.voteur)
+                                    verif = false
+
+
+                            })
+                        })
+
+                });
+            }
+        })
+
+        res.json(verif)
+
+
+    })
+
+
+
+})
+
+router.post("/affecter", (req, res) => {
+
+
+    project.findOne({nom: req.body.name}, (err, t) => {
+
+            t.team.members.forEach( a => {
+                     micro.findOne({nom:req.body.mic},(err,m) => {
+                      a.microskills.push(m)
+
+                console.log(a.microskills)
+
+                })
+                a.microskills.save
+                a.save
+           })
+        t.save()
+
+        project2.findOneAndUpdate({ nom : req.body.name}, t, { new : true},(err,proj) => {res.json('done')})
+                })
+
+
+
 
 })
 

@@ -61,35 +61,35 @@ class Evaluation extends  Component {
 
 
     }
-    note2(k,p,x){
-        this.setState({val:this.input.current.value})
-        console.log(this.state.value)
-        const n ={
-            project:this.props.location.X['nom'],
-            email:this.state.TEST['email'],
-            voteur:jwt_decode(localStorage.token).user._id,
-
-            nom:k,
-            note:this.state.val,
-            M:p
-
-            nom:this.state.nom,
-            note:document.getElementById('n').value,
-            M:this.state.nom2
-
-        }
-        console.log(n)
-        axios.post("http://localhost:3000/users/note",n).then(res => {
-
-            console.log("succes")
-            alert("vous avez noter votre camarade")
-
-
-
-
-        });
-
-    }
+    // note2(k,p,x){
+    //     this.setState({val:this.input.current.value})
+    //     console.log(this.state.value)
+    //     const n ={
+    //         project:this.props.location.X['nom'],
+    //         email:this.state.TEST['email'],
+    //         voteur:jwt_decode(localStorage.token).user._id,
+    //
+    //         nom:k,
+    //         note:this.state.val,
+    //         M:p
+    //
+    //         nom:this.state.nom,
+    //         note:document.getElementById('n').value,
+    //         M:this.state.nom2
+    //
+    //     }
+    //     console.log(n)
+    //     axios.post("http://localhost:3000/users/note",n).then(res => {
+    //
+    //         console.log("succes")
+    //         alert("vous avez noter votre camarade")
+    //
+    //
+    //
+    //
+    //     });
+    //
+    // }
 
     note(e, nom, nomteam, _id){
         const n ={
@@ -106,7 +106,7 @@ class Evaluation extends  Component {
         });
 
 
-        alert("You just evaluated your mate in" +' ' +'Macro :  ' +this.state.nom2)
+
 
 
     }
@@ -213,56 +213,9 @@ class Evaluation extends  Component {
 
                                         </table>
                                     )}
-
-
-
-
-
-                                    {this.state.show? <h3 >Evaluate  {this.state.nom} of {this.state.nom2} :<select id="n"  className="select" ><option className="red" >1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></h3> :null}
-
-
                                 </FormGroup>
 
-
-                                <Button >Valider !</Button>
-
-
-                                            {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
-                                                <thead className="table table-info">
-                                                <th>macro skills</th>
-                                                <th>micro skills</th>
-
-                                                </thead>
-                                            <tbody className="table table-active">
-
-                                            <tr>
-                                                <td rowSpan="6"><option id="exampleSelect1">{team.nom}</option></td>
-                                            </tr>
-
-
-
-                                            {team.macroskills.map((t) => <tr border="2"  key={t.nom}><option id="exempleselected" onClick={this.show.bind(this,t.nom,team.nom)}> {t.nom}</option></tr>  )}
-                                            <tr>
-
-
-                                            </tr>
-
-
-                                            </tbody>
-
-                                                </table>
-                                            )}
-
-
-
-
-
-                                    {this.state.show? <h3 >Evaluate  {this.state.nom} of {this.state.nom2} :<select id="n"  className="select" ><option className="red" >1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></h3> :null}
-
-
-                                </FormGroup>
-
-                                <Button onClick={this.note.bind(this)}>Noter!</Button>
+                                <Button >Valider!</Button>
 
                             </Form>
                         </div>

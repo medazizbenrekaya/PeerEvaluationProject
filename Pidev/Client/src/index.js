@@ -79,10 +79,7 @@ ReactDOM.render(
         path="/login"
         render={props => <RegisterPage {...props} />}
       />
-      <Route
-          path="/admin2"
-          render={props => <Admin2 {...props} />}
-      />
+
       <Route
           path="/Admin2"
           render={props => <admin {...props} />}

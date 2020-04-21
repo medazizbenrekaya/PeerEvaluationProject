@@ -482,7 +482,7 @@ class ProfilePage extends Component {
                 <img
                     alt="..."
                     className="img-circle img-no-padding img-responsive"
-                    src={require('assets/img/faces/'+jwt_decode(localStorage.token).user.image)}
+                    src={require('assets/img/faces/student.png')}
                 />
               </div>
 

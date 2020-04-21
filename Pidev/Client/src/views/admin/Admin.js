@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -64,6 +47,22 @@ class Admin extends Component {
       this.setState({tab4:res.data})
 
       console.log('succes')
+    });
+  }
+  accepter(email){
+    const a = {email:email}
+    axios.post("http://localhost:3000/users/accepter",a).then(res => {
+      console.log('succes');
+      window.location.reload(false);
+
+    });
+  }
+  refuser(email){
+    const a = {email:email}
+    axios.post("http://localhost:3000/users/refuser",a).then(res => {
+      console.log('succes');
+      window.location.reload(false);
+
     });
   }
   constructor(props){
@@ -284,7 +283,9 @@ class Admin extends Component {
                                         <td>{team.prenom}</td>
                                         <td>{team.email}</td>
                                         <td>{team.role}</td>
-                                        <td><button className="btn-danger" onClick={this.delete.bind(this , team.email)}>Delete</button></td>
+                                        <td><button className="btn-danger" onClick={this.refuser.bind(this , team.email)}>Delete</button>
+                                          <button className="btn-danger" onClick={this.accepter.bind(this , team.email)}>Delete</button>
+                                        </td>
                                       </tr>
                                       </tbody>
                                   )}

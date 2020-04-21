@@ -2,38 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/src/assets/css/colors.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/027ab116-d16b-46af-8871-995a120790fe-hama.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/assets/img/faces/c3284beb-ac18-4494-afbc-6de7d37ed533-adem.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/SelfEvaluation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/assets/css/paper-kit.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/assets/css/paper-kit.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/RegisterPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/microSkills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microSkills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/admin/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/microskills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/project.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/team.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/microskills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/project.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -117,6 +86,10 @@
       <workItem from="1586875359419" duration="2509000" />
       <workItem from="1586879922982" duration="1192000" />
       <workItem from="1586940236852" duration="1867000" />
+      <workItem from="1586950663980" duration="876000" />
+      <workItem from="1586954172748" duration="16875000" />
+      <workItem from="1587312769113" duration="588000" />
+      <workItem from="1587317856774" duration="109000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>
@@ -147,18 +120,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added role" />
     <option name="LAST_COMMIT_MESSAGE" value="added role" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/Client/src/views/examples/Evaluation.js</url>
-          <line>150</line>
-          <line>152</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

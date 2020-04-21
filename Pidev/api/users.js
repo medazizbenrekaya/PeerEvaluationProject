@@ -630,6 +630,7 @@ router.get("/allteacher",  (req, res) => {
     })
 
 })
+
 router.post('/accepter', function(req, res, next) {
     User.findOne({email: req.body.email} , function (err,u) {
         async.waterfall([
@@ -675,7 +676,8 @@ router.post('/refuser', function(req, res, next) {
                     to: req.body.email,
                     from: 'peer@gmail.com',
                     subject: 'Réfuse',
-                    text: 'votre demande a été rejeter et supprimer veillez contacter administration .\n\n'
+                    text: '\n' +
+                        'your request has been rejected by the administrator please contact the administration.\n\n'
                 };
                 smtpTransport.sendMail(mailOptions, function(err) {
                     console.log('mail sent');
@@ -689,26 +691,22 @@ router.post('/refuser', function(req, res, next) {
 
 });
 
-router.get("/nbstudent",  (req, res) => {
-    User.find({role:"Student"}, (err, u) => {
-        res.json(u.length);
+router.get("/nbuser",  (req, res) => {
+    User.find((err, u) => {
+
+        res.json(u.length-1);
     })
 })
+
 router.get("/nbsteacehr",  (req, res) => {
     User.find({role:"Teacher"}, (err, u) => {
         res.json(u.length);
     })
 })
-router.get("/nbteacherA",  (req, res) => {
-    var i = 0
-    User.find({role: "Teacher"}, (err, u) => {
-        u.forEach(e => {
-            if (e.etat !== false) {
-                i++
-            }
+router.get("/nbuserA",  (req, res) => {
+    User.find({etat: true}, (err, u) => {
 
-        })
-        res.json(i)
+        res.json(u.length-1)
 
     })
 })
@@ -725,16 +723,10 @@ router.get("/nbstudentA",  (req, res) => {
 
     })
 })
-router.get("/nbteacherNA",  (req, res) => {
-    var i = 0
-    User.find({role: "Teacher"}, (err, u) => {
-        u.forEach(e => {
-            if (e.etat !== true) {
-                i++
-            }
+router.get("/nbuserN",  (req, res) => {
+    User.find({etat: false}, (err, u) => {
 
-        })
-        res.json(i)
+        res.json(u.length)
 
     })
 })
@@ -750,5 +742,43 @@ router.get("/nbstudentNA",  (req, res) => {
         res.json(i)
 
     })
+})
+router.post("/email2", (req, res) => {
+    var tab=[]
+    User.find({email: new RegExp(req.body.email, 'i')} ,(err, c) => {
+        c.forEach(e=> {
+            if(e.role==="Teacher")
+            {
+                tab.push(e)
+            }
+            tab.save
+        })
+        res.json(tab)
+    })
+
+
+})
+router.post("/email3", (req, res) => {
+    var tab=[]
+    User.find({email: new RegExp(req.body.email, 'i')} ,(err, c) => {
+        c.forEach(e=> {
+            if(e.role==="Student")
+            {
+                tab.push(e)
+            }
+            tab.save
+        })
+        res.json(tab)
+    })
+})
+router.post("/etat", (req, res) => {
+    User.find({etat : req.body.etat},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
 })
 module.exports = router;

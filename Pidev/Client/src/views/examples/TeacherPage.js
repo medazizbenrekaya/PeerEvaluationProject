@@ -56,7 +56,7 @@ class TeacherPage extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1",tab1:'',show2:false
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false
 
         };
 
@@ -67,6 +67,7 @@ class TeacherPage extends  Component {
     {
         this.setState({show2:true})
     }
+
     componentDidMount() {
         axios.get("http://localhost:3000/ms/Afficher").then(res => {
             this.setState({tab1:res.data})
@@ -188,6 +189,24 @@ class TeacherPage extends  Component {
             this.setState({tab1:res.data})
 
             console.log(res.data)
+        });
+    }
+    showMacro(nom)
+    {
+        this.setState({show:true,nomMacro:nom})
+        axios.post("http://localhost:3000/ms/find/"+nom).then(res => {
+            this.setState({tab2:res.data,tab1:''})
+            console.log('succes')
+
+        });
+    }
+    back()
+    {
+        this.setState({show:false})
+        axios.get("http://localhost:3000/ms/Afficher").then(res => {
+            this.setState({tab1:res.data})
+            console.log('succes')
+
         });
     }
     fileSelectedHandler = event =>
@@ -328,8 +347,8 @@ class TeacherPage extends  Component {
                                                                         <Row>
                                                                             <label>Type</label>
                                                                             <select name="type" id="type">
-                                                                                <option>Hard Skill</option>
-                                                                                <option>Soft Skill</option>
+                                                                                <option>Hard Skills</option>
+                                                                                <option>Soft Skills</option>
                                                                             </select>
                                                                         </Row>
 
@@ -396,10 +415,10 @@ class TeacherPage extends  Component {
                                                                         <option onClick={this.componentDidMount.bind(this)}>
                                                                             All Macro Skills
                                                                         </option>
-                                                                        <option value="Hard Skill" onClick={this.filter.bind(this)}>
+                                                                        <option value="Hard Skills" onClick={this.filter.bind(this)}>
                                                                             Hard Skills
                                                                         </option>
-                                                                        <option value="Soft Skill" onClick={this.filter.bind(this)}>
+                                                                        <option value="Soft Skills" onClick={this.filter.bind(this)}>
                                                                             Soft Skills
                                                                         </option>
                                                                     </Input >
@@ -410,7 +429,7 @@ class TeacherPage extends  Component {
 
                                                         <table className="table-responsive-md">
                                                             <tr>
-                                                                <td> <Input type="text" id="text" placeholder="macro skill name" onChange={this.find.bind(this)}  /></td>
+                                                                <td> <Input type="text" id="text" placeholder="macro or micro skill name" onChange={this.find.bind(this)}  /></td>
 
                                                             </tr>
 
@@ -421,7 +440,6 @@ class TeacherPage extends  Component {
                                                                 <thead className="table table-info">
                                                                 <tr>
                                                                     <th>Name</th>
-                                                                    <th>Description</th>
                                                                     <th>Type</th>
                                                                     <th>Nombre Micro Skills</th>
                                                                     <th>Actions</th>
@@ -431,20 +449,41 @@ class TeacherPage extends  Component {
 
                                                                     <tr>
                                                                         <td>{team.nom}
+
                                                                         </td>
-                                                                        <td>{team.description}</td>
                                                                         <td>{team.type}</td>
+
                                                                         <td>{team.macroskills.length}</td>
-                                                                        <td><button className="btn-danger" onClick={this.delete.bind(this , team._id)} >Delete</button></td>
+                                                                        <td><button className="btn-info" onClick={this.showMacro.bind(this,team.nom)} >Details</button>
+
+                                                                            <button className="btn-danger" onClick={this.delete.bind(this , team._id)} >Delete</button>
+                                                                        </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 )}
 
                                                             </table>
+                                                            {this.state.show?
+                                                                <table className="table">
+                                                                    <thead className="table table-info">
+                                                                    <tr>
+                                                                        <td className="name">Micro Skills of {this.state.nomMacro}</td>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    {this.state.tab2 && this.state.tab2.map((detail) => <tbody className="table table-active"  key={detail.nom} >
+
+
+                                                                        <tr>
+                                                                            <td >{detail.nom}</td>
+                                                                        </tr>
+
+
+                                                                        </tbody>
+
+                                                                    )}
+                                                                    <tr><td colSpan="1">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
+                                                                </table> :null}
                                                         </div></Col>
-
-
-
 
                                                 </TabPane>
                                                 <TabPane tabId="3">

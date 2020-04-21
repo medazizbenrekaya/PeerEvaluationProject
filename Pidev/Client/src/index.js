@@ -38,7 +38,9 @@ import TeacherPage from "./views/examples/TeacherPage";
 import Evaluation from "./views/examples/Evaluation";
 import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
-import Admin from "./views/admin/Admin";
+import Admin from "./views/examples/admin";
+
+
 
 
 
@@ -78,8 +80,12 @@ ReactDOM.render(
         render={props => <RegisterPage {...props} />}
       />
       <Route
-          path="/admin"
-          render={props => <Admin {...props} />}
+          path="/admin2"
+          render={props => <Admin2 {...props} />}
+      />
+      <Route
+          path="/Admin2"
+          render={props => <admin {...props} />}
       />
       <Route
           path="/admin2"

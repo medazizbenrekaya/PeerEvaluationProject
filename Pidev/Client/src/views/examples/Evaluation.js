@@ -53,8 +53,12 @@ class Evaluation extends  Component {
 
     constructor(props){
         super(props)
+
         this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:'',show1:false,nom:'',nom2:'',val:'',success:''};
         this.input = React.createRef()
+
+        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:'',show1:false,nom:'',nom2:''};
+
 
     }
     note2(k,p,x){
@@ -64,9 +68,15 @@ class Evaluation extends  Component {
             project:this.props.location.X['nom'],
             email:this.state.TEST['email'],
             voteur:jwt_decode(localStorage.token).user._id,
+
             nom:k,
             note:this.state.val,
             M:p
+
+            nom:this.state.nom,
+            note:document.getElementById('n').value,
+            M:this.state.nom2
+
         }
         console.log(n)
         axios.post("http://localhost:3000/users/note",n).then(res => {
@@ -78,6 +88,7 @@ class Evaluation extends  Component {
 
 
         });
+
     }
 
     note(e, nom, nomteam, _id){
@@ -95,6 +106,9 @@ class Evaluation extends  Component {
         });
 
 
+        alert("You just evaluated your mate in" +' ' +'Macro :  ' +this.state.nom2)
+
+
     }
 
 
@@ -102,7 +116,11 @@ class Evaluation extends  Component {
 
         const members =     axios.post("http://localhost:3000/ms/find/"+a).then(res => {
 
+
             this.setState({tab2:res.data,show1:true})
+
+                this.setState({tab2:res.data,show1:true})
+
 
 
             console.log("succes")
@@ -162,6 +180,7 @@ class Evaluation extends  Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Macro !</Label>
+
                                     {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
                                             <thead className="table table-info">
                                             <th>macro skills</th>
@@ -186,6 +205,7 @@ class Evaluation extends  Component {
                                             <tr>
 
 
+
                                             </tr>
 
 
@@ -203,7 +223,47 @@ class Evaluation extends  Component {
 
                                 </FormGroup>
 
+
                                 <Button >Valider !</Button>
+
+
+                                            {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
+                                                <thead className="table table-info">
+                                                <th>macro skills</th>
+                                                <th>micro skills</th>
+
+                                                </thead>
+                                            <tbody className="table table-active">
+
+                                            <tr>
+                                                <td rowSpan="6"><option id="exampleSelect1">{team.nom}</option></td>
+                                            </tr>
+
+
+
+                                            {team.macroskills.map((t) => <tr border="2"  key={t.nom}><option id="exempleselected" onClick={this.show.bind(this,t.nom,team.nom)}> {t.nom}</option></tr>  )}
+                                            <tr>
+
+
+                                            </tr>
+
+
+                                            </tbody>
+
+                                                </table>
+                                            )}
+
+
+
+
+
+                                    {this.state.show? <h3 >Evaluate  {this.state.nom} of {this.state.nom2} :<select id="n"  className="select" ><option className="red" >1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></h3> :null}
+
+
+                                </FormGroup>
+
+                                <Button onClick={this.note.bind(this)}>Noter!</Button>
+
                             </Form>
                         </div>
 

@@ -13,7 +13,10 @@ import {
     Row,
     Col,
     Button,
-    Modal, CardBody, Card
+    InputGroupAddon,
+    InputGroupText,
+    InputGroup,
+    Modal, Form
 } from "reactstrap";
 import Pie from 'react-chartjs-2';
 
@@ -210,25 +213,47 @@ class Admin extends Component {
         this.setState({nomT:nom,activeTab:"3"})
 
     }
+    mailing(){
+        const a = {email: document.getElementById('email1').value,
+            subject: document.getElementById('subject1').value,
+            text: document.getElementById('text1').value,
+        }
+        axios.post("http://localhost:3000/users/mailing", a ).then(res => {
+            console.log(res.data)
+            alert("your email was send")
+        });
+
+    }
 
 
 
 
     render()
     {
-
-
         return (
             <>
                 <NavbarProfile/>
                 <ProfilePageHeader/>
                 <div className="section profile-content">
+                    <div className="owner">
+                        <div className="avatar">
+                            <img
+                                alt="..."
+                                className="img-circle img-no-padding img-responsive"
+
+                                src={require("assets/img/faces/admin.jpg")}
+
+                            />
+
+                        </div>
+                    </div>
 
                 </div>
 
                 <div>
                     <div className="filter" />
                     <Container>
+
                         <Row>
                             <Col>
                                 <div className="nav-tabs-navigation">
@@ -258,6 +283,15 @@ class Admin extends Component {
                                                 >
                                                     Teams List
                                                 </NavLink>
+                                            </NavItem>
+                                            <NavItem>
+                                                <NavLink
+                                                    className={this.state.activeTab === "4" ? "active" : ""}
+                                                    onClick={() => {this.toggle("4")}}
+                                                >
+                                                    Sending Mail
+                                                </NavLink>
+
                                             </NavItem>
                                         </Nav>
                                     </div>
@@ -470,6 +504,62 @@ class Admin extends Component {
                                                     ) }
                                                     <tr><td colSpan="3">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
                                                 </table> :null}
+
+                                            </div></Col>
+                                    </TabPane>
+                                    <TabPane tabId="4">
+                                        <Col className="ml-auto mr-auto" md="8">
+                                            <h1>Send Mail To different User</h1>
+                                            <div className="table-responsive">
+                                                <div className="section landing-section">
+                                                    <Container>
+                                                        <Row>
+                                                            <Col md="6">
+                                                                <label>Email</label>
+                                                                <InputGroup>
+                                                                    <InputGroupAddon addonType="prepend">
+                                                                        <InputGroupText>
+                                                                            <i className="nc-icon nc-email-85" />
+                                                                        </InputGroupText>
+                                                                    </InputGroupAddon>
+                                                                    <Input placeholder="Email" type="text" id="email1" />
+                                                                </InputGroup>
+                                                            </Col>
+                                                            <Col className="ml-auto mr-auto" md="8">
+                                                                <Form className="contact-form">
+                                                                    <Row>
+                                                                        <Col md="6">
+                                                                            <label>Subject</label>
+                                                                            <InputGroup>
+                                                                                <InputGroupAddon addonType="prepend">
+                                                                                    <InputGroupText>
+                                                                                    </InputGroupText>
+                                                                                </InputGroupAddon>
+                                                                                <Input placeholder="Subject" type="text" id="subject1"/>
+                                                                            </InputGroup>
+                                                                        </Col>
+
+                                                                    </Row>
+                                                                    <label>Message</label>
+                                                                    <Input
+                                                                        placeholder="write your email..."
+                                                                        type="textarea"
+                                                                        rows="4"
+                                                                        id="text1"
+                                                                    />
+                                                                    <Row>
+                                                                        <Col className="ml-auto mr-auto" md="4">
+                                                                            <Button className="btn-fill" color="danger" size="lg"
+                                                                            onClick={this.mailing.bind(this)}>
+                                                                                Send Mail
+                                                                            </Button>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </Form>
+                                                            </Col>
+                                                        </Row>
+                                                    </Container>
+                                                </div>
 
                                             </div></Col>
                                     </TabPane>

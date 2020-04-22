@@ -53,28 +53,61 @@ class Evaluation extends  Component {
 
     constructor(props){
         super(props)
+
+        this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:'',show1:false,nom:'',nom2:'',val:'',success:''};
+        this.input = React.createRef()
+
         this.state = {team:'',tab:'',TEST:'',tab2:'',show:false,teamname:'',show1:false,nom:'',nom2:''};
 
+
     }
-    note(){
+    // note2(k,p,x){
+    //     this.setState({val:this.input.current.value})
+    //     console.log(this.state.value)
+    //     const n ={
+    //         project:this.props.location.X['nom'],
+    //         email:this.state.TEST['email'],
+    //         voteur:jwt_decode(localStorage.token).user._id,
+    //
+    //         nom:k,
+    //         note:this.state.val,
+    //         M:p
+    //
+    //         nom:this.state.nom,
+    //         note:document.getElementById('n').value,
+    //         M:this.state.nom2
+    //
+    //     }
+    //     console.log(n)
+    //     axios.post("http://localhost:3000/users/note",n).then(res => {
+    //
+    //         console.log("succes")
+    //         alert("vous avez noter votre camarade")
+    //
+    //
+    //
+    //
+    //     });
+    //
+    // }
+
+    note(e, nom, nomteam, _id){
         const n ={
             project:this.props.location.X['nom'],
-            email:this.state.TEST['email'],
-            voteur:jwt_decode(localStorage.token).user._id,
-            nom:this.state.nom,
-            note:document.getElementById('n').value,
-            M:this.state.nom2
-        }
+            email:this.state.TEST['email'], voteur:jwt_decode(localStorage.token).user._id, nom:nom, note:e, M:nomteam}
+            console.log(n)
         axios.post("http://localhost:3000/users/note",n).then(res => {
-
-            console.log("succes")
-            alert("vous avez noter votre camarade")
-
-
-
-
+            this.setState({success: _id})
+            setTimeout(() =>{
+                this.setState({
+                    success: ''
+                })
+            },2000)
         });
-        alert("You just evaluated your mate in" +' ' +'Macro :  ' +this.state.nom2)
+
+
+
+
 
     }
 
@@ -83,14 +116,18 @@ class Evaluation extends  Component {
 
         const members =     axios.post("http://localhost:3000/ms/find/"+a).then(res => {
 
+
+            this.setState({tab2:res.data,show1:true})
+
                 this.setState({tab2:res.data,show1:true})
+
 
 
             console.log("succes")
 
 
 
-            });
+        });
     }
     show(b,a){
 
@@ -144,26 +181,29 @@ class Evaluation extends  Component {
                                 <FormGroup>
                                     <Label for="exampleSelect">Select Macro !</Label>
 
-
-
-
-
-                                            {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
-                                                <thead className="table table-info">
-                                                <th>macro skills</th>
-                                                <th>micro skills</th>
-
-                                                </thead>
+                                    {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
+                                            <thead className="table table-info">
+                                            <th>macro skills</th>
+                                            <th>micro skills</th>
+                                            </thead>
                                             <tbody className="table table-active">
+                                            <tr><td rowSpan="6"><option id="exampleSelect1">{team.nom}</option></td></tr>
+                                            {team.macroskills.map((t,index) => <tr border="2"  key={t.nom}><option id="exempleselected" onClick={this.show.bind(this,t.nom,team.nom)}> {t.nom}</option>
+                                                <select id="n"  ref={this.input} className="select"  onChange={(e) => {
+                                                        this.note(e.target.value, t.nom ,team.nom, t._id)
+                                                   ;}}>
+                                                    <option >Note !</option>
+                                                    <option className="red" >1</option>
+                                                    <option className="orange">2</option>
+                                                    <option className="jaune">3</option>
+                                                    <option className="blue">4</option>
+                                                    <option className="vert">5</option></select>
+                                                { this.state.success === t._id && < label className="label label-success mr-1">Note Added !</label>  }
+                                            </tr>  )
 
+                                            }
                                             <tr>
-                                                <td rowSpan="6"><option id="exampleSelect1">{team.nom}</option></td>
-                                            </tr>
 
-
-
-                                            {team.macroskills.map((t) => <tr border="2"  key={t.nom}><option id="exempleselected" onClick={this.show.bind(this,t.nom,team.nom)}> {t.nom}</option></tr>  )}
-                                            <tr>
 
 
                                             </tr>
@@ -171,19 +211,12 @@ class Evaluation extends  Component {
 
                                             </tbody>
 
-                                                </table>
-                                            )}
-
-
-
-
-
-                                    {this.state.show? <h3 >Evaluate  {this.state.nom} of {this.state.nom2} :<select id="n"  className="select" ><option className="red" >1</option><option className="orange">2</option><option className="jaune">3</option><option className="blue">4</option><option className="vert">5</option></select></h3> :null}
-
-
+                                        </table>
+                                    )}
                                 </FormGroup>
 
-                                <Button onClick={this.note.bind(this)}>Noter!</Button>
+                                <Button >Valider!</Button>
+
                             </Form>
                         </div>
 

@@ -51,6 +51,29 @@ import axios from "axios";
 import SectionNavigation from "../index-sections/SectionNavigation";
 import NucleoIcons from "../NucleoIcons";
 import SectionProgress from "../index-sections/SectionProgress";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
+import {c} from '../../assets/countries.js';
+import {University} from "../../assets/University";
+
+function countryToFlag(isoCode) {
+    return typeof String.fromCodePoint !== 'undefined'
+        ? isoCode
+            .toUpperCase()
+            .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+        : isoCode;
+}
+
+const useStyles = makeStyles({
+    option: {
+        fontSize: 15,
+        '& > span': {
+            marginRight: 10,
+            fontSize: 18,
+        },
+    },
+});
 
 class TeacherPage extends  Component {
     constructor(props){
@@ -92,6 +115,34 @@ class TeacherPage extends  Component {
 
         //this.state.activeTab=tab
 }
+    editPays()
+    {
+        const t = {
+            _id:document.getElementById('id').value,
+            pays:document.getElementById('country-select-demo').value
+        }
+        console.log(t.pays)
+        axios.post("http://localhost:3000/users/update", t).then(res => {
+            console.log('succes')
+
+
+
+        });
+    }
+    editUniversity()
+    {
+        const t = {
+            _id:document.getElementById('id').value,
+            university:document.getElementById('combo-box-demo').value
+        }
+        console.log(t.university)
+        axios.post("http://localhost:3000/users/update", t).then(res => {
+            console.log('succes')
+
+
+
+        });
+    }
 
 
     addmacro(){
@@ -236,13 +287,13 @@ class TeacherPage extends  Component {
                     <Container>
                         <div className="owner">
                             <div className="avatar">
-                                <img
-                                    alt="..."
-                                    className="img-circle img-no-padding img-responsive"
+                                {/*<img*/}
+                                {/*    alt="..."*/}
+                                {/*    className="img-circle img-no-padding img-responsive"*/}
 
-                                    src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}
+                                {/*    src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}*/}
 
-                                />
+                                {/*/>*/}
 
                             </div>
 
@@ -252,11 +303,23 @@ class TeacherPage extends  Component {
                             </div>
 
 
-                            <div className="name">
-                                <h4 className="title">
+                            <div className="card">
+                                <h4 className="card-title">
                                     {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
                                 </h4>
-                                <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
+                                <h6 className="card-subtitle">{jwt_decode(localStorage.token).user.role}</h6>
+                                {jwt_decode(localStorage.token).user.university == null &&
+                                <h6><option className="card-text" onClick={this.editable.bind(this)}>Set your University</option></h6>
+                                }
+                                {jwt_decode(localStorage.token).user.university != null &&
+                                <h6 className="card-description">University : {jwt_decode(localStorage.token).user.university}</h6>
+                                }
+                                {jwt_decode(localStorage.token).user.pays == null &&
+                                <h6><option className="card-text" onClick={this.editable.bind(this)}>Set your pays</option></h6>
+                                }
+                                {jwt_decode(localStorage.token).user.pays != null &&
+                                <h6 className="card-description">From : {jwt_decode(localStorage.token).user.pays}</h6>
+                                }
                             </div>
                         </div>
                         <Row>
@@ -273,6 +336,44 @@ class TeacherPage extends  Component {
                                 {this.state.show2?    <Input placeholder={jwt_decode(localStorage.token).user.nom} type="text" id="nomU" onChange={this.editNom.bind(this)} />  :null}
                                 {this.state.show2?     <label>Last Name</label>  :null}
                                 {this.state.show2?      <Input placeholder={jwt_decode(localStorage.token).user.prenom} type="text" id="prenomU" onChange={this.editPrenom.bind(this)}/>  :null}
+                                {this.state.show2?     <label>Pays</label>  :null}
+                                {this.state.show2? <Autocomplete onChange={this.editPays.bind(this)}
+                                                                 id="country-select-demo"
+                                                                 style={{ width: 300 }}
+                                                                 options={c}
+                                                                 classes={{
+                                                                     option: useStyles.option,
+                                                                 }}
+                                                                 autoHighlight
+                                                                 getOptionLabel={(option) => option.label}
+                                                                 renderOption={(option) => (
+                                                                     <React.Fragment>
+                                                                         <span>{countryToFlag(option.code)}</span>
+                                                                         {option.label}  +{option.phone}
+                                                                     </React.Fragment>
+                                                                 )}
+                                                                 renderInput={(params) => (
+                                                                     <TextField
+                                                                         {...params}
+                                                                         label="Choose a country"
+                                                                         variant="outlined"
+
+                                                                     />)}
+                                /> :null}
+                                {this.state.show2?     <label>University</label>  :null}
+                                {this.state.show2?
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        options={University}
+                                        classes={{
+                                            option: useStyles.option,
+                                        }}
+                                        getOptionLabel={(option) => option.title+','+option.pays }
+                                        style={{ width: 300 }}
+                                        renderInput={(params) => <TextField {...params} label="Choose an University" variant="outlined" />}
+                                        onChange={this.editUniversity.bind(this)}
+                                    />
+                                    :null}
 
 
 

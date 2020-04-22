@@ -328,12 +328,12 @@ class Admin extends Component {
 
                                                         <table className="table-responsive-md">
                                                             <tr>
-                                                                <td> <Input type="text" id="text" placeholder="User email" onChange={this.find.bind(this)}  /></td>
+                                                                <td> <Input type="text" id="text" placeholder="User email/country/university" onChange={this.find.bind(this)}  /></td>
 
                                                             </tr>
 
                                                         </table>
-                                                        <div className="table-responsive">
+                                                        <div className="">
 
                                                             <table className="table">
                                                                 <thead className="table table-info">
@@ -342,6 +342,8 @@ class Admin extends Component {
                                                                     <th>Last Name</th>
                                                                     <th>Email</th>
                                                                     <th>Role</th>
+                                                                    <th>University</th>
+                                                                    <th>Country</th>
                                                                     <th>Actions</th>
                                                                 </tr>
                                                                 </thead>
@@ -352,6 +354,8 @@ class Admin extends Component {
                                                                         <td>{team.prenom}</td>
                                                                         <td>{team.email}</td>
                                                                         <td>{team.role}</td>
+                                                                        <td>{team.university}</td>
+                                                                        <td>{team.pays}</td>
                                                                         <td><button className="btn-danger" onClick={this.refuser.bind(this , team.email)}>
                                                                             to reject</button>
                                                                             <button className="btn-primary" onClick={this.accepter.bind(this , team.email)}>Accept</button>

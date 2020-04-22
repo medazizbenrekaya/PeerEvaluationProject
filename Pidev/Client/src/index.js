@@ -43,6 +43,7 @@ import Admin from "./views/examples/admin";
 
 
 
+
 // others
 
 ReactDOM.render(
@@ -81,8 +82,16 @@ ReactDOM.render(
       <Route
           path="/admin"
           render={props => <Admin {...props} />}
+
+      <Route
+          path="/Admin2"
+          render={props => <admin {...props} />}
       />
 
+      <Route
+          path="/admin2"
+          render={props => <Admin{...props} />}
+      />
       <Route
           path="/test"
           render={props => <Test {...props} />}

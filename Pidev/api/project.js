@@ -81,12 +81,12 @@ router.post("/verifvoteur",  (req, res) => {
         var verif = true
         console.log(proj)
         proj.team.members.forEach( async arr => {
-            if(arr.email == req.body.email) {
+            if(arr.email === req.body.email) {
                 await  arr.microskills.forEach(n => {
 
                         n.macroskills.forEach(async m => {
                             m.notes.forEach(notes => {
-                                if(notes.voteur == req.body.voteur)
+                                if(notes.voteur === req.body.voteur)
                                     verif = false
 
 

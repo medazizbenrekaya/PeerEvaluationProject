@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/assets/University.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/assets/University.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/assets/css/colors.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/assets/css/colors.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/SelfEvaluation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/TeacherPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/project.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/microskills.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/microskills.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,14 +39,14 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../esprit 4éme/2e semt/nodeJs/myapp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Client/src/views/examples" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\examples" />
       <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\admin" />
       <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\models" />
-      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\examples" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\Client\src\assets\img\faces" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev" />
     </key>
@@ -90,6 +101,7 @@
       <workItem from="1586954172748" duration="16875000" />
       <workItem from="1587312769113" duration="588000" />
       <workItem from="1587317856774" duration="109000" />
+      <workItem from="1587734228091" duration="8416000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

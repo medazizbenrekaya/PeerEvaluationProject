@@ -79,6 +79,21 @@ class ProfilePage extends Component {
     this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:''};
 
   }
+  improve(nom)
+  {
+      if (nom === 'Leadership')
+      {
+          this.props.history.push("/selfEvaluation");
+      }
+      else if (nom === 'Communication')
+      {
+          this.props.history.push("/QuizCommunication");
+      }
+      else{
+          alert("no")
+      }
+
+  }
 
      detail(id) {
        axios.get("http://localhost:3000/users/details/"+id).then(res => {
@@ -220,7 +235,7 @@ class ProfilePage extends Component {
                 <img
                     alt="..."
                     className="img-circle img-no-padding img-responsive"
-                    src={require('assets/img/faces/student.png')}
+                    src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}
                 />
               </div>
 
@@ -328,9 +343,12 @@ class ProfilePage extends Component {
                       <tr>
                           <td>{t.nom}
                           </td>
+
                           <td>{t.type}</td>
                           <td>{t.macroskills.length}</td>
-                          <td><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button></td>
+                          <td><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button>
+                              {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation</button>}
+                          </td>
                       </tr>
                       </tbody>
                       )}

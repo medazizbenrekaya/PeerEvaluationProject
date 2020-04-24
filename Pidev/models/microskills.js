@@ -4,6 +4,7 @@ var MicroSkillsSchema = new mongoose.Schema({
     nom : {type : String , trim : true , required : true},
     description : {type:String },
     type : {type:String , required : true},
+    etat: {type: Boolean , default: false},
     macroskills : [{
         nom: {type: String, required: true},
         description: {type: String},

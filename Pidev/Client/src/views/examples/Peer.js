@@ -66,7 +66,8 @@ class Peer extends  Component {
 
 
 descrip(){
-    this.setState({show:true})
+
+    this.setState({show:true,tab2:[],tab3:[],v:[]})
     var T = []
     const n ={ nom:document.getElementById('project').value}
     test2: axios.post("http://localhost:3000/project/get",n).then(res => {
@@ -116,19 +117,19 @@ descrip(){
             console.log(this.state.tab3)
 
             const d = {
-                labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
-                // labels: this.state.tab2 && this.state.tab2,
+                //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
+                 labels: this.state.tab2 && this.state.tab2,
                 datasets: [
                     {
                         label: 'Your Evaluation ! ',
-                        backgroundColor: 'rgba(214, 4, 0, 1)',
+                        backgroundColor: 'rgb(0,255,0)',
                         borderColor: 'rgba(179,181,198,1)',
-                        pointBackgroundColor: 'rgba(0, 214, 82, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(179,181,198,1)',
-                        // data:this.state.tab3 && this.state.tab3
-                        data: [12,20,10,8,18,16,19]
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab3 && this.state.tab3
+                      //  data: [12,20,10,8,18,16,19]
                     }
                 ]
             };
@@ -174,7 +175,7 @@ descrip(){
                         <Row>
                             <Col className="ml-auto mr-auto text-center" md="6">
                                 <p>
-                                    Esprit Student that is trying to use PeerEvaluation
+                                    {jwt_decode(localStorage.token).user.university} Student that is trying to use PeerEvaluation
                                     <br/>
                                     <Label for="exampleSelect">Select Project  !</Label>
                                     <Input type="select" name="select" id="project">
@@ -262,9 +263,10 @@ descrip(){
                         {this.state.show ==true &&
                         <center>
                             <div>
-                                <Card style={{width: '50rem',height:'10'} }>
+                                <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
                                     <CardBody>
-                                        <Radar  data={this.state.data} />
+                                        <Radar  data={this.state.data}  />
+
                                     </CardBody>
                                 </Card>
 

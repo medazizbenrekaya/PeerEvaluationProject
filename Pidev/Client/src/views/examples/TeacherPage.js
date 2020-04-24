@@ -287,13 +287,13 @@ class TeacherPage extends  Component {
                     <Container>
                         <div className="owner">
                             <div className="avatar">
-                                {/*<img*/}
-                                {/*    alt="..."*/}
-                                {/*    className="img-circle img-no-padding img-responsive"*/}
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
 
-                                {/*    src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}*/}
+                                src={require("assets/img/faces/"+jwt_decode(localStorage.token).user.image)}
 
-                                {/*/>*/}
+                                />
 
                             </div>
 

@@ -162,7 +162,7 @@ class Evaluation extends  Component {
                         <Row>
                             <Col className="ml-auto mr-auto text-center" md="6">
                                 <p>
-                                    Evaluation Feature !
+                                  Peer Evaluation !
 
 
                                 </p>

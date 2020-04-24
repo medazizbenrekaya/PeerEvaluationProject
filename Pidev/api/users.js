@@ -606,7 +606,6 @@ router.post("/email", (req, res) => {
 router.get("/allUser", (req, res) => {
 
     User.find((err, c) => {
-
         if(err)
             res.json(err)
         else
@@ -791,5 +790,29 @@ router.post("/etat", (req, res) => {
             res.json(c)
     });
 
+})
+router.post("/mailing",(req,res)=>{
+    async.waterfall([
+        function() {
+            var smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'benzarb34@gmail.com',
+                    pass: '50502450'
+                }
+            });
+            var mailOptions = {
+                to: req.body.email,
+                from: 'peer@gmail.com',
+                subject: req.body.subject,
+                text: req.body.text
+            };
+            smtpTransport.sendMail(mailOptions, function(err) {
+                console.log('mail sent');
+
+            });
+        }])
+
+    res.status(200).json("votre email envoyer")
 })
 module.exports = router;

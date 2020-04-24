@@ -223,7 +223,9 @@ class Admin extends Component {
                         >
                           Teams List
                         </NavLink>
+
                       </NavItem>
+
                     </Nav>
                   </div>
                 </div>
@@ -410,6 +412,7 @@ class Admin extends Component {
 
                       </div></Col>
                   </TabPane>
+
                 </TabContent>
               </Col>
 

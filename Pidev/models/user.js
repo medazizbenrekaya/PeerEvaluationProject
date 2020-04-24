@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:'Project',default:null
   }],
-  image : {type:String}
+  image : {type:String,default:"assets/img/faces/user.png"}
 
 
 })

@@ -39,6 +39,7 @@ import Evaluation from "./views/examples/Evaluation";
 import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
 import Admin from "./views/examples/admin";
+import QuizCommunication from "./views/examples/QuizCommunication";
 
 
 
@@ -105,6 +106,10 @@ ReactDOM.render(
       <Route
           path="/selfEvaluation"
           render={props => <SelfEvaluation{...props} />}
+      />
+      <Route
+          path="/QuizCommunication"
+          render={props => <QuizCommunication{...props} />}
       />
       <Route
           path="/peer"

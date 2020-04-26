@@ -2,13 +2,13 @@ import React,{Component} from "react";
 
 
 
-import {QC, QuizData} from "../../assets/QuizData";
+import {QC} from "../../assets/QuizData";
 import  "../../assets/css/colors.css";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "../../components/Headers/ProfilePageHeader";
 import DemoFooter from "../../components/Footers/DemoFooter";
 
-class SelfEvaluation extends  Component {
+class QuizCommunication extends  Component {
     state = {
         userAwnser : null,
         currentQuestion: 0,
@@ -16,15 +16,15 @@ class SelfEvaluation extends  Component {
         quizEnd: false,
         score: 0,
         disabled : false,
-        result :''
+        result:''
     }
     loadQuiz = () =>{
         const {currentQuestion} = this.state;
         this.setState(()=> {
             return {
-                questions: QuizData[currentQuestion].question,
-                options: QuizData[currentQuestion].options,
-                answers: QuizData[currentQuestion].answer
+                questions: QC[currentQuestion].question,
+                options: QC[currentQuestion].options,
+                answers: QC[currentQuestion].answer
             }
         })
     }
@@ -49,26 +49,29 @@ class SelfEvaluation extends  Component {
             this.setState({
                 score: score + 2
             })
+            if (score >= 7){
+                this.setState({
+                    result: 'you validated this macro, well done '
+                    //function update
+                    //function historique prend score
+                }) }
+                else{
+                    this.setState({
+                        result: 'you have to work on your communication skill'
+                        //function update
+                        //function historique prend score
+                    })
+                }
+
+
         }
-        if (this.state.currentQuestion === QuizData.length - 1 )
+        if (this.state.currentQuestion === QC.length - 1 )
         {
             this.setState(
                 {
                     quizEnd: true
                 }
             )
-            if (score >= 7 ){
-                this.setState({
-                    result: 'you validated this macro, well done '
-                    //function update
-                    //function historique prend score
-                }) }
-            else{
-                this.setState({
-                    result: 'you have to work on your Leadership skill'
-                    //function historique prend score
-                })
-            }
         }
 
     }
@@ -79,9 +82,9 @@ class SelfEvaluation extends  Component {
             this.setState(() =>{
                 return{
                     disabled: true,
-                    questions: QuizData[currentQuestion].question,
-                    options: QuizData[currentQuestion].options,
-                    answers: QuizData[currentQuestion].answer
+                    questions: QC[currentQuestion].question,
+                    options: QC[currentQuestion].options,
+                    answers: QC[currentQuestion].answer
                 };
             })
         }
@@ -98,16 +101,17 @@ class SelfEvaluation extends  Component {
         const {questions , options , currentQuestion , userAwnser , quizEnd} = this.state;
         if ( quizEnd) {
             return (
-  <>
-      <NavbarProfile/>
-      <ProfilePageHeader/>
+                <>
+                    <NavbarProfile/>
+                    <ProfilePageHeader/>
+
                 <div className="app">
 
-                    <h2>final score is {this.state.score} points of {QuizData.length * 2}</h2>
+                    <h2>final score is {this.state.score} points of {QC.length * 2}</h2>
                     <h3>{this.state.result}</h3>
                     <p>the correct answers for questions was : </p>
                     <ul>
-                        {QuizData.map((item,index) => (
+                        {QC.map((item,index) => (
                             <li key={index} className="options">
                                 Q: {item.question}
                                 R: {item.answer}
@@ -116,8 +120,8 @@ class SelfEvaluation extends  Component {
                         )}
                     </ul>
                 </div>
-      <DemoFooter/>
-      </>
+                    <DemoFooter/>
+                    </>
             )
         }
         return(
@@ -127,9 +131,9 @@ class SelfEvaluation extends  Component {
 
 
             <div className="app">
-                <p className="titre" >Validate macro skill : LEADERSHIP</p>
+                <p className="titre" >Validate macro skill : COMMUNICATION</p>
                 <h2 >  {questions}</h2>
-                <span > Question {currentQuestion}  out of  {QuizData.length - 1 }  </span>
+                <span > Question {currentQuestion}  out of  {QC.length - 1 }  </span>
                  {options.map(option =>(
                      <p className="options">
                     <option key={option.id}
@@ -139,8 +143,8 @@ class SelfEvaluation extends  Component {
                     >
                         {option}</option></p>
                 ))}
-                {currentQuestion < QuizData.length - 1 &&  <button disabled={this.state.disabled} onClick={this.nextQuestionHandler}>Next</button> }
-                {currentQuestion === QuizData.length - 1 &&  <button onClick={this.finishHandler}>Finish</button> }
+                {currentQuestion < QC.length - 1 &&  <button disabled={this.state.disabled} onClick={this.nextQuestionHandler}>Next</button> }
+                {currentQuestion === QC.length - 1 &&  <button onClick={this.finishHandler}>Finish</button> }
 
             </div>
                 <DemoFooter/>
@@ -150,4 +154,4 @@ class SelfEvaluation extends  Component {
 
 
 }
-export default SelfEvaluation;
+export default QuizCommunication;

@@ -34,3 +34,23 @@
     position: relative;
 }
 
+.Selected{
+    background: linear-gradient(to right, white , greenyellow) !important;
+
+}
+.app {
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 20px;
+}
+.options{
+    padding: 8px;
+    border: 2px solid black;
+    cursor: pointer;
+    font-size: 22px;
+}
+.titre{
+    font-size: 25px;
+    text-align: center;
+    font-family: sans-serif;
+}

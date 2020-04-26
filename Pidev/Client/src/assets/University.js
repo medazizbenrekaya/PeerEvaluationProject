@@ -7,7 +7,6 @@ export const University = [
     {title: 'Centro Universitário de Jales' , pays: 'Brésil'},
     {title: 'Instituto de Ensino e Pesquisa Objetivo' , pays: 'Brésil'},
     {title: 'Centro Federal de Educação Tecnológica de Roraima' , pays: 'Brésil'},
-    {title: 'CEFET/AM ' , pays: 'Brésil'},
-
+    {title: 'CEFET/AM ' , pays: 'Brésil'}
 
 ]

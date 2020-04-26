@@ -49,7 +49,9 @@ router.post("/register", (req, res) => {
       });
       ms1 = new ms({
             nom:"Communication",
+          etat: "false",
           type:"Soft Skills",
+
                 macroskills:
             [
                 {
@@ -73,7 +75,9 @@ router.post("/register", (req, res) => {
       })
         ms3 = new ms({
             nom:"Leadership",
+            etat: "false",
             type:"Soft Skills",
+
             macroskills:
                 [
                     {
@@ -99,7 +103,9 @@ router.post("/register", (req, res) => {
         })
         ms4 = new ms({
             nom:"Effectiveness",
+            etat: "false",
             type:"Soft Skills",
+
             macroskills:
                 [
                     {
@@ -125,7 +131,9 @@ router.post("/register", (req, res) => {
         })
         ms5 = new ms({
             nom:"Professionalism",
+            etat: "false",
             type:"Soft Skills",
+
             macroskills:
                 [
                     {nom:"Puntualitty at mettings"
@@ -149,8 +157,10 @@ router.post("/register", (req, res) => {
 
         })
         ms6 = new ms({
-            nom:"Managing Skils",
+            nom:"Management Skils",
+            etat: "false",
             type:"Soft Skills",
+
             macroskills:
                 [
                     {
@@ -176,7 +186,9 @@ router.post("/register", (req, res) => {
         })
         ms7 = new ms({
                 nom:"Cognitive Ability",
+            etat: "false",
             type:"Soft Skills",
+
                 macroskills:
                     [
                         {
@@ -427,7 +439,6 @@ router.post('/update', function(req, res) {
     });
 
 });
-
 
 router.post("/stats",  (req, res) => {
     var tab = []

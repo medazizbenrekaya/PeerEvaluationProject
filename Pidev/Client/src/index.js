@@ -84,7 +84,7 @@ ReactDOM.render(
           path="/admin"
           render={props => <Admin {...props} />}
           />
-
+          
       <Route
           path="/test"
           render={props => <Test {...props} />}

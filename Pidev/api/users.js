@@ -223,7 +223,7 @@ router.post("/register", (req, res) => {
         else res.json(user);
       });
     }else {
-      res.json({error : " User already exist"})
+      res.json("User already exist")
     }
   });
 });
@@ -231,13 +231,13 @@ router.post("/register", (req, res) => {
 router.post('/login',(req,res)=>{
   User.findOne({email:req.body.email},(err,user)=>{
     if(err) res.json(err)
-    if(!user) res.json({error : "verifier vos paramétres"});
+    if(!user) res.json("verifier vos paramétres");
     else {
       if(bcrypt.compareSync(req.body.password,user.password)){
         var token = jwt.sign({user},'secret',{expiresIn:3600})
         res.json(token)
       }else{
-        res.status(401).json("Mot de passe incorrecte")
+        res.json("Mot de passe incorrecte")
       }
     }
   })

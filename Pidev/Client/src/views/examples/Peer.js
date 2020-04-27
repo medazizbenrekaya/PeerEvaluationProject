@@ -199,16 +199,9 @@ descrip(){
                                 </Media>
                                 <Media body>
                                     <Media heading>
-
-                        {/*<Label for="exampleSelect">Select Project  !</Label>*/}
                         <Media>
                             <Media>
-                                {/*<Input type="select" name="select" id="project">*/}
-                                {/*    {this.state.project && this.state.project.map((team) => <option id="project"*/}
-                                {/*                                                                    onClick={this.descrip.bind(this)}*/}
-                                {/*                                                                    key={team}*/}
-                                {/*                                                                    value={team}>{team}</option>)}*/}
-                                {/*</Input>*/}
+
                             </Media>
                             <Media body>
                                 <Media heading>

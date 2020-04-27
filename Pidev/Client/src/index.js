@@ -40,6 +40,10 @@ import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
 import Admin from "./views/examples/admin";
 import QuizCommunication from "./views/examples/QuizCommunication";
+import QuizEffectiveness from "./views/examples/QuizEffectiveness";
+import QuizProfessionalism from "./views/examples/QuizProfessionalism";
+import QuizManaging from "./views/examples/QuizManaging";
+import QuizCognitiveAbility from "./views/examples/QuizCognitiveAbility";
 
 
 
@@ -83,6 +87,7 @@ ReactDOM.render(
       <Route
           path="/admin"
           render={props => <Admin {...props} />}
+          />
 
       <Route
           path="/Admin2"
@@ -109,6 +114,23 @@ ReactDOM.render(
           path="/QuizCommunication"
           render={props => <QuizCommunication{...props} />}
       />
+      <Route
+          path="/QuizEffectivness"
+          render={props => <QuizEffectiveness{...props} />}
+      />
+      <Route
+          path="/QuizProfessionalism"
+          render={props => <QuizProfessionalism{...props} />}
+      />
+      <Route
+          path="/QuizManaging"
+          render={props => <QuizManaging{...props} />}
+      />
+      <Route
+          path="/QuizCognitiveAbility"
+          render={props => <QuizCognitiveAbility{...props} />}
+      />
+
       <Route
           path="/peer"
           render={props => <Peer{...props} />}

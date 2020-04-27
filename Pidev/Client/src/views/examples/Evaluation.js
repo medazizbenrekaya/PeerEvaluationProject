@@ -109,6 +109,8 @@ class Evaluation extends  Component {
 
 
 
+
+
     }
 
 
@@ -132,6 +134,22 @@ class Evaluation extends  Component {
     show(b,a){
 
         this.setState({show:true,nom:b,nom2:a})
+    }
+    historique()
+    {
+        const a = {
+            emailUser: jwt_decode(localStorage.token).user.email,
+            roleUser: jwt_decode(localStorage.token).user.role,
+            type: "Evaluation",
+            Text : jwt_decode(localStorage.token).user.role+" "+jwt_decode(localStorage.token).user.nom+" "+jwt_decode(localStorage.token).user.prenom+" evaluated  : "+this.state.TEST['nom'] + ' '+ this.state.TEST['prenom']
+        }
+        console.log(a.Text)
+        axios.post("http://localhost:3000/users/ajouterHistorique",a).then(res => {
+            console.log(res.data)
+            console.log('succes')
+
+
+        });
     }
 
     render(){
@@ -215,7 +233,7 @@ class Evaluation extends  Component {
                                     )}
                                 </FormGroup>
 
-                                <Button >Valider!</Button>
+                                <Button onClick={this.historique.bind(this)} >Valider!</Button>
 
                             </Form>
                         </div>

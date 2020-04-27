@@ -119,7 +119,21 @@ router.post("/find/:nom", (req, res) => {
     });
 
 })
+router.post('/etat',function (req , res , nect) {
+    user.findOne({email: req.body.email}, (err, u) => {
 
+        u.microskills.forEach( m => {
+            if(m.nom === req.body.nom){
+                m.etat = true
+                m.selfNote = req.body.note
+                u.save()
+                res.json("état true")
+            }
+        })
+
+    })
+
+});
 
 
 

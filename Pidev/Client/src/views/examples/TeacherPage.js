@@ -170,6 +170,19 @@ class TeacherPage extends  Component {
             type:document.getElementById('type').value,
             macroskills: this.state.m
         };
+        const a = {
+            emailUser: jwt_decode(localStorage.token).user.email,
+            roleUser: jwt_decode(localStorage.token).user.role,
+            type: "Macro skill",
+            Text : jwt_decode(localStorage.token).user.role+" "+jwt_decode(localStorage.token).user.nom+" "+jwt_decode(localStorage.token).user.prenom+" added a macro skill named : "+bod.nom
+        }
+        console.log(a.Text)
+        axios.post("http://localhost:3000/users/ajouterHistorique",a).then(res => {
+            console.log(res.data)
+            console.log('succes')
+
+
+        });
 
 
         axios.post("http://localhost:3000/ms/ajouterMS", bod).then(res => {
@@ -181,6 +194,7 @@ class TeacherPage extends  Component {
 
 
         });
+
     }
     editNom(){
         const bod = {
@@ -228,6 +242,20 @@ class TeacherPage extends  Component {
         axios.get("http://localhost:3000/ms/delete/"+a ).then(res => {
             window.location.reload()
             console.log("succes")
+        });
+
+        const b = {
+            emailUser: jwt_decode(localStorage.token).user.email,
+            roleUser: jwt_decode(localStorage.token).user.role,
+            type: "Macro skill",
+            Text : jwt_decode(localStorage.token).user.role+" "+jwt_decode(localStorage.token).user.nom+" "+jwt_decode(localStorage.token).user.prenom+" deleted a macro skill  "
+        }
+        console.log(a.Text)
+        axios.post("http://localhost:3000/users/ajouterHistorique",b).then(res => {
+            console.log(res.data)
+            console.log('succes')
+
+
         });
     }
     find()

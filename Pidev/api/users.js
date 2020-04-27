@@ -16,6 +16,7 @@ var Project = require('../models/project');
 var Project2 = require('../models/project');
 var evaluation = require('../models/evaluation');
 var seflEvaluation = require('../models/SelfEvaluation');
+var historique = require('../models/Historique');
 const { spawn } = require('child_process');
 var uuidv4 = require('uuid/v4');
 var multer = require('multer');
@@ -27,6 +28,38 @@ router.post("/",(req,res)=>{
     else res.json(user);
   })
 })
+router.post("/ajouterHistorique", (req, res) => {
+    var h = new historique(req.body);
+    h.save((err, c) => {
+        if (err) res.json(err);
+        else res.json(c);
+    });
+});
+router.get("/allHistorique", (req, res) => {
+
+    historique.find((err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
+
+router.post("/typeHistorique", (req, res) => {
+
+    historique.find({type : req.body.type},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+    });
+
+})
+
 
 router.get("/",(req,res,next)=>{
   User.find((err,users)=>{
@@ -157,7 +190,7 @@ router.post("/register", (req, res) => {
 
         })
         ms6 = new ms({
-            nom:"Management Skils",
+            nom:"Managing Skils",
             etat: "false",
             type:"Soft Skills",
 
@@ -606,6 +639,7 @@ router.post("/email", (req, res) => {
 router.get("/allUser", (req, res) => {
 
     User.find((err, c) => {
+
         if(err)
             res.json(err)
         else
@@ -791,28 +825,32 @@ router.post("/etat", (req, res) => {
     });
 
 })
-router.post("/mailing",(req,res)=>{
-    async.waterfall([
-        function() {
-            var smtpTransport = nodemailer.createTransport({
-                service: 'Gmail',
-                auth: {
-                    user: 'benzarb34@gmail.com',
-                    pass: '50502450'
-                }
-            });
-            var mailOptions = {
-                to: req.body.email,
-                from: 'peer@gmail.com',
-                subject: req.body.subject,
-                text: req.body.text
-            };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                console.log('mail sent');
 
-            });
-        }])
+router.post("/statsSelfNote",  (req, res) => {
+    var tab = []
+    User.findOne({email: req.body.email}, (err, proj) => {
+        // User.findOne({email: req.body.email}, (err, u) => {
 
-    res.status(200).json("votre email envoyer")
+
+                proj.microskills.forEach(n => {
+                    var microskill = n.nom
+
+                    var t = 0
+
+                    t = t + n.selfNote
+
+
+                    var x = {
+                        macro: microskill,
+                        note: t
+                    };
+
+                    tab.push(x)
+                    tab.save
+                });
+                res.status(200).json(tab)
+
+
+    });
 })
 module.exports = router;

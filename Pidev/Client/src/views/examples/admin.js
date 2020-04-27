@@ -50,8 +50,9 @@ class Admin extends Component {
 
         };
 
-
-
+    }
+    onDismiss1(){
+        this.setState({loginModal:false})
     }
 
 
@@ -327,7 +328,7 @@ class Admin extends Component {
                                             <div className="filter" />
                                             <Container>
                                                 <Row>
-                                                    <Col className="ml-auto mr-auto" md="8">
+                                                    <Col className="ml-auto mr-auto" >
 
                                                         <h1>Users Table</h1>
                                                         <center> <table>
@@ -369,6 +370,7 @@ class Admin extends Component {
                                                                     <th>Role</th>
                                                                     <th>University</th>
                                                                     <th>Country</th>
+                                                                    <th>Etat</th>
                                                                     <th>Actions</th>
                                                                 </tr>
                                                                 </thead>
@@ -381,8 +383,8 @@ class Admin extends Component {
                                                                         <td>{team.role}</td>
                                                                         <td>{team.university}</td>
                                                                         <td>{team.pays}</td>
-                                                                        <td><button className="btn-danger" onClick={this.refuser.bind(this , team.email)}>
-                                                                            to reject</button>
+                                                                        <td>{team.etat}</td>
+                                                                        <td><button className="btn-danger" onClick={this.refuser.bind(this , team.email)}>to reject</button>
                                                                             <button className="btn-primary" onClick={this.accepter.bind(this , team.email)}>Accept</button>
                                                                         </td>
                                                                     </tr>
@@ -477,7 +479,7 @@ class Admin extends Component {
                                                     type="button"
                                                     onClick={this.state.loginModal}
                                                 >
-                                                    <span onClick={this.state.loginModal}>×</span>
+                                                    <button onClick={this.onDismiss1.bind(this)}>×</button>
                                                 </button>
                                                 <div>
                                                     <h2>Pie Example</h2>
@@ -487,7 +489,7 @@ class Admin extends Component {
                                         </Modal>
                                     </TabPane>
                                     <TabPane tabId="2">
-                                        <Col className="ml-auto mr-auto" md="8">
+                                        <Col className="ml-auto mr-auto" >
 
                                             <h1>Projects List</h1>
 
@@ -525,7 +527,7 @@ class Admin extends Component {
 
                                     </TabPane>
                                     <TabPane tabId="3">
-                                        <Col className="ml-auto mr-auto" md="8">
+                                        <Col className="ml-auto mr-auto">
 
                                             <h1>Teams List</h1>
 

@@ -1,40 +1,29 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 
-
-// reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col,Alert } from "reactstrap";
 
-// core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import NavbarLogin from "../../components/Navbars/NavbarLogin";
-import {timeout, times} from "async";
 class RegisterPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
-            visible2: false
+            visible2: false,
+            visible3: false,
+
         };
+    }
+    onDismiss(){
+        this.setState({visible:false})
+    }
+    onDismiss2(){
+        this.setState({visible2:false})
+    }
+    onDismiss3(){
+        this.setState({visible3:false})
     }
 
   login() {
@@ -46,9 +35,14 @@ class RegisterPage extends Component {
     axios
         .post("http://localhost:3000/users/login", authentication)
         .then(res => {
+                console.log(res.data)
+            if(res.data==='verifier vos paramétres'){
+                this.setState({visible2: true})}
+                else if(res.data==='Mot de passe incorrecte'){
+                this.setState({visible3: true})
+            }
+            else{
                 localStorage.setItem('token', res.data);
-
-                console.log(jwt_decode(res.data).user.role)
                     if (jwt_decode(res.data).user.etat === true) {
                         if (jwt_decode(res.data).user.role === "Teacher") {
                             this.props.history.push({
@@ -69,7 +63,7 @@ class RegisterPage extends Component {
                         localStorage.clear()
                     }
 
-            }
+            }}
         )
 
   }
@@ -107,12 +101,15 @@ class RegisterPage extends Component {
 
               <Card className="card-register ml-auto mr-auto">
                 <h3 className="title mx-auto">Welcome</h3>
-                  <Alert color="danger" isOpen={this.state.visible} >
+                  <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss.bind(this)}>
                       <b>votre compte n'est pas activer</b>
                       <br/><b>Vous allez recvoir un email d'acceptation ou refuse </b>
                   </Alert>
-                  <Alert color="danger" isOpen={this.state.visible2} >
+                  <Alert color="danger" isOpen={this.state.visible2} toggle={this.onDismiss2.bind(this)}>
                       <b>Verifier vos paramétres </b>
+                  </Alert>
+                  <Alert color="danger" isOpen={this.state.visible3} toggle={this.onDismiss3.bind(this)}>
+                      <b>Mot de passe incorrecte</b>
                   </Alert>
                 <div className="social-line text-center">
 

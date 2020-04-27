@@ -138,13 +138,67 @@ descrip(){
         });
 
     }
+    compa(email){
+        this.setState({tab4:[],tab5:[]})
+        const x = {
+            email: email ,
+            project :document.getElementById('project').value
+
+        }
+
+        const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
+
+            this.setState({stats2:res.data})
+            console.log(this.state.stats2)
+
+            this.state.stats2.map(e=>{
+
+
+                this.state.tab4.push(e.micro)
+                this.state.tab5.push(e.note)
+
+            })
+
+            const d2 = {
+                //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
+                labels: this.state.tab4 && this.state.tab4,
+                datasets: [
+                    {
+                        label: 'Your Evaluation ! ',
+                        backgroundColor: 'rgb(0,255,0)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab3 && this.state.tab3
+                        //  data: [12,20,10,8,18,16,19]
+                    },
+                    {
+                        label: 'Teammates Evaluation! ',
+                        backgroundColor: 'rgb(63, 108, 150)',
+                        borderColor: 'rgba(63, 108, 150)',
+                        pointBackgroundColor: 'rgb(5, 5, 10)',
+                        pointBorderColor: 'rgb(63, 108, 150)',
+                        pointHoverBackgroundColor: 'rgb(63, 108, 150)',
+                        pointHoverBorderColor: 'rgb(63, 108, 150)',
+                        data:this.state.tab5 && this.state.tab5
+
+                    }
+                ]
+            };
+            this.setState({data2:d2})
+            console.log(this.state.data2)
+            this.setState({comparer:true})
+    })
+    }
 
 
 
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[]};
+        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},comparer:false};
 
 
     }
@@ -185,7 +239,7 @@ descrip(){
                                                                                                         value={team}>{team}</option>)}
                                     </Input>
 
-                                    { this.state.show == true && <Label for="exampleSelect"> Description :{this.state.p && this.state.p['description']}</Label> }
+                                    { this.state.show === true && <Label for="exampleSelect"> Description :{this.state.p && this.state.p['description']}</Label> }
 
 
                                 </p>
@@ -205,7 +259,7 @@ descrip(){
                             </Media>
                             <Media body>
                                 <Media heading>
-                                    {this.state.show == true &&
+                                    {this.state.show === true &&
 
                                     <Table>
                                         <thead>
@@ -230,7 +284,7 @@ descrip(){
                                                                 <div
                                                                     className="car-subtitle">{this.state.team && member.nom + ' ' + member.prenom} </div>
                                                                 {this.state.v.length &&
-                                                                this.state.v[index] == true ?
+                                                                this.state.v[index] === true ?
                                                                     <div className="car-subtitle"><Link to={{
                                                                         pathname: '/evaluate',
                                                                         X: this.state.p,
@@ -253,7 +307,7 @@ descrip(){
                                     }
 
 
-                        {this.state.show ==true &&
+                        {this.state.show ===true &&
                         <center>
                             <div>
                                 <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
@@ -265,6 +319,29 @@ descrip(){
 
 
                             </div>  </center> }
+
+                                    {this.state.show === true &&
+                                    <Label for="exampleSelect">Compare your result with your teammates !</Label>}
+                                    {this.state.show === true &&
+                                    <Input type="select" name="select" id="compare">
+                                        {this.state.p && this.state.p['team']['members'].map((member) =>  <option id="members"
+                                                                                                                 onClick={this.compa.bind(this,member.email)}
+                                                                                                        key={member._id}
+                                                                                                        value={member.nom + ' ' +member.prenom}>{member.nom + ' ' +member.prenom}</option>)}
+                                    </Input> }
+
+                                    {this.state.show === true &&
+                                    <center>
+                                        <div>
+                                            <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                                <CardBody>
+                                                    <Radar  data={this.state.data2}  />
+
+                                                </CardBody>
+                                            </Card>
+
+
+                                        </div>  </center> }
 
 
 

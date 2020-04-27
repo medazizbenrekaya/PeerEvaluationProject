@@ -167,6 +167,21 @@ router.get('/delete/:id',function (req , res , nect) {
     });
 });
 
+router.post('/etat',function (req , res , nect) {
+    user.findOne({email: req.body.email}, (err, u) => {
+
+        u.microskills.forEach( m => {
+            if(m.nom === req.body.nom){
+                m.etat = true
+                u.save()
+                res.json("état true")
+            }
+        })
+
+    })
+
+});
+
 
 
 

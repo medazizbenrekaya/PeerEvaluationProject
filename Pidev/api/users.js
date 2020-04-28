@@ -541,6 +541,19 @@ router.post("/find/:email", (req, res) => {
     });
 
 })
+router.post("/findS", (req, res) => {
+    var x = true
+
+
+    User.findOne({email: req.body.email}, (err, c) => {
+
+        if(c)
+            res.json(c)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
 
 router.post("/Selfnote",  (req, res) => {
 

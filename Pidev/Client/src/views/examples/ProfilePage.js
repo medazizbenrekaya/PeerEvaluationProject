@@ -71,8 +71,6 @@ class ProfilePage extends Component {
             this.setState({tab6 : res.data})
             console.log(res.data)
             console.log('succes')
-
-
         });
 
         const st = {

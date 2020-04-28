@@ -31,7 +31,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import {Radar} from 'react-chartjs-2';
 import {Carousel} from 'primereact/carousel';
-
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 
 
@@ -145,7 +145,7 @@ descrip(){
         });
 
     }
-    compa(email){
+    compa(email,nom,prenom){
         this.setState({tab4:[],tab5:[]})
         const x = {
             email: email ,
@@ -188,7 +188,7 @@ descrip(){
                         //  data: [12,20,10,8,18,16,19]
                     },
                     {
-                        label: 'Teammates Evaluation! ',
+                        label: nom+' '+prenom+' Evaluation ! ',
                         backgroundColor: 'rgb(63, 108, 150)',
                         borderColor: 'rgba(63, 108, 150)',
                         pointBackgroundColor: 'rgb(5, 5, 10)',
@@ -204,6 +204,61 @@ descrip(){
             console.log(this.state.data2)
             this.setState({comparer:true})
     })
+    }
+
+    mySelfEval(){
+        this.setState({tab4:[],tab5:[]})
+        const x = {
+            email: jwt_decode(localStorage.token).user.email
+        }
+
+        const s =     axios.post("http://localhost:3000/users/statsSelfNote",x).then(res => {
+
+            this.setState({stats:res.data})
+            console.log(this.state.stats)
+
+            this.state.stats.map(e=>{
+
+
+                this.state.tab4.push(e.micro)
+                this.state.tab5.push(e.note)
+
+            })
+            console.log(this.state.tab4)
+            console.log(this.state.tab5)
+
+            const d2 = {
+                labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
+
+                datasets: [
+                    {
+                        label: 'Your peer Evaluation score ! ',
+                        backgroundColor: 'rgb(0,255,0)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab3 && this.state.tab3
+                        //  data: [12,20,10,8,18,16,19]
+                    },
+                    {
+                        label: 'your self Evaluation score ! ',
+                        backgroundColor: 'rgb(63, 108, 150)',
+                        borderColor: 'rgba(63, 108, 150)',
+                        pointBackgroundColor: 'rgb(5, 5, 10)',
+                        pointBorderColor: 'rgb(63, 108, 150)',
+                        pointHoverBackgroundColor: 'rgb(63, 108, 150)',
+                        pointHoverBorderColor: 'rgb(63, 108, 150)',
+                        data:this.state.tab5 && this.state.tab5
+
+                    }
+                ]
+            };
+            this.setState({data2:d2})
+            console.log(this.state.data2)
+            this.setState({comparer:true})
+        })
     }
 
 
@@ -223,6 +278,7 @@ descrip(){
                 <NavbarProfile />
                 <ProfilePageHeader />
                 <div className="section profile-content">
+                    <NavBarStudent/>
                     <Container>
                         <div className="owner">
                             <div className="avatar">
@@ -266,16 +322,9 @@ descrip(){
                                 </Media>
                                 <Media body>
                                     <Media heading>
-
-                        {/*<Label for="exampleSelect">Select Project  !</Label>*/}
                         <Media>
                             <Media>
-                                {/*<Input type="select" name="select" id="project">*/}
-                                {/*    {this.state.project && this.state.project.map((team) => <option id="project"*/}
-                                {/*                                                                    onClick={this.descrip.bind(this)}*/}
-                                {/*                                                                    key={team}*/}
-                                {/*                                                                    value={team}>{team}</option>)}*/}
-                                {/*</Input>*/}
+
                             </Media>
                             <Media body>
                                 <Media heading>
@@ -302,8 +351,8 @@ descrip(){
                                                             <div className="p-col-12 car-data">
                                                                 <div className="car-title">Teammate</div>
                                                                 <div
-                                                                    className="car-subtitle">{this.state.team && member.nom + ' ' + member.prenom} </div>
-                                                                {this.state.v.length &&
+                                                                    className="car-subtitle">{this.state.team &&  member.nom + ' ' + member.prenom} </div>
+                                                                {this.state.v.length && member.email !== jwt_decode(localStorage.token).user.email &&
                                                                 this.state.v[index] === true ?
                                                                     <div className="car-subtitle"><Link to={{
                                                                         pathname: '/evaluate',
@@ -350,13 +399,19 @@ descrip(){
                                     <Label for="exampleSelect">Compare your result with your teammates !</Label>}
                                     {this.state.show === true &&
                                     <Input type="select" name="select" id="compare">
+                                        <option onClick={this.mySelfEval.bind(this)}>My Self Evaluation</option>
                                         {this.state.p && this.state.p['team']['members'].map((member) =>  <option id="members"
-                                                                                                                 onClick={this.compa.bind(this,member.email)}
+                                                                                                                 onClick={this.compa.bind(this,member.email,member.nom,member.prenom)}
                                                                                                         key={member._id}
-                                                                                                        value={member.nom + ' ' +member.prenom}>{member.nom + ' ' +member.prenom}</option>)}
+                                                                                                        value={member.nom + ' ' +member.prenom}>
+                                                {member.email !== jwt_decode(localStorage.token).user.email &&  member.nom + ' ' +member.prenom }
+
+                                        </option>
+                                        )}
+
                                     </Input> }
 
-                                    {this.state.show === true &&
+                                    {this.state.comparer === true &&
                                     <center>
                                         <div>
                                             <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>

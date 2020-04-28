@@ -13,7 +13,7 @@ import {
     TabPane,
     Container,
     Row,
-    Col, Form
+    Col, Form, Card, CardBody
 } from "reactstrap";
 
 // core components
@@ -21,6 +21,7 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Component} from "react"
@@ -31,6 +32,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import {c} from '../../assets/countries.js';
 import {University} from "../../assets/University";
+import {Radar} from "react-chartjs-2";
 
 function countryToFlag(isoCode) {
     return typeof String.fromCodePoint !== 'undefined'
@@ -72,11 +74,51 @@ class ProfilePage extends Component {
 
 
         });
+
+        const st = {
+            email: jwt_decode(localStorage.token).user.email ,
+
+        }
+        const s =     axios.post("http://localhost:3000/users/statsSelfNote",st).then(res => {
+
+            this.setState({stats:res.data})
+            console.log(this.state.stats)
+
+            this.state.stats.map(e=>{
+
+
+                this.state.tab7.push(e.micro)
+                this.state.tab8.push(e.note)
+
+            })
+            console.log(this.state.tab7)
+            console.log(this.state.tab8)
+
+            const d = {
+                labels: ['Communication', 'Leadership', 'Effectiveness','Professionalism','Managing Skills','Cognitive ability'],
+
+                datasets: [
+                    {
+                        label: 'My Self Evaluation ! ',
+                        backgroundColor: 'rgb(0,255,0)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab8 && this.state.tab8
+                        //  data: [12,20,10,8,18,16,19]
+                    }
+                ]
+            };
+            this.setState({data:d})
+
+        });
     }
 
     constructor(props){
     super(props)
-    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:''};
+    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:'',stats:'',tab7:[],tab8:[],data:{}};
 
   }
   improve(nom)
@@ -89,9 +131,25 @@ class ProfilePage extends Component {
       {
           this.props.history.push("/QuizCommunication");
       }
-      else{
-          alert("no")
+      else if (nom === 'Effectiveness' ){
+
+          this.props.history.push("/QuizEffectivness");
+
       }
+      else if (nom === 'Professionalism')
+      {
+          this.props.history.push("/QuizProfessionalism");
+      }
+      else if (nom === 'Managing Skils')
+      {
+          this.props.history.push("/QuizManaging");
+      }
+      else if (nom === 'Cognitive Ability')
+      {
+          this.props.history.push("/QuizCognitiveAbility");
+      }
+
+
 
   }
 
@@ -229,6 +287,7 @@ class ProfilePage extends Component {
         <NavbarProfile/>
         <ProfilePageHeader/>
         <div className="section profile-content">
+            <NavBarStudent/>
           <Container>
             <div className="owner">
               <div className="avatar">
@@ -348,8 +407,10 @@ class ProfilePage extends Component {
                           <td>{t.macroskills.length}</td>
                           <td><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button>
                               {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation</button>}
+
                           </td>
                       </tr>
+
                       </tbody>
                       )}
                  </table>
@@ -377,6 +438,18 @@ class ProfilePage extends Component {
               )}
                       <tr><td colSpan="1">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
                   </table> :null}
+
+
+                  <div>
+                      <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                          <CardBody>
+                              <Radar  data={this.state.data}  />
+
+                          </CardBody>
+                      </Card>
+
+
+                  </div>
 
 
 

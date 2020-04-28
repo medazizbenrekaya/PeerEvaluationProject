@@ -40,6 +40,12 @@ import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
 import Admin from "./views/examples/admin";
 import QuizCommunication from "./views/examples/QuizCommunication";
+import QuizEffectiveness from "./views/examples/QuizEffectiveness";
+import QuizProfessionalism from "./views/examples/QuizProfessionalism";
+import QuizManaging from "./views/examples/QuizManaging";
+import QuizCognitiveAbility from "./views/examples/QuizCognitiveAbility";
+import MacroSkillsPage from "./views/examples/MacroSkillsPage";
+import PeerTeacher from "./views/examples/PeerTeacher";
 
 
 
@@ -102,12 +108,37 @@ ReactDOM.render(
           render={props => <QuizCommunication{...props} />}
       />
       <Route
+          path="/QuizEffectivness"
+          render={props => <QuizEffectiveness{...props} />}
+      />
+      <Route
+          path="/QuizProfessionalism"
+          render={props => <QuizProfessionalism{...props} />}
+      />
+      <Route
+          path="/QuizManaging"
+          render={props => <QuizManaging{...props} />}
+      />
+      <Route
+          path="/QuizCognitiveAbility"
+          render={props => <QuizCognitiveAbility{...props} />}
+      />
+
+      <Route
           path="/peer"
           render={props => <Peer{...props} />}
       />
       <Route
           path="/admin"
           render={props => <Admin{...props} />}
+      />
+      <Route
+          path="/MacroSkillsPage"
+          render={props =><MacroSkillsPage{...props} />}
+      />
+      <Route
+          path="/PeerTeacher"
+          render={props =><PeerTeacher{...props} />}
       />
 
       <Redirect to="/index" />

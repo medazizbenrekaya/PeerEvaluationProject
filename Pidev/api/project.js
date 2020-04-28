@@ -67,10 +67,6 @@ router.post("/get", (req, res) => {
 router.get("/allProject", (req, res) => {
 
     project.find((err, c) => {
-
-        if(err)
-            res.json(err)
-        else
             res.json(c)
     });
 

@@ -30,13 +30,16 @@ import axios from "axios";
 import {Component} from "react"
 import index from "async";
 
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Pagination from '@material-ui/lab/Pagination';
 
 
 class Admin extends Component {
 
     constructor(props){
         super(props)
-        this.state = {tab1:'',tab2:'',tab3:'',tab4:'',tab5:'',show:false};
+        this.state = {tab1:'',tab2:'',tab3:'',tab4:'',tab5:'',show:false,af:false,tabh:''};
         this.state = {m: [],x:[],ms:'',
             activeTab:"1",
             loginModal:false,
@@ -52,12 +55,14 @@ class Admin extends Component {
         this.setState({loginModal:false})
     }
 
+
     componentDidMount() {
         axios.get("http://localhost:3000/users/allUser").then(res => {
             this.setState({tab1:res.data})
 
             console.log('succes')
         });
+
 
         axios.get("http://localhost:3000/project/allProject").then(res => {
             this.setState({tab3:res.data})
@@ -144,6 +149,19 @@ class Admin extends Component {
             console.log(res.data)
         });
     }
+    filterH()
+    {
+        const t = {
+            type:document.getElementById('selectH').value
+        }
+        console.log(t.type)
+        axios.post("http://localhost:3000/users/typeHistorique", t ).then(res => {
+            this.setState({tabh:res.data})
+
+            console.log(res.data)
+        });
+    }
+
     delete(a)
     {
 
@@ -178,6 +196,21 @@ class Admin extends Component {
 
             console.log(res.data)
         });
+    }
+    afficherH()
+    {
+        this.setState({af:true})
+        axios.get("http://localhost:3000/users/allHistorique").then(res => {
+            this.setState({tabh: res.data})
+        });
+    }
+    deleteHistorique(a)
+    {
+        axios.get("http://localhost:3000/users/delete/"+a ).then(res => {
+            window.location.reload()
+        });
+
+
     }
 
     findProject()
@@ -385,6 +418,60 @@ class Admin extends Component {
                                                 onClick={() => {
                                                     this.mod(true);}}>
                                             statstique</Button>
+                                        <Button color="primary" size="lg" onClick={this.afficherH.bind(this)}>Historique</Button>
+                                        {this.state.tabh &&
+                                        <center> <table>
+                                            <tr>
+                                                <td>Filter
+                                                </td>
+                                                <td>
+                                                    <Input type="select" id="selectH" >
+                                                        <option onClick={this.afficherH.bind(this)}>
+                                                            All Historique
+                                                        </option>
+                                                        <option value="Self Evaluation" onClick={this.filterH.bind(this)}>
+                                                            Self Evaluation
+                                                        </option>
+                                                        <option value="Evaluation"  onClick={this.filterH.bind(this)}>
+                                                            Evaluation
+                                                        </option>
+                                                        <option value="Macro skill"  onClick={this.filterH.bind(this)}>
+                                                            Macro skill
+                                                        </option>
+                                                    </Input >
+                                                </td>
+                                            </tr>
+                                        </table></center>
+                                        }
+                                        {this.state.af &&  <div>
+                                            <table className="table">
+                                                <thead className="table table-info">
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Text</th>
+                                                    <th>Action</th>
+
+                                                </tr>
+                                                </thead>
+
+                                                {this.state.tabh   && this.state.tabh.map((team) =>  <tbody className="table table-active" key={team._id}  >
+
+
+                                                    <tr>
+                                                        <td>{team.emailUser}</td>
+                                                        <td>{team.roleUser}</td>
+                                                        <td>{team.Text}</td>
+                                                        <td>   <button className="btn-danger" onClick={this.deleteHistorique.bind(this , team._id)} >Delete</button></td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                )}
+
+                                            </table>
+                                        </div>
+
+                                            }
                                         <Modal
                                             isOpen={this.state.loginModal}
                                             toggle={() => {

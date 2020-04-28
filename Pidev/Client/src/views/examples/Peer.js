@@ -16,7 +16,7 @@ import {
     Container,
     Row,CardImg, CardText,
     CardTitle, CardSubtitle,
-    Col,Card,CardBody,
+    Col,Card,CardBody, UncontrolledTooltip,
     ListGroup, ListGroupItem,Table,Media
 } from "reactstrap";
 
@@ -101,20 +101,27 @@ descrip(){
         project :document.getElementById('project').value
 
     }
+    var notef = 0
+    var nb = 0
     const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
 
             this.setState({stats:res.data})
             console.log(this.state.stats)
 
             this.state.stats.map(e=>{
-
-
+                nb = nb + 1
+                notef = notef + e.note
                 this.state.tab2.push(e.micro)
                 this.state.tab3.push(e.note)
 
             })
-            console.log(this.state.tab2)
-            console.log(this.state.tab3)
+
+        this.setState({notefinal:Number(notef/nb).toFixed(2)})
+        this.setState({pourcent : Number(((notef/nb)*100)/20).toFixed(2)})
+
+            console.log(this.state.notefinal)
+        console.log(this.state.pourcent)
+
 
             const d = {
                 //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
@@ -145,6 +152,8 @@ descrip(){
             project :document.getElementById('project').value
 
         }
+        var notefinal2 = 0
+        var nb2 = 0
 
         const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
 
@@ -152,12 +161,16 @@ descrip(){
             console.log(this.state.stats2)
 
             this.state.stats2.map(e=>{
-
-
+                nb2 = nb2 + 1
+                notefinal2 = notefinal2 + e.note
                 this.state.tab4.push(e.micro)
                 this.state.tab5.push(e.note)
 
             })
+            console.log(notefinal2)
+            console.log(nb2)
+            this.setState({notefinal2:Number(notefinal2/nb2).toFixed(2)})
+            this.setState({pourcent2 : Number(((notefinal2/nb2)*100)/20).toFixed(2)})
 
             const d2 = {
                 //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
@@ -198,7 +211,7 @@ descrip(){
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},comparer:false};
+        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},comparer:false,notefinal:'',pourcent:'',notefinal2:'',pourcent2:''};
 
 
     }
@@ -320,6 +333,12 @@ descrip(){
                                 <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
                                     <CardBody>
                                         <Radar  data={this.state.data}  />
+                                        <Button color="danger" id="top2">
+                                            Final Result !
+                                        </Button>{` `}
+                                        <UncontrolledTooltip placement="top" target="top2" delay={0}>
+                                            <h3>Average :{this.state.notefinal}/20  <br/>  which equals {this.state.pourcent } %</h3>
+                                        </UncontrolledTooltip>
 
                                     </CardBody>
                                 </Card>
@@ -343,7 +362,12 @@ descrip(){
                                             <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
                                                 <CardBody>
                                                     <Radar  data={this.state.data2}  />
-
+                                                    <Button color="info" id="top">
+                                                        Teamates's Result !
+                                                    </Button>{` `}
+                                                    <UncontrolledTooltip placement="top" target="top" delay={0}>
+                                                        <h3>Average :{this.state.notefinal2}/20  <br/>  which equals {this.state.pourcent2 } %</h3>
+                                                    </UncontrolledTooltip>
                                                 </CardBody>
                                             </Card>
 

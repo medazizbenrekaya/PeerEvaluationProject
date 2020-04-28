@@ -204,6 +204,14 @@ class Admin extends Component {
             this.setState({tabh: res.data})
         });
     }
+    deleteHistorique(a)
+    {
+        axios.get("http://localhost:3000/users/delete/"+a ).then(res => {
+            window.location.reload()
+        });
+
+
+    }
 
     findProject()
     {
@@ -454,7 +462,7 @@ class Admin extends Component {
                                                         <td>{team.emailUser}</td>
                                                         <td>{team.roleUser}</td>
                                                         <td>{team.Text}</td>
-                                                        <td><button>Delete</button></td>
+                                                        <td>   <button className="btn-danger" onClick={this.deleteHistorique.bind(this , team._id)} >Delete</button></td>
 
                                                     </tr>
                                                     </tbody>

@@ -46,6 +46,13 @@ router.get("/allHistorique", (req, res) => {
     });
 
 })
+router.get('/delete/:id',function (req , res , nect) {
+    //remove
+    historique.remove({ _id : req.params.id } , function (err, obj) {
+        if (err) throw err;
+
+    });
+});
 
 
 router.post("/typeHistorique", (req, res) => {

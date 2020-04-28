@@ -21,6 +21,7 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Component} from "react"
@@ -286,6 +287,7 @@ class ProfilePage extends Component {
         <NavbarProfile/>
         <ProfilePageHeader/>
         <div className="section profile-content">
+            <NavBarStudent/>
           <Container>
             <div className="owner">
               <div className="avatar">

@@ -44,6 +44,8 @@ import QuizEffectiveness from "./views/examples/QuizEffectiveness";
 import QuizProfessionalism from "./views/examples/QuizProfessionalism";
 import QuizManaging from "./views/examples/QuizManaging";
 import QuizCognitiveAbility from "./views/examples/QuizCognitiveAbility";
+import MacroSkillsPage from "./views/examples/MacroSkillsPage";
+import PeerTeacher from "./views/examples/PeerTeacher";
 
 
 
@@ -129,6 +131,14 @@ ReactDOM.render(
       <Route
           path="/admin"
           render={props => <Admin{...props} />}
+      />
+      <Route
+          path="/MacroSkillsPage"
+          render={props =><MacroSkillsPage{...props} />}
+      />
+      <Route
+          path="/PeerTeacher"
+          render={props =><PeerTeacher{...props} />}
       />
 
       <Redirect to="/index" />

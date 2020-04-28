@@ -28,6 +28,7 @@ import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import  "../../assets/css/colors.css";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 
 
@@ -161,6 +162,7 @@ class Evaluation extends  Component {
                 <NavbarProfile />
                 <ProfilePageHeader />
                 <div className="section profile-content">
+                    <NavBarStudent/>
                     <Container>
                         <div className="owner">
                             <div className="avatar">

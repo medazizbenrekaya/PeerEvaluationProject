@@ -16,7 +16,7 @@ import {
     Container,
     Row,CardImg, CardText,
     CardTitle, CardSubtitle,
-    Col,Card,CardBody,
+    Col,Card,CardBody, UncontrolledTooltip,
     ListGroup, ListGroupItem,Table,Media
 } from "reactstrap";
 
@@ -31,7 +31,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import {Radar} from 'react-chartjs-2';
 import {Carousel} from 'primereact/carousel';
-
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 
 
@@ -101,20 +101,27 @@ descrip(){
         project :document.getElementById('project').value
 
     }
+    var notef = 0
+    var nb = 0
     const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
 
             this.setState({stats:res.data})
             console.log(this.state.stats)
 
             this.state.stats.map(e=>{
-
-
+                nb = nb + 1
+                notef = notef + e.note
                 this.state.tab2.push(e.micro)
                 this.state.tab3.push(e.note)
 
             })
-            console.log(this.state.tab2)
-            console.log(this.state.tab3)
+
+        this.setState({notefinal:Number(notef/nb).toFixed(2)})
+        this.setState({pourcent : Number(((notef/nb)*100)/20).toFixed(2)})
+
+            console.log(this.state.notefinal)
+        console.log(this.state.pourcent)
+
 
             const d = {
                 //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
@@ -138,13 +145,128 @@ descrip(){
         });
 
     }
+    compa(email,nom,prenom){
+        this.setState({tab4:[],tab5:[]})
+        const x = {
+            email: email ,
+            project :document.getElementById('project').value
+
+        }
+        var notefinal2 = 0
+        var nb2 = 0
+
+        const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
+
+            this.setState({stats2:res.data})
+            console.log(this.state.stats2)
+
+            this.state.stats2.map(e=>{
+                nb2 = nb2 + 1
+                notefinal2 = notefinal2 + e.note
+                this.state.tab4.push(e.micro)
+                this.state.tab5.push(e.note)
+
+            })
+            console.log(notefinal2)
+            console.log(nb2)
+            this.setState({notefinal2:Number(notefinal2/nb2).toFixed(2)})
+            this.setState({pourcent2 : Number(((notefinal2/nb2)*100)/20).toFixed(2)})
+
+            const d2 = {
+                //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
+                labels: this.state.tab4 && this.state.tab4,
+                datasets: [
+                    {
+                        label: 'Your Evaluation ! ',
+                        backgroundColor: 'rgb(0,255,0)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab3 && this.state.tab3
+                        //  data: [12,20,10,8,18,16,19]
+                    },
+                    {
+                        label: nom+' '+prenom+' Evaluation ! ',
+                        backgroundColor: 'rgb(63, 108, 150)',
+                        borderColor: 'rgba(63, 108, 150)',
+                        pointBackgroundColor: 'rgb(5, 5, 10)',
+                        pointBorderColor: 'rgb(63, 108, 150)',
+                        pointHoverBackgroundColor: 'rgb(63, 108, 150)',
+                        pointHoverBorderColor: 'rgb(63, 108, 150)',
+                        data:this.state.tab5 && this.state.tab5
+
+                    }
+                ]
+            };
+            this.setState({data2:d2})
+            console.log(this.state.data2)
+            this.setState({comparer:true})
+    })
+    }
+
+    mySelfEval(){
+        this.setState({tab4:[],tab5:[]})
+        const x = {
+            email: jwt_decode(localStorage.token).user.email
+        }
+
+        const s =     axios.post("http://localhost:3000/users/statsSelfNote",x).then(res => {
+
+            this.setState({stats:res.data})
+            console.log(this.state.stats)
+
+            this.state.stats.map(e=>{
+
+
+                this.state.tab4.push(e.micro)
+                this.state.tab5.push(e.note)
+
+            })
+            console.log(this.state.tab4)
+            console.log(this.state.tab5)
+
+            const d2 = {
+                labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
+
+                datasets: [
+                    {
+                        label: 'Your peer Evaluation score ! ',
+                        backgroundColor: 'rgb(0,255,0)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab3 && this.state.tab3
+                        //  data: [12,20,10,8,18,16,19]
+                    },
+                    {
+                        label: 'your self Evaluation score ! ',
+                        backgroundColor: 'rgb(63, 108, 150)',
+                        borderColor: 'rgba(63, 108, 150)',
+                        pointBackgroundColor: 'rgb(5, 5, 10)',
+                        pointBorderColor: 'rgb(63, 108, 150)',
+                        pointHoverBackgroundColor: 'rgb(63, 108, 150)',
+                        pointHoverBorderColor: 'rgb(63, 108, 150)',
+                        data:this.state.tab5 && this.state.tab5
+
+                    }
+                ]
+            };
+            this.setState({data2:d2})
+            console.log(this.state.data2)
+            this.setState({comparer:true})
+        })
+    }
 
 
 
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[]};
+        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},comparer:false,notefinal:'',pourcent:'',notefinal2:'',pourcent2:''};
 
 
     }
@@ -156,6 +278,7 @@ descrip(){
                 <NavbarProfile />
                 <ProfilePageHeader />
                 <div className="section profile-content">
+                    <NavBarStudent/>
                     <Container>
                         <div className="owner">
                             <div className="avatar">
@@ -185,7 +308,7 @@ descrip(){
                                                                                                         value={team}>{team}</option>)}
                                     </Input>
 
-                                    { this.state.show == true && <Label for="exampleSelect"> Description :{this.state.p && this.state.p['description']}</Label> }
+                                    { this.state.show === true && <Label for="exampleSelect"> Description :{this.state.p && this.state.p['description']}</Label> }
 
 
                                 </p>
@@ -199,20 +322,13 @@ descrip(){
                                 </Media>
                                 <Media body>
                                     <Media heading>
-
-                        {/*<Label for="exampleSelect">Select Project  !</Label>*/}
                         <Media>
                             <Media>
-                                {/*<Input type="select" name="select" id="project">*/}
-                                {/*    {this.state.project && this.state.project.map((team) => <option id="project"*/}
-                                {/*                                                                    onClick={this.descrip.bind(this)}*/}
-                                {/*                                                                    key={team}*/}
-                                {/*                                                                    value={team}>{team}</option>)}*/}
-                                {/*</Input>*/}
+
                             </Media>
                             <Media body>
                                 <Media heading>
-                                    {this.state.show == true &&
+                                    {this.state.show === true &&
 
                                     <Table>
                                         <thead>
@@ -235,9 +351,9 @@ descrip(){
                                                             <div className="p-col-12 car-data">
                                                                 <div className="car-title">Teammate</div>
                                                                 <div
-                                                                    className="car-subtitle">{this.state.team && member.nom + ' ' + member.prenom} </div>
-                                                                {this.state.v.length &&
-                                                                this.state.v[index] == true ?
+                                                                    className="car-subtitle">{this.state.team &&  member.nom + ' ' + member.prenom} </div>
+                                                                {this.state.v.length && member.email !== jwt_decode(localStorage.token).user.email &&
+                                                                this.state.v[index] === true ?
                                                                     <div className="car-subtitle"><Link to={{
                                                                         pathname: '/evaluate',
                                                                         X: this.state.p,
@@ -260,18 +376,58 @@ descrip(){
                                     }
 
 
-                        {this.state.show ==true &&
+                        {this.state.show ===true &&
                         <center>
                             <div>
                                 <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
                                     <CardBody>
                                         <Radar  data={this.state.data}  />
+                                        <Button color="danger" id="top2">
+                                            Final Result !
+                                        </Button>{` `}
+                                        <UncontrolledTooltip placement="top" target="top2" delay={0}>
+                                            <h3>Average :{this.state.notefinal}/20  <br/>  which equals {this.state.pourcent } %</h3>
+                                        </UncontrolledTooltip>
 
                                     </CardBody>
                                 </Card>
 
 
                             </div>  </center> }
+
+                                    {this.state.show === true &&
+                                    <Label for="exampleSelect">Compare your result with your teammates !</Label>}
+                                    {this.state.show === true &&
+                                    <Input type="select" name="select" id="compare">
+                                        <option onClick={this.mySelfEval.bind(this)}>My Self Evaluation</option>
+                                        {this.state.p && this.state.p['team']['members'].map((member) =>  <option id="members"
+                                                                                                                 onClick={this.compa.bind(this,member.email,member.nom,member.prenom)}
+                                                                                                        key={member._id}
+                                                                                                        value={member.nom + ' ' +member.prenom}>
+                                                {member.email !== jwt_decode(localStorage.token).user.email &&  member.nom + ' ' +member.prenom }
+
+                                        </option>
+                                        )}
+
+                                    </Input> }
+
+                                    {this.state.comparer === true &&
+                                    <center>
+                                        <div>
+                                            <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                                <CardBody>
+                                                    <Radar  data={this.state.data2}  />
+                                                    <Button color="info" id="top">
+                                                        Teamates's Result !
+                                                    </Button>{` `}
+                                                    <UncontrolledTooltip placement="top" target="top" delay={0}>
+                                                        <h3>Average :{this.state.notefinal2}/20  <br/>  which equals {this.state.pourcent2 } %</h3>
+                                                    </UncontrolledTooltip>
+                                                </CardBody>
+                                            </Card>
+
+
+                                        </div>  </center> }
 
 
 

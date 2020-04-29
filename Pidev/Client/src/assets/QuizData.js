@@ -148,7 +148,7 @@ export const QE =
             id: 2 ,
             question : "Our personal effectiveness depends on ?",
             options: ['the work experience' , 'the work we do' , 'the quantite of work'],
-            answer : ' paying close attention to the person who is speaking to you'
+            answer : 'the work experience'
         },
         {
             id: 3 ,
@@ -332,7 +332,7 @@ export const QCA =
             id: 0 ,
             question : "Sustained Attention means ?",
             options: ['ability to look at, listen to and think about classroom tasks over a period of time' , 'ignore tasks out of time of work' , 'pay attention in work'],
-            answer : 'ability to look at, listen to and think about classroom tasks over a period of time\''
+            answer : 'ability to look at, listen to and think about classroom tasks over a period of time'
         },
         {
             id: 1 ,

@@ -5,6 +5,7 @@ var MicroSkillsSchema = new mongoose.Schema({
     description : {type:String },
     type : {type:String , required : true},
     etat: {type: Boolean , default: false},
+    selfNote : {type: Number , default: null},
     macroskills : [{
         nom: {type: String, required: true},
         description: {type: String},

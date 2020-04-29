@@ -7,6 +7,9 @@ import  "../../assets/css/colors.css";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "../../components/Headers/ProfilePageHeader";
 import DemoFooter from "../../components/Footers/DemoFooter";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import {log} from "async";
 
 class SelfEvaluation extends  Component {
     state = {
@@ -57,19 +60,47 @@ class SelfEvaluation extends  Component {
                     quizEnd: true
                 }
             )
-            if (score >= 7 ){
+            if (score >= 16 ){
                 this.setState({
                     result: 'you validated this macro, well done '
-                    //function update
-                    //function historique prend score
-                }) }
+
+
+                })
+            }
             else{
                 this.setState({
                     result: 'you have to work on your Leadership skill'
                     //function historique prend score
                 })
             }
+
         }
+        const t = {
+            email: jwt_decode(localStorage.token).user.email,
+            nom: 'Leadership',
+            note : this.state.score + 2
+        }
+        console.log(t.nom)
+
+        axios.post("http://localhost:3000/ms/etat",t).then(res => {
+            console.log(res.data)
+            console.log('succes')
+
+
+        });
+        const a = {
+            emailUser: jwt_decode(localStorage.token).user.email,
+            roleUser: jwt_decode(localStorage.token).user.role,
+            type: "Self Evaluation",
+            Text : jwt_decode(localStorage.token).user.role+" "+jwt_decode(localStorage.token).user.nom+" "+jwt_decode(localStorage.token).user.prenom+" has a score :"+t.note+" in self evaluation : "+t.nom
+        }
+        console.log(a.Text)
+        axios.post("http://localhost:3000/users/ajouterHistorique",a).then(res => {
+            console.log(res.data)
+            console.log('succes')
+
+
+        });
 
     }
 
@@ -129,7 +160,7 @@ class SelfEvaluation extends  Component {
             <div className="app">
                 <p className="titre" >Validate macro skill : LEADERSHIP</p>
                 <h2 >  {questions}</h2>
-                <span > Question {currentQuestion}  out of  {QuizData.length - 1 }  </span>
+                <span > Question {currentQuestion + 1}  out of  {QuizData.length  }  </span>
                  {options.map(option =>(
                      <p className="options">
                     <option key={option.id}

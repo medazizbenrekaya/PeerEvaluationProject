@@ -5,6 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/ResetPw.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/ResetPw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/PeerTeacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/PeerTeacher.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
     </list>
@@ -134,5 +136,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added role" />
     <option name="LAST_COMMIT_MESSAGE" value="added role" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Client/src/views/examples/Peer.js</url>
+          <line>188</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

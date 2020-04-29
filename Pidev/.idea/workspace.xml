@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/assets/University.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/assets/University.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/ResetPw.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/ResetPw.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/PeerTeacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/PeerTeacher.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +104,8 @@
       <workItem from="1587735690072" duration="1652000" />
       <workItem from="1587819293200" duration="1705000" />
       <workItem from="1587828493411" duration="6305000" />
-      <workItem from="1587913772911" duration="3777000" />
+      <workItem from="1587913772911" duration="3881000" />
+      <workItem from="1588000878911" duration="3266000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

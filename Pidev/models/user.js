@@ -8,7 +8,7 @@ var userSchema = new mongoose.Schema({
   prenom : {type : String},
   password : {type:String , required : true},
   email : {type : String , required : true},
-  resetPasswordToken: {type : String},
+  resetPasswordToken: {type : String,default:null},
   role : {type : String , default : null},
   etat:{type  : Boolean , default : false},
   university:{type  : String , default : null},

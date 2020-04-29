@@ -20,24 +20,52 @@ import React, { Component } from "react";
 
 
 // reactstrap components
-import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
+import {Button, Card, Form, Input, Container, Row, Col, Alert} from "reactstrap";
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 class ResetPw extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            password1:'',pass2:'',token:'',
+            visible1: false, visible2: false, visible: false};
+    }
+    onDismiss(){
+        this.setState({visible:false})
+    }
+    onDismiss1(){
+        this.setState({visible1:false})
+    }
+    onDismiss2(){
+        this.setState({visible2:false})
+    }
     Reset() {
-
 
         const bod = {
             token: document.getElementById('token').value,
             password : document.getElementById('password').value
         };
+        this.state.password1=bod.password
+        this.state.token=bod.token
+        this.state.pass2=document.getElementById('password2').value
+        if(this.state.token.length===0){
+            this.setState({visible:true})}
+
+        else if((this.state.password1.length === 0)&&(this.state.password1.length <= 6)){
+            this.setState({visible1:true})
+        }
+        else if(this.state.password1!==this.state.pass2){
+            this.setState({visible2:true})
+        }
+
+        else {
         axios.post("http://localhost:3000/users/reset", bod).then(res => {
-            console.log('succes')
         });
         alert("done!")
+         this.props.history.push("/login");}
     }
     render(){
         return (
@@ -61,10 +89,19 @@ class ResetPw extends Component {
                                     <>
                                         <label>Token</label>
                                         <Input placeholder="Token !" type="text" id="token" />
+                                        <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss.bind(this)}>
+                                            <b>Token est un champ obligatoire. </b>
+                                        </Alert>
                                         <label>New Password</label>
                                         <Input placeholder="New Password !" type="password" id="password" />
+                                        <Alert color="danger" isOpen={this.state.visible1} toggle={this.onDismiss1.bind(this)}>
+                                            <b>champ obligatoire au moins 6 caractéres.</b>
+                                        </Alert>
                                         <label>Repeat Password</label>
-                                        <Input placeholder="New Password !" type="password" id="password" />
+                                        <Input placeholder="New Password !" type="password" id="password2" />
+                                        <Alert color="danger" isOpen={this.state.visible2} toggle={this.onDismiss2.bind(this)}>
+                                            <b>Verfier le password. </b>
+                                        </Alert>
                                         <Button block className="btn-round" color="danger" onClick={this.Reset.bind(this)}>
                                             Confirm !
                                         </Button>

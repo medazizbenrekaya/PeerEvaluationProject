@@ -13,7 +13,7 @@ import {
     TabPane,
     Container,
     Row,
-    Col, Form, Card, CardBody
+    Col, Form, Card, CardBody, UncontrolledTooltip
 } from "reactstrap";
 
 // core components
@@ -71,9 +71,9 @@ class ProfilePage extends Component {
             this.setState({tab6 : res.data})
             console.log(res.data)
             console.log('succes')
-
-
         });
+        var notefinal5 = 0
+        var nb5 = 0
 
         const st = {
             email: jwt_decode(localStorage.token).user.email ,
@@ -84,13 +84,17 @@ class ProfilePage extends Component {
             this.setState({stats:res.data})
             console.log(this.state.stats)
 
-            this.state.stats.map(e=>{
 
+            this.state.stats.map(e=>{
+                nb5 = nb5 + 1
+                notefinal5 = notefinal5 + e.note
 
                 this.state.tab7.push(e.micro)
                 this.state.tab8.push(e.note)
 
             })
+            this.setState({notefinal5:Number(notefinal5/nb5).toFixed(2)})
+            this.setState({pourcent5 : Number(((notefinal5/nb5)*100)/20).toFixed(2)})
             console.log(this.state.tab7)
             console.log(this.state.tab8)
 
@@ -195,6 +199,7 @@ class ProfilePage extends Component {
         console.log(t.pays)
         axios.post("http://localhost:3000/users/update", t).then(res => {
             console.log('succes')
+            this.setState({paysE : t.pays})
 
 
 
@@ -366,12 +371,13 @@ class ProfilePage extends Component {
                       <Autocomplete
                           id="combo-box-demo"
                           options={University}
+                          getOptionDisabled={(option) => option.pays !== this.state.paysE }
                           classes={{
                               option: useStyles.option,
                           }}
                           getOptionLabel={(option) => option.title+','+option.pays }
                           style={{ width: 300 }}
-                          renderInput={(params) => <TextField {...params} label="Choose an University" variant="outlined" />}
+                          renderInput={(params) => <TextField {...params} label="Choose an University" variant="outlined" margin="normal" />}
                           onChange={this.editUniversity.bind(this)}
                       />
                       :null}
@@ -444,6 +450,12 @@ class ProfilePage extends Component {
                       <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
                           <CardBody>
                               <Radar  data={this.state.data}  />
+                              <Button color="info" id="top4">
+                                   self Evaluation Result !
+                              </Button>{` `}
+                              <UncontrolledTooltip placement="top" target="top4" delay={1}>
+                                  <h3>Average :{this.state.notefinal5}/20  <br/>  which equals {this.state.pourcent5 } %</h3>
+                              </UncontrolledTooltip>
 
                           </CardBody>
                       </Card>

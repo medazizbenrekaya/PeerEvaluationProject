@@ -307,8 +307,8 @@ router.post('/forgot', function(req, res, next) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: 'adembenzarb@gmail.com',
-          pass: 'Adem50502450'
+          user: 'benzarb34@gmail.com',
+          pass: '50502450'
         }
       });
       //https://myaccount.google.com/lesssecureapps
@@ -541,6 +541,19 @@ router.post("/find/:email", (req, res) => {
     });
 
 })
+router.post("/findS", (req, res) => {
+    var x = true
+
+
+    User.findOne({email: req.body.email}, (err, c) => {
+
+        if(c)
+            res.json(c)
+        else
+            res.status(401).json(' Introuvable')
+    });
+
+})
 
 router.post("/Selfnote",  (req, res) => {
 
@@ -632,25 +645,37 @@ router.post("/role", (req, res) => {
 
 })
 router.post("/email", (req, res) => {
-
-    User.find({$or: [{email : new RegExp(req.body.email, 'i')}, {university : new RegExp(req.body.email, 'i')} ,{pays : new RegExp(req.body.email, 'i')}   ]   } ,(err, c) => {
-
-        if(err)
+    var tab = []
+    User.find({$or: [{email: new RegExp(req.body.email, 'i')}, {university: new RegExp(req.body.email, 'i')}, {pays: new RegExp(req.body.email, 'i')}]}, (err, c) => {
+        if (err)
             res.json(err)
-        else
-            res.json(c)
-    });
+        else {
+            c.forEach(e => {
+                if (e.role !== 'Admin')
+                    tab.push(e)
+                tab.save
+            })
+            res.json(tab)
+        }
 
+    })
 })
 
 router.get("/allUser", (req, res) => {
-
+    var tab=[]
     User.find((err, c) => {
 
         if(err)
             res.json(err)
-        else
-           res.json(c)
+        else{
+            c.forEach(e=>{
+                if(e.role!=='Admin')
+                    tab.push(e)
+                    tab.save
+            })
+            res.json(tab)
+        }
+
     });
 
 })

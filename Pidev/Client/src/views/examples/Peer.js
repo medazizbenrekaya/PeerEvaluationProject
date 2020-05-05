@@ -46,11 +46,7 @@ class Peer extends  Component {
         const t = {
             email: jwt_decode(localStorage.token).user.email }
 
-        const st = {
-            email: jwt_decode(localStorage.token).user.email  ,
-            project :document.getElementById('project').value
 
-        }
 
         test2: axios.post("http://localhost:3000/users/projects",t).then(res => {
             this.setState({project : res.data}
@@ -65,11 +61,11 @@ class Peer extends  Component {
     };
 
 
-descrip(){
+descrip(a){
 
     this.setState({show:true,tab2:[],tab3:[],v:[]})
     var T = []
-    const n ={ nom:document.getElementById('project').value}
+    const n ={ nom:a}
     test2: axios.post("http://localhost:3000/project/get",n).then(res => {
         this.setState({p : res.data})
         var x = this.state.p['team']['members']
@@ -79,7 +75,7 @@ descrip(){
 
 
             var v = {
-                project :document.getElementById('project').value,
+                project :a,
                 voteur : jwt_decode(localStorage.token).user._id,
                 email: t.email
             }
@@ -98,7 +94,7 @@ descrip(){
     })
     const st = {
         email: jwt_decode(localStorage.token).user.email ,
-        project :document.getElementById('project').value
+        project :a
 
     }
     var notef = 0
@@ -146,7 +142,7 @@ descrip(){
 
     }
     compa(email,nom,prenom){
-        this.setState({tab4:[],tab5:[]})
+        this.setState({tab4:[],tab5:[],nomc:nom,prenomc:prenom,myself:false})
         const x = {
             email: email ,
             project :document.getElementById('project').value
@@ -178,7 +174,7 @@ descrip(){
                 datasets: [
                     {
                         label: 'Your Evaluation ! ',
-                        backgroundColor: 'rgb(0,255,0)',
+                        backgroundColor: '',
                         borderColor: 'rgba(179,181,198,1)',
                         pointBackgroundColor: 'rgb(0,128,0)',
                         pointBorderColor: 'rgb(0,128,0)',
@@ -189,7 +185,7 @@ descrip(){
                     },
                     {
                         label: nom+' '+prenom+' Evaluation ! ',
-                        backgroundColor: 'rgb(63, 108, 150)',
+                        backgroundColor: '',
                         borderColor: 'rgba(63, 108, 150)',
                         pointBackgroundColor: 'rgb(5, 5, 10)',
                         pointBorderColor: 'rgb(63, 108, 150)',
@@ -207,10 +203,12 @@ descrip(){
     }
 
     mySelfEval(){
-        this.setState({tab4:[],tab5:[]})
+        this.setState({tab4:[],tab5:[],nomc:'my',prenomc:'self evaluation',comparer:false,myself:true})
         const x = {
             email: jwt_decode(localStorage.token).user.email
         }
+        var notefinal5 = 0
+        var nb5 = 0
 
         const s =     axios.post("http://localhost:3000/users/statsSelfNote",x).then(res => {
 
@@ -218,12 +216,15 @@ descrip(){
             console.log(this.state.stats)
 
             this.state.stats.map(e=>{
-
+                nb5 = nb5 + 1
+                notefinal5 = notefinal5 + e.note
 
                 this.state.tab4.push(e.micro)
                 this.state.tab5.push(e.note)
 
             })
+            this.setState({notefinal5:Number(notefinal5/nb5).toFixed(2)})
+            this.setState({pourcent5 : Number(((notefinal5/nb5)*100)/20).toFixed(2)})
             console.log(this.state.tab4)
             console.log(this.state.tab5)
 
@@ -233,7 +234,7 @@ descrip(){
                 datasets: [
                     {
                         label: 'Your peer Evaluation score ! ',
-                        backgroundColor: 'rgb(0,255,0)',
+                        backgroundColor: '',
                         borderColor: 'rgba(179,181,198,1)',
                         pointBackgroundColor: 'rgb(0,128,0)',
                         pointBorderColor: 'rgb(0,128,0)',
@@ -244,7 +245,7 @@ descrip(){
                     },
                     {
                         label: 'your self Evaluation score ! ',
-                        backgroundColor: 'rgb(63, 108, 150)',
+                        backgroundColor: '',
                         borderColor: 'rgba(63, 108, 150)',
                         pointBackgroundColor: 'rgb(5, 5, 10)',
                         pointBorderColor: 'rgb(63, 108, 150)',
@@ -257,7 +258,7 @@ descrip(){
             };
             this.setState({data2:d2})
             console.log(this.state.data2)
-            this.setState({comparer:true})
+            this.setState({comparer:false})
         })
     }
 
@@ -285,37 +286,44 @@ descrip(){
                                 <img
                                     alt="..."
                                     className="img-circle img-no-padding img-responsive"
-                                    src={require('assets/img/faces/student.png')}
+                                    src={require('assets/img/faces/peer.png')}
                                 />
                             </div>
                             <div className="name">
-                                <h4 className="title">
-                                    {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br />
+                                <h4 className="btn btn-secondary btn-lg btn-block">
+                               Welcome {jwt_decode(localStorage.token).user.nom.toUpperCase()} {jwt_decode(localStorage.token).user.prenom.toUpperCase()} to Peer Evaluation form
                                 </h4>
 
                             </div>
                         </div>
+                        <br/>
                         <Row>
                             <Col className="ml-auto mr-auto text-center" md="6">
-                                <p>
-                                    {jwt_decode(localStorage.token).user.university} Student that is trying to use PeerEvaluation
+                                <p >
+                                    <button className="btn btn-outline-info btn-lg btn-block"> {jwt_decode(localStorage.token).user.university} Student </button>
                                     <br/>
-                                    <Label for="exampleSelect">Select Project  !</Label>
-                                    <Input type="select" name="select" id="project">
-                                        {this.state.project && this.state.project.map((team) => <option id="project"
-                                                                                                        onClick={this.descrip.bind(this) }
+
+                                    <Label for="exampleSelect" className="btn-outline-info">Select Project  !</Label>
+                             <table>
+                                 <tr>
+                                        {this.state.project && this.state.project.map((team) =><td> <button id="project"
+                                                                                                            data-toggle="button" aria-pressed="false" autocomplete="off"
+                                                                                                            className="btn btn-outline-primary btn-lg btn-block"
+                                                                                                        onClick={this.descrip.bind(this,team) }
                                                                                                         key={team}
-                                                                                                        value={team}>{team}</option>)}
-                                    </Input>
+                                                                                                        value={team}>{team}</button></td>)}
 
-                                    { this.state.show === true && <Label for="exampleSelect"> Description :{this.state.p && this.state.p['description']}</Label> }
 
+
+                                 </tr>
+                             </table>
+                                    { this.state.show === true && <Label className="btn btn-outline-info btn-lg btn-sm"> Description :{this.state.p && this.state.p['description']}</Label> }
 
                                 </p>
                                 <br />
                             </Col>
                         </Row>
-                        <br />
+
 
                        <Media >
                                 <Media>
@@ -394,34 +402,73 @@ descrip(){
 
 
                             </div>  </center> }
+                                    <Col className="ml-auto mr-auto text-center" md="6">
+                                    {this.state.show === true &&
+                                    <Label className="btn btn-success btn-lg btn-block">Compare your result !</Label>}
+<table>
+    <tr>
 
                                     {this.state.show === true &&
-                                    <Label for="exampleSelect">Compare your result with your teammates !</Label>}
+
+                                    <td><button     data-toggle="button" aria-pressed="false" autocomplete="off"
+                                                    className="btn btn-outline-primary btn-lg btn-block" onClick={this.mySelfEval.bind(this)}>My Self Evaluation</button> </td>}
                                     {this.state.show === true &&
-                                    <Input type="select" name="select" id="compare">
-                                        <option onClick={this.mySelfEval.bind(this)}>My Self Evaluation</option>
-                                        {this.state.p && this.state.p['team']['members'].map((member) =>  <option id="members"
+                                        this.state.p && this.state.p['team']['members'].map((member) =><td>  <button id="members"
+                                                                                                                     data-toggle="button" aria-pressed="false" autocomplete="off"
+                                                                                                                     className="btn btn-outline-primary btn-lg btn-block"
                                                                                                                  onClick={this.compa.bind(this,member.email,member.nom,member.prenom)}
                                                                                                         key={member._id}
                                                                                                         value={member.nom + ' ' +member.prenom}>
-                                                {member.email !== jwt_decode(localStorage.token).user.email &&  member.nom + ' ' +member.prenom }
+                                                {  member.nom + ' ' +member.prenom }
 
-                                        </option>
+                                        </button></td>
                                         )}
 
-                                    </Input> }
+    </tr>
+</table>
+
+                                    </Col>
 
                                     {this.state.comparer === true &&
                                     <center>
                                         <div>
-                                            <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                            <Card style={{width: '50rem',height:'10'   }}>
                                                 <CardBody>
                                                     <Radar  data={this.state.data2}  />
+                                                    <Button color="danger" id="top7">
+                                                        My Result !
+                                                    </Button>{` `}
+                                                    <UncontrolledTooltip placement="top" target="top7" delay={0}>
+                                                        <h3>Average :{this.state.notefinal}/20  <br/>  which equals {this.state.pourcent } %</h3>
+                                                    </UncontrolledTooltip>
                                                     <Button color="info" id="top">
-                                                        Teamates's Result !
+                                                        {this.state.nomc} {this.state.prenomc} Result !
                                                     </Button>{` `}
                                                     <UncontrolledTooltip placement="top" target="top" delay={0}>
                                                         <h3>Average :{this.state.notefinal2}/20  <br/>  which equals {this.state.pourcent2 } %</h3>
+                                                    </UncontrolledTooltip>
+                                                </CardBody>
+                                            </Card>
+
+
+                                        </div>  </center> }
+                                    {this.state.myself === true &&
+                                    <center>
+                                        <div>
+                                            <Card style={{width: '50rem',height:'10'   }}>
+                                                <CardBody>
+                                                    <Radar  data={this.state.data2}  />
+                                                    <Button color="danger" id="top8">
+                                                        My Result !
+                                                    </Button>{` `}
+                                                    <UncontrolledTooltip placement="top" target="top8" delay={0}>
+                                                        <h3>Average :{this.state.notefinal}/20  <br/>  which equals {this.state.pourcent } %</h3>
+                                                    </UncontrolledTooltip>
+                                                    <Button color="info" id="top">
+                                                        {this.state.nomc} {this.state.prenomc} Result !
+                                                    </Button>{` `}
+                                                    <UncontrolledTooltip placement="top" target="top" delay={0}>
+                                                        <h3>Average :{this.state.notefinal5}/20  <br/>  which equals {this.state.pourcent5 } %</h3>
                                                     </UncontrolledTooltip>
                                                 </CardBody>
                                             </Card>

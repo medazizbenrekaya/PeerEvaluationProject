@@ -78,7 +78,7 @@ class Register extends Component {
                 this.setState({visible8:true})
             }
             else console.log(res.data)
-            //this.props.history.push("/login");
+            this.props.history.push("/login");
         });}
 
     }

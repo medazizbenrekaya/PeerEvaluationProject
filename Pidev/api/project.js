@@ -104,23 +104,92 @@ router.post("/verifvoteur",  (req, res) => {
 
 router.post("/affecter", (req, res) => {
 
-
+   var i = 0
     project.findOne({nom: req.body.name}, (err, t) => {
 
             t.team.members.forEach( a => {
+                i = i + 1
                      micro.findOne({nom:req.body.mic},(err,m) => {
                       a.microskills.push(m)
 
                 console.log(a.microskills)
+                         a.microskills.save
+                         a.save
+                         console.log(i)
+                         t.team.members.save()
+                     })
 
-                })
-                a.microskills.save
-                a.save
+
+
            })
-        t.save()
-
-        project2.findOneAndUpdate({ nom : req.body.name}, t, { new : true},(err,proj) => {res.json('done')})
                 })
+
+
+
+
+})
+
+router.post("/Best", (req, res) => {
+
+    var Tab = []
+    project.findOne({nom: req.body.name}, (err, t) => {
+            var index = 0
+        t.team.members.forEach( async arr => {
+            index = index  + 1
+                arr.microskills.forEach(n => {
+                    if (n.nom === req.body.mic){
+                        var note = new Number(0)
+                    var t = 0
+                    var s = 0
+
+                    n.macroskills.forEach(m => {
+
+                        var total = new Number(0)
+                        if (m.notes.length !== 0) {
+                            m.notes.forEach(e => {
+
+                                t = t + 1
+                                s = s + e.note
+                            })
+                            total = total + (s / t)
+                            console.log(s, t)
+                            console.log(total)
+                            note = total + note
+                            s = 0
+                            t = 0
+                            console.log(note)
+                        }
+
+
+                    })
+                    var x = {
+                        user: arr.nom + ' ' + arr.prenom,
+                        note: note
+                    };
+
+                    Tab.push(x)
+                    Tab.save
+                }
+                });
+              if( index === t.team.members.length )
+              {
+                  Tab.sort(function (a,b) {
+                      return b.note - a.note
+
+                  })
+                  res.json(Tab)}
+
+        })
+
+
+        // Tab.sort(function (a,b) {
+        //     return a.microskills[req.body.mic] - b.microskills[req.body.mic]
+        //
+        // })
+        // res.json(Tab)
+
+
+    })
 
 
 

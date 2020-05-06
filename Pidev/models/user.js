@@ -23,8 +23,6 @@ var userSchema = new mongoose.Schema({
     ref:'Project',default:null
   }],
   image : {type:String,default:"assets/img/faces/user.png"}
-
-
 })
 // var u1 = mongoose.model('User', userSchema);
 // u1.create({ nom:'aziz',prenom:'aziz',password:'aziz',email:'aziz'}, function (err, small) {

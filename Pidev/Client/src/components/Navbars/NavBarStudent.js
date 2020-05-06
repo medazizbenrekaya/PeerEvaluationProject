@@ -23,7 +23,7 @@ function NavBarStudent() {
                 }
                 else if (selected === 'workshops')
                 {
-                    document.location.href="/";
+                    document.location.href="/Workshop-Page2";
                 }
                 else if (selected === 'peer')
                 {

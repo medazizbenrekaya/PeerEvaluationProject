@@ -1,28 +1,7 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React,{Component} from "react";
-
-// reactstrap components
 import {
     Button,
-    Label,
-    FormGroup,
     Input,
     NavItem,
     NavLink,
@@ -31,17 +10,15 @@ import {
     TabPane,
     Container,
     Row,
-    Col, Card,
-    InputGroupAddon,
-    InputGroupText,
+    Col,
     Form,
     ListGroup,
-    ListGroupItem
+    ListGroupItem, Alert, Card
 
 
 } from "reactstrap";
 
-// core components
+
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import NavBarTeacher from "../../components/Navbars/NavBarTeacher";
@@ -49,14 +26,6 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import SectionNavigation from "../index-sections/SectionNavigation";
-import NucleoIcons from "../NucleoIcons";
-import SectionProgress from "../index-sections/SectionProgress";
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import {c} from '../../assets/countries.js';
-import {University} from "../../assets/University";
 
 
 
@@ -64,14 +33,27 @@ class MacroSkillsPage extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,
+            visible1: false,
+            visible2: false,
+            visible3: false,
+            visible4: false,
+            nommacr:'',descmacr:'',nom:'',desc:'',
 
         };
-
-
-
     }
-
+    onDismiss1(){
+        this.setState({visible1:false})
+    }
+    onDismiss2(){
+        this.setState({visible2:false})
+    }
+    onDismiss3(){
+        this.setState({visible3:false})
+    }
+    onDismiss4(){
+        this.setState({visible4:false})
+    }
 
     componentDidMount() {
         axios.get("http://localhost:3000/ms/Afficher").then(res => {
@@ -80,15 +62,7 @@ class MacroSkillsPage extends  Component {
 
         });
     }
-    toggle  (tab) {
-        if(this.state.activeTab!==tab){
-            this.setState({activeTab:tab})
-            console.log(this.state.activeTab);
-        }
 
-        //this.state.activeTab=tab
-
-    }
     toggle  (tab) {
       if(this.state.activeTab!==tab){
           this.setState({activeTab:tab})
@@ -103,16 +77,24 @@ class MacroSkillsPage extends  Component {
         const bod2 = {
             nom: document.getElementById('nommacro').value,
             description:document.getElementById('descmacro').value
-
         };
+        this.state.nommacr=bod2.nom
+        this.state.descmacr=bod2.description
+        if (this.state.nommacr.length === 0) {
+            this.setState({visible3:true})
+        }
+        else if(this.state.descmacr.length === 0){
+            this.setState({visible4:true})
+        }
+        else {
         this.state.m.push(bod2)
         console.log(this.state.m)
         let x = document.getElementById('nommacro').value
         this.setState({ms : this.state.ms +  x +'  |  ' })
         document.getElementById('nommacro').value = ''
         document.getElementById('descmacro').value = ''
-
-    }
+        }
+        }
 
 
     Ajouter() {
@@ -124,6 +106,15 @@ class MacroSkillsPage extends  Component {
             type:document.getElementById('type').value,
             macroskills: this.state.m
         };
+        this.state.nom=bod.nom
+        this.state.desc=bod.description
+        if (this.state.nom.length === 0) {
+            this.setState({visible1:true})
+        }
+        else if(this.state.desc.length === 0){
+            this.setState({visible2:true})
+        }
+        else {
         const a = {
             emailUser: jwt_decode(localStorage.token).user.email,
             roleUser: jwt_decode(localStorage.token).user.role,
@@ -148,6 +139,7 @@ class MacroSkillsPage extends  Component {
 
 
         });
+        }
 
     }
 
@@ -309,6 +301,9 @@ class MacroSkillsPage extends  Component {
                                                                             <Col md="6">
                                                                                 <label>Name</label>
                                                                                 <Input placeholder="Name" type="text" id="nom" />
+                                                                                <Alert color="danger" isOpen={this.state.visible1} toggle={this.onDismiss1.bind(this)}>
+                                                                                    <b>C'est un champ obilgatoire</b>
+                                                                                </Alert>
                                                                             </Col>
 
                                                                         </Row>
@@ -318,6 +313,9 @@ class MacroSkillsPage extends  Component {
                                                                             rows="4"
                                                                             placeholder="Description" type="textarea" id="desc"
                                                                         />
+                                                                        <Alert color="danger" isOpen={this.state.visible2} toggle={this.onDismiss2.bind(this)}>
+                                                                            <b>C'est un champ obilgatoire</b>
+                                                                        </Alert>
                                                                         <Row>
                                                                             <label>Type</label>
                                                                             <select name="type" id="type">
@@ -337,12 +335,18 @@ class MacroSkillsPage extends  Component {
                                                                                                 <Col md="6">
                                                                                                     <label>Name of MacroSkill  :</label>
                                                                                                     <Input placeholder="Name of macroSkill..." type="text" id="nommacro" />
+                                                                                                    <Alert color="danger" isOpen={this.state.visible3} toggle={this.onDismiss3.bind(this)}>
+                                                                                                        <b>C'est un champ obilgatoire</b>
+                                                                                                    </Alert>
                                                                                                 </Col>
                                                                                             </Row>
                                                                                             <label>Description of MacroSkill   :</label>
                                                                                             <Input
                                                                                                 rows="4"
                                                                                                 placeholder="Description of MacroSkill..." type="textarea" id="descmacro"/>
+                                                                                            <Alert color="danger" isOpen={this.state.visible4} toggle={this.onDismiss4.bind(this)}>
+                                                                                                <b>C'est un champ obilgatoire</b>
+                                                                                            </Alert>
                                                                                             <Row>
                                                                                                 <Col className="ml-auto mr-auto" md="4">
                                                                                                     <Button className="mr-1 btn btn-outline-danger btn-sm" color="orange" size="lg"

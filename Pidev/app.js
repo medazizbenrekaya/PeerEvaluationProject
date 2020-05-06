@@ -12,6 +12,7 @@ var project = require('./api/project');
 var micros = require('./api/microskills');
 var users = require('./api/users.js');
 var projet = require('./api/project.js');
+var workshop = require('./api/workshop');
 var cors = require('cors')
 
 var app = express();
@@ -33,7 +34,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/ms', microskills);
 app.use('/team',team);
-app.use('/project',projet)
+app.use('/project',projet);
+app.use('/ws',workshop)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

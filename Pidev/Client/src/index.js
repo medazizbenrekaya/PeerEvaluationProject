@@ -38,6 +38,8 @@ import TeacherPage from "./views/examples/TeacherPage";
 import Evaluation from "./views/examples/Evaluation";
 import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
+import WorkshopPage from "./views/examples/workshop";
+import WorkshopPage2 from "./views/examples/workshopstudent";
 import Admin from "./views/examples/admin";
 import QuizCommunication from "./views/examples/QuizCommunication";
 import QuizEffectiveness from "./views/examples/QuizEffectiveness";
@@ -46,8 +48,6 @@ import QuizManaging from "./views/examples/QuizManaging";
 import QuizCognitiveAbility from "./views/examples/QuizCognitiveAbility";
 import MacroSkillsPage from "./views/examples/MacroSkillsPage";
 import PeerTeacher from "./views/examples/PeerTeacher";
-
-
 
 
 
@@ -65,6 +65,12 @@ ReactDOM.render(
         path="/landing-page"
         render={props => <LandingPage {...props} />}
       />
+      <Route
+        path="/Workshop-Page"
+        render={props => <WorkshopPage {...props}/>}/>
+      <Route
+          path="/Workshop-Page2"
+          render={props => <WorkshopPage2 {...props}/>}/>
       <Route
         path="/profile-page"
         render={props => <ProfilePage {...props} />}
@@ -123,7 +129,6 @@ ReactDOM.render(
           path="/QuizCognitiveAbility"
           render={props => <QuizCognitiveAbility{...props} />}
       />
-
       <Route
           path="/peer"
           render={props => <Peer{...props} />}
@@ -140,7 +145,6 @@ ReactDOM.render(
           path="/PeerTeacher"
           render={props =><PeerTeacher{...props} />}
       />
-
       <Redirect to="/index" />
     </Switch>
   </BrowserRouter>,

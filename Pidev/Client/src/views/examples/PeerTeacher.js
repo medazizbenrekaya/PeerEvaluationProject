@@ -29,7 +29,7 @@ import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import {Radar} from 'react-chartjs-2';
+import {Radar,Bar} from 'react-chartjs-2';
 import {Carousel} from 'primereact/carousel';
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
 import NavBarTeacher from "../../components/Navbars/NavBarTeacher";
@@ -61,6 +61,39 @@ class PeerTeacher extends  Component {
 
 
     };
+    getBest(){
+        this.setState({best:[],bard:[],barl:[]})
+        var x = {name:document.getElementById('project').value,mic:document.getElementById('mic').value}
+        console.log(x)
+        axios.post("http://localhost:3000/project/Best",x).then(res => {
+            console.log(res.data)
+          this.setState({best:res.data,barshow:false})
+        });
+
+        this.state.best.map(e=>{
+
+
+            this.state.barl.push(e.user)
+            this.state.bard.push(e.note)
+
+        })
+        const b = {
+            labels:  this.state.barl,
+            datasets: [
+                {
+                    label: 'Data',
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                    hoverBorderColor: 'rgba(255,99,132,1)',
+                    data: this.state.bard
+                }
+            ]
+        };
+        this.setState({bar:b})
+
+    }
 
     findProject(a,b,c)
     {
@@ -159,6 +192,7 @@ class PeerTeacher extends  Component {
     })
 
     }
+
     compa(email,nom,prenom){
         this.setState({tab4:[],tab5:[],a:nom,b:prenom})
         const x = {
@@ -276,7 +310,7 @@ class PeerTeacher extends  Component {
     }
     compar(email,nom,prenom)
     {
-        this.setState({tabb:[],tabbb:[],a1:nom,b1:prenom})
+        this.setState({tabb:[],tabbb:[],a1:nom,b1:prenom,barshow:true})
         const x = {
             email: email ,
             project :document.getElementById('project').value
@@ -308,7 +342,7 @@ class PeerTeacher extends  Component {
                     {
                         label: this.state.a+' '+this.state.b+' Evaluation !',
                         backgroundColor: '',
-                        borderColor: 'rgba(179,181,198,1)',
+                        borderColor: '',
                         pointBackgroundColor: 'rgb(0,128,0)',
                         pointBorderColor: 'rgb(0,128,0)',
                         pointHoverBackgroundColor: 'rgb(0,128,0)',
@@ -334,6 +368,7 @@ class PeerTeacher extends  Component {
             this.setState({comparer:false,comparer2:true})
         })
 
+
     }
 
 
@@ -346,12 +381,13 @@ class PeerTeacher extends  Component {
         this.state = {activeTab:"1",team:'',tab:'',stats:'',tab2:[],
             tab3:[],tabstudentm:[],tabstudentn:[],data :{},project:'',studentProject:'',
             student:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},data3:{},dataS:{},comparerS1:false,comparerS2:false,data4:{},
-            comparer:false,comparer2:false,a:'',b:'',showS:false,information:'',notefinal2:'',pourcent2:'',notefinal3:'',pourcent3:''};
+            comparer:false,comparer2:false,a:'',b:'',showS:false,information:'',notefinal2:'',pourcent2:'',notefinal3:'',pourcent3:'',best:[],bar:{},barl:[],bard:[],barshow:true};
 
 
     }
 
     render(){
+        console.log(this.state.barshow)
 
         return (
             <>
@@ -435,7 +471,8 @@ class PeerTeacher extends  Component {
                             <Media body>
                                 <Media heading>
                                     {this.state.show === true &&
-                                    <button  className="btn btn-success btn-lg btn-block" disabled>Selected : {this.state.proj} </button>}
+                                    <button  className="btn btn-success btn-lg btn-block" disabled>Selected : {this.state.proj} </button>
+                                    }
                                     <Media>
                                         <Media>
 
@@ -478,9 +515,15 @@ class PeerTeacher extends  Component {
                                                                     </option>
                                                                 )}
 
+
                                                             </Input> }
+
+
                                                         </div>
+
                                                     </div>
+
+                                                    <br/>
                                                 </div>
 
 
@@ -488,7 +531,7 @@ class PeerTeacher extends  Component {
                                                 {this.state.comparer === true &&
                                                 <center>
                                                     <div>
-                                                        <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                                        <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                                                             <CardBody>
                                                                 <Radar  data={this.state.data2}  />
                                                                 <Button color="info" id="top1">
@@ -522,11 +565,56 @@ class PeerTeacher extends  Component {
                                                                 </UncontrolledTooltip>
 
                                                             </CardBody>
+
+
                                                         </Card>
 
 
                                                     </div>  </center> }
+                                                {this.state.show === true &&
+                                                <div>
+                                                    <button  className="btn btn-success btn-lg btn-block" disabled>sorted assessments of students according to the selected macro</button>
+                                                    <Input type="select" name="select" id="mic">
+                                                        {this.state.p && this.state.p['team']['members'][0]['microskills'].map((mic) =>  <option id="mic2"
+                                                                                                                                                 onClick={this.getBest.bind(this)}
+                                                                                                                                                 key={mic._id_}
+                                                                                                                                                 value={mic.nom}>
+                                                            { mic.nom}
 
+                                                        </option> )}
+                                                    </Input> </div>
+                                                }
+                                                { this.state.barshow === false &&
+                                                <center>
+                                                    <div>
+                                                        <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                                            <CardBody>
+                                                                <table className="table">
+                                                                    <thead className="table table-info">
+                                                                    <tr>
+                                                                        <th>Student</th>
+                                                                        <th>Note</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    {this.state.best  && this.state.best.map((team) =>  <tbody className="table table-active" key={team.user}  >
+
+                                                                        <tr>
+                                                                            <td>{team.user}</td>
+                                                                            <td>{team.note}</td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    )}
+
+                                                                </table>
+
+
+                                                            </CardBody>
+                                                        </Card>
+
+
+                                                    </div>  </center>
+
+                                                }
 
 
 

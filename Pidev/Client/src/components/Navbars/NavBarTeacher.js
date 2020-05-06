@@ -22,7 +22,7 @@ function NavBarTeacher() {
             }
             else if (selected === 'workshops')
             {
-
+                document.location.href="/Workshop-Page";
             }
             else if (selected === 'macroSkills')
             {

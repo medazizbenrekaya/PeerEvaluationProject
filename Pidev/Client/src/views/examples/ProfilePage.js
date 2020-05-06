@@ -475,7 +475,7 @@ class ProfilePage extends Component {
                       <thead className="table table-info">
                       <tr>
                           <th>Name</th>
-                          <th>Actions</th>
+
                       </tr>
                       </thead>
 
@@ -485,7 +485,7 @@ class ProfilePage extends Component {
 
                           <tr>
                               <td>{t}</td>
-                              <td><button className="btn-info" >Details</button></td>
+
                           </tr>
                           </tbody>
                       )}

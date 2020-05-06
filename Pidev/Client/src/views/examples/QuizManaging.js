@@ -9,6 +9,7 @@ import ProfilePageHeader from "../../components/Headers/ProfilePageHeader";
 import DemoFooter from "../../components/Footers/DemoFooter";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 class QuizManaging extends  Component {
     state = {
@@ -34,15 +35,19 @@ class QuizManaging extends  Component {
       this.loadQuiz();
     }
     nextQuestionHandler = () => {
-        const {score , userAwnser , answers } = this.state
-        this.setState({
-            currentQuestion: this.state.currentQuestion + 1
-        })
-        console.log(this.state.currentQuestion)
-        if(userAwnser === answers){
+        const {score, userAwnser, answers} = this.state
+        if (userAwnser === null) {
+            alert('You have to choose a response')
+        } else {
             this.setState({
-                score: score + 2
+                currentQuestion: this.state.currentQuestion + 1
             })
+            console.log(this.state.currentQuestion)
+            if (userAwnser === answers) {
+                this.setState({
+                    score: score + 2
+                })
+            }
         }
     }
     finishHandler = () =>{
@@ -134,21 +139,24 @@ class QuizManaging extends  Component {
                     <NavbarProfile/>
                     <ProfilePageHeader/>
 
-                <div className="app">
+                    <div className="section profile-content">
+                        <div className="app">
+                            <NavBarStudent/>
+                            <div className="container"><div className="bg-light border border-primary">
 
-                    <h2>final score is {this.state.score} points of {QM.length * 2}</h2>
+                                <h2>final score is <strong>{this.state.score}</strong> points of {QM.length * 2}</h2>
                     <h3>{this.state.result}</h3>
                     <p>the correct answers for questions was : </p>
                     <ul>
                         {QM.map((item,index) => (
                             <li key={index} className="options">
-                                Q: {item.question}
+                                Q: {item.question} <br/>
                                 R: {item.answer}
                             </li>
                             )
                         )}
                     </ul>
-                </div>
+                            </div></div></div></div>
                     <DemoFooter/>
                     </>
             )
@@ -159,9 +167,12 @@ class QuizManaging extends  Component {
                 <ProfilePageHeader/>
 
 
-            <div className="app">
-                <p className="titre" >Validate macro skill : Management</p>
-                <h2 >  {questions}</h2>
+                <div className="section profile-content">
+                    <div className="app">
+                        <NavBarStudent/>
+                        <div className="container"><div className="bg-light border border-primary">
+                <button className="btn btn-outline-info" >Validate macro skill : Management</button>
+                <h3 className="title" >  {questions}</h3>
                 <span > Question {currentQuestion + 1}  out of  {QM.length  }  </span>
                  {options.map(option =>(
                      <p className="options">
@@ -172,10 +183,10 @@ class QuizManaging extends  Component {
                     >
                         {option}</option></p>
                 ))}
-                {currentQuestion < QM.length - 1 &&  <button disabled={this.state.disabled} onClick={this.nextQuestionHandler}>Next</button> }
-                {currentQuestion === QM.length - 1 &&  <button onClick={this.finishHandler}>Finish</button> }
+                {currentQuestion < QM.length - 1 &&  <button disabled={this.state.disabled}   className="btn btn-success"  onClick={this.nextQuestionHandler}>Next</button> }
+                {currentQuestion === QM.length - 1 &&  <button  className="btn btn-success"  onClick={this.finishHandler}>Finish</button> }
 
-            </div>
+                        </div></div></div></div>
                 <DemoFooter/>
                 </>
         );

@@ -455,6 +455,7 @@ class Admin extends Component {
                                                 </tr>
                                                 </thead>
 
+
                                                 {this.state.tabh   && this.state.tabh.map((team) =>  <tbody className="table table-active" key={team._id}  >
 
 
@@ -467,6 +468,15 @@ class Admin extends Component {
                                                     </tr>
                                                     </tbody>
                                                 )}
+                                                <tfoot className="table table-info">
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Text</th>
+                                                    <th>Action</th>
+
+                                                </tr>
+                                                </tfoot>
 
                                             </table>
                                         </div>

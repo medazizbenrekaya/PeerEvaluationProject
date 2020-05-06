@@ -126,6 +126,7 @@ class TeacherPage extends  Component {
         console.log(t.pays)
         axios.post("http://localhost:3000/users/update", t).then(res => {
             console.log('succes')
+            this.setState({paysE : t.pays})
 
 
 
@@ -286,6 +287,7 @@ class TeacherPage extends  Component {
                                     <Autocomplete
                                         id="combo-box-demo"
                                         options={University}
+                                        getOptionDisabled={(option) => option.pays !== this.state.paysE }
                                         classes={{
                                             option: useStyles.option,
                                         }}

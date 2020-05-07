@@ -38,6 +38,7 @@ import NavBarTeacher from "../../components/Navbars/NavBarTeacher";
 
 
 
+
 class PeerTeacher extends  Component {
     componentDidUpdate() {
 
@@ -131,17 +132,10 @@ class PeerTeacher extends  Component {
             console.log(this.state.activeTab);
         }
 
-        //this.state.activeTab=tab
+        this.state.activeTab=tab
 
     }
-    toggle  (tab) {
-        if(this.state.activeTab!==tab){
-            this.setState({activeTab:tab})
 
-        }
-
-        //this.state.activeTab=tab
-    }
     compaP(a)
     {
         this.setState({tabstudentm:[],tabstudentn:[],nomp:a})
@@ -342,7 +336,7 @@ class PeerTeacher extends  Component {
                     {
                         label: this.state.a+' '+this.state.b+' Evaluation !',
                         backgroundColor: '',
-                        borderColor: '',
+                        borderColor: 'rgba(179,181,198,1)',
                         pointBackgroundColor: 'rgb(0,128,0)',
                         pointBorderColor: 'rgb(0,128,0)',
                         pointHoverBackgroundColor: 'rgb(0,128,0)',
@@ -397,38 +391,43 @@ class PeerTeacher extends  Component {
                     <NavBarTeacher/>
                     <Container>
                         <div className="owner">
-
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/peer.png')}
+                                />
+                            </div>
                             <div className="name">
-                                <h4 className="title">
-                                  Teacher Space<br />
-                                </h4>
-                                <h4 className="subtitle">
-                                    you can see the evaluation and evolution  of students
+                                <h4 className="btn btn-secondary btn-lg btn-block">
+                                    Welcome {jwt_decode(localStorage.token).user.nom.toUpperCase()} {jwt_decode(localStorage.token).user.prenom.toUpperCase()} to Teacher Peer Evaluation Space
                                 </h4>
 
                             </div>
                         </div>
+
                         <br />
                         <br />
-                        <br />
+
                         <div className="nav-tabs-navigation">
                             <div className="nav-tabs-wrapper">
-                        <Nav id="tabs" role="tablist" tabs>
+                        <Nav id="tabs" role="tablist"  tabs>
                             <NavItem>
                                 <NavLink
-                                    className={this.state.activeTab === "1" ? "active" : ""}
+                                    className={this.state.activeTab === "1" ?  "active" : ""  }
                                     onClick={() => {this.toggle("1")}}>
-                                    teammates evaluation
+                                     <strong>teammates evaluation</strong>
+
                                 </NavLink>
                             </NavItem>
-                            <NavItem>
+                            <NavItem >
                                 <NavLink
-                                    className={this.state.activeTab === "2 "? "active" : ""}
+                                    className={this.state.activeTab === "2" ? "active" : ""}
                                     onClick={() => {
                                         this.toggle("2");
                                     }}
                                 >
-                                     students evolution in different projects
+                                    <strong>students evolution in different projects</strong>
                                 </NavLink>
                             </NavItem>
 
@@ -441,8 +440,7 @@ class PeerTeacher extends  Component {
 
                             <Col className="ml-auto mr-auto text-center" md="6">
                                 <p>
-                                    <h2>Peer Evaluation Result</h2>
-                                    <br/>
+
                                     <Label  className="btn-outline-info">Select Project  </Label>
                                     <table>
 
@@ -478,13 +476,18 @@ class PeerTeacher extends  Component {
 
                                         </Media>
                                         <Media body>
-                                            <Media heading>
 
 
 
+<div className="row">
+    <div className="col">
                                                 <div className="container">
+
                                                     <div className="row justify-content-md-center">
+
+                                                        {this.state.show && <button  className="btn  btn-lg btn-block" disabled>Compare Students : </button>   }
                                                         <div className="col col-lg-2">
+
                                                             {this.state.show === true &&
                                                             <Input type="select" name="select" id="compare">
 
@@ -499,8 +502,11 @@ class PeerTeacher extends  Component {
 
                                                             </Input> }
                                                         </div>
+
+
                                                         <div className="col-md-auto">
                                                             {this.state.show &&   <p>  compare to : </p> }
+
                                                         </div>
                                                         <div className="col col-lg-2">
                                                             {this.state.show === true &&
@@ -531,6 +537,7 @@ class PeerTeacher extends  Component {
                                                 {this.state.comparer === true &&
                                                 <center>
                                                     <div>
+                                                        <div className="bg-light border border-primary">
                                                         <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                                                             <CardBody>
                                                                 <Radar  data={this.state.data2}  />
@@ -542,13 +549,15 @@ class PeerTeacher extends  Component {
                                                                 </UncontrolledTooltip>
                                                             </CardBody>
                                                         </Card>
+                                                        </div>
 
 
                                                     </div>  </center> }
                                                 {this.state.comparer2 === true &&
                                                 <center>
                                                     <div>
-                                                        <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                                        <div className="bg-light border border-primary">
+                                                        <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                                                             <CardBody>
                                                                 <Radar  data={this.state.data3}  />
                                                                 <Button color="info" id="top3">
@@ -570,10 +579,13 @@ class PeerTeacher extends  Component {
                                                         </Card>
 
 
-                                                    </div>  </center> }
+                                                        </div></div>  </center> }
+    </div><div className="col">
+    <div className="container">
+        <div className="row justify-content-md-center">
                                                 {this.state.show === true &&
-                                                <div>
-                                                    <button  className="btn btn-success btn-lg btn-block" disabled>sorted assessments of students according to the selected macro</button>
+                                                <div className="col">
+                                                    <button  className="btn  btn-lg btn-block" disabled>See best evaluation</button>
                                                     <Input type="select" name="select" id="mic">
                                                         {this.state.p && this.state.p['team']['members'][0]['microskills'].map((mic) =>  <option id="mic2"
                                                                                                                                                  onClick={this.getBest.bind(this)}
@@ -586,9 +598,9 @@ class PeerTeacher extends  Component {
                                                 }
                                                 { this.state.barshow === false &&
                                                 <center>
-                                                    <div>
-                                                        <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
-                                                            <CardBody>
+                                                    <div className="col">
+
+
                                                                 <table className="table">
                                                                     <thead className="table table-info">
                                                                     <tr>
@@ -599,6 +611,7 @@ class PeerTeacher extends  Component {
                                                                     {this.state.best  && this.state.best.map((team) =>  <tbody className="table table-active" key={team.user}  >
 
                                                                         <tr>
+
                                                                             <td>{team.user}</td>
                                                                             <td>{team.note}</td>
                                                                         </tr>
@@ -608,19 +621,18 @@ class PeerTeacher extends  Component {
                                                                 </table>
 
 
-                                                            </CardBody>
-                                                        </Card>
+
 
 
                                                     </div>  </center>
 
                                                 }
 
+        </div></div></div></div>
 
 
 
-
-                                            </Media></Media></Media></Media></Media></Media>
+                                            </Media></Media></Media></Media></Media>
                             </TabPane>
                             <TabPane tabId="2">
                                 <row>
@@ -628,8 +640,6 @@ class PeerTeacher extends  Component {
                                 <Col className="ml-auto mr-auto text-center" md="6">
                                     <p>
 
-                                        <h2>Peer Evaluation Result</h2>
-                                        <br/>
                                             <Label className="btn-outline-info">Select student  </Label>
                                     <table>
                                         <tr>
@@ -711,7 +721,8 @@ class PeerTeacher extends  Component {
                                         {this.state.comparerS1 === true &&
                                         <center>
                                             <div>
-                                                <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                                <div className="bg-light border border-primary">
+                                                <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                                                     <CardBody>
                                                         <Radar  data={this.state.dataS}  />
                                                         <Button color="info" id="top">
@@ -725,11 +736,12 @@ class PeerTeacher extends  Component {
                                                 </Card>
 
 
-                                            </div>  </center> }
+                                                </div></div>  </center> }
                                     {this.state.comparerS2 === true &&
                                     <center>
                                         <div>
-                                            <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                            <div className="bg-light border border-primary">
+                                            <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                                                 <CardBody>
                                                     <Radar  data={this.state.data4}  />
                                                     <Button color="info" id="top1">
@@ -749,7 +761,7 @@ class PeerTeacher extends  Component {
                                             </Card>
 
 
-                                        </div>  </center> }
+                                            </div></div>  </center> }
 
 
 

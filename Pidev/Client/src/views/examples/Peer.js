@@ -229,7 +229,7 @@ descrip(a){
             console.log(this.state.tab5)
 
             const d2 = {
-                labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
+                labels: ['Communication', 'Leadership', 'Effectiveness', 'Professionalism','Managing Skills','Cognitive ability'],
 
                 datasets: [
                     {
@@ -387,7 +387,7 @@ descrip(a){
                         {this.state.show ===true &&
                         <center>
                             <div>
-                                <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+                                <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                                     <CardBody>
                                         <Radar  data={this.state.data}  />
                                         <Button color="danger" id="top2">

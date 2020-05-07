@@ -446,8 +446,9 @@ class ProfilePage extends Component {
                   </table> :null}
 
 
-                  <div>
-                      <Card style={{width: '50rem',height:'10', backgroundColor:'#66CDAA'   }}>
+
+                      <div className="bg-light border border-primary">
+                      <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
                           <CardBody>
                               <Radar  data={this.state.data}  />
                               <Button color="info" id="top4">

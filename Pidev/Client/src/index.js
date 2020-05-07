@@ -48,6 +48,7 @@ import QuizManaging from "./views/examples/QuizManaging";
 import QuizCognitiveAbility from "./views/examples/QuizCognitiveAbility";
 import MacroSkillsPage from "./views/examples/MacroSkillsPage";
 import PeerTeacher from "./views/examples/PeerTeacher";
+import Historique from "./views/examples/historique";
 
 
 
@@ -96,6 +97,10 @@ ReactDOM.render(
           path="/admin"
           render={props => <Admin {...props} />}
           />
+      <Route
+          path="/historique"
+          render={props => <Historique {...props} />}
+      />
           
       <Route
           path="/test"

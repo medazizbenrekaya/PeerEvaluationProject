@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/workshop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/workshopstudent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/workshop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/workshop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarStudent.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarStudent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarTeacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarTeacher.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Evaluation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/views/examples/MacroSkillsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/MacroSkillsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/Peer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/PeerTeacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/PeerTeacher.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/ProfilePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/admin.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,17 +35,17 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Client/src/views/examples" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\Client\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\examples" />
+      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\components\Navbars" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\models" />
       <recent name="C:\Users\med\Documents\GitHub\PeerEvaluationProject\Pidev\api" />
-      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\examples" />
       <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\Client\src\views\admin" />
-      <recent name="C:\Users\user\Desktop\projet\PeerEvaluationProject\Pidev\models" />
     </key>
   </component>
   <component name="RunDashboard">

@@ -151,7 +151,7 @@ class Admin extends Component {
             console.log(res.data)
         });
     }
-   
+
 
     delete(a)
     {

@@ -62,9 +62,9 @@ class PeerTeacher extends  Component {
 
 
     };
-    getBest(){
-        this.setState({best:[],bard:[],barl:[]})
-        var x = {name:document.getElementById('project').value,mic:document.getElementById('mic').value}
+    getBest(a){
+        this.setState({best:[],bard:[],barl:[],bar:[]})
+        var x = {name:a,mic:document.getElementById('mic').value}
         console.log(x)
         axios.post("http://localhost:3000/project/Best",x).then(res => {
             console.log(res.data)
@@ -96,22 +96,65 @@ class PeerTeacher extends  Component {
 
     }
 
-    findProject(a,b,c)
+    findProject(a,b,c,d)
     {
-        this.setState({comparerS1:false,comparerS2:false})
-        const n ={ email:document.getElementById('student').value}
+        this.setState({comparerS1:false,comparerS2:false,selfAffiche:false,dataSelf:{},statsSelf:[],tab7Self:[],tab8Self:[]})
+        const n ={ email:d}
         this.setState({st:a,stt:b,sttt:c})
         axios.post("http://localhost:3000/users/projects",n).then(res => {
             this.setState({studentProject : res.data,showS:true})
             console.log(res.data)
             console.log('succes')
         });
+        var notefinalS = 0
+        var nbS = 0
+
+        console.log(n);
+        axios.post("http://localhost:3000/users/statsSelfNote",n).then(res => {
+
+            this.setState({statsSelf:res.data,selfAffiche:true})
+            console.log(this.state.statsSelf)
+
+
+            this.state.statsSelf.map(e=>{
+                nbS = nbS + 1
+                notefinalS = notefinalS + e.note
+
+                this.state.tab7Self.push(e.macro)
+                this.state.tab8Self.push(e.note)
+
+            })
+            this.setState({notefinalS:Number(notefinalS/nbS).toFixed(2)})
+            this.setState({pourcentS : Number(((notefinalS/nbS)*100)/20).toFixed(2)})
+            console.log(this.state.tab7Self)
+            console.log(this.state.tab8Self)
+
+            const d = {
+                labels: this.state.tab7Self && this.state.tab7Self ,
+
+                datasets: [
+                    {
+                        label: 'Self Evaluation ! ',
+                        backgroundColor: '',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgb(0,128,0)',
+                        pointBorderColor: 'rgb(0,128,0)',
+                        pointHoverBackgroundColor: 'rgb(0,128,0)',
+                        pointHoverBorderColor: 'rgb(0,128,0)',
+                        data:this.state.tab8Self && this.state.tab8Self
+                        //  data: [12,20,10,8,18,16,19]
+                    }
+                ]
+            };
+            this.setState({dataSelf:d})
+
+        });
 
     }
 
     descrip(a){
 
-        this.setState({show:true,tab2:[],tab3:[],v:[],proj:'',comparer:false,comparer2:false})
+        this.setState({show:true,tab2:[],tab3:[],v:[],proj:'',comparer:false,comparer2:false,best:[],bard:[],barl:[],bar:[],barshow:true})
         var T = []
         const n ={ nom:a}
         console.log(n.nom)
@@ -373,8 +416,8 @@ class PeerTeacher extends  Component {
     constructor(props){
         super(props)
         this.state = {activeTab:"1",team:'',tab:'',stats:'',tab2:[],
-            tab3:[],tabstudentm:[],tabstudentn:[],data :{},project:'',studentProject:'',
-            student:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},data3:{},dataS:{},comparerS1:false,comparerS2:false,data4:{},
+            tab3:[],tabstudentm:[],tabstudentn:[],data :{},dataSelf:{},project:'',studentProject:'',
+            student:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],tab7Self:[],tab8Self:[],stats3:{},data2:{},data3:{},dataS:{},comparerS1:false,comparerS2:false,data4:{},
             comparer:false,comparer2:false,a:'',b:'',showS:false,information:'',notefinal2:'',pourcent2:'',notefinal3:'',pourcent3:'',best:[],bar:{},barl:[],bard:[],barshow:true};
 
 
@@ -471,6 +514,8 @@ class PeerTeacher extends  Component {
                                     {this.state.show === true &&
                                     <button  className="btn btn-success btn-lg btn-block" disabled>Selected : {this.state.proj} </button>
                                     }
+                                    <br/>
+
                                     <Media>
                                         <Media>
 
@@ -588,7 +633,7 @@ class PeerTeacher extends  Component {
                                                     <button  className="btn  btn-lg btn-block" disabled>See best evaluation</button>
                                                     <Input type="select" name="select" id="mic">
                                                         {this.state.p && this.state.p['team']['members'][0]['microskills'].map((mic) =>  <option id="mic2"
-                                                                                                                                                 onClick={this.getBest.bind(this)}
+                                                                                                                                                 onClick={this.getBest.bind(this,this.state.proj)}
                                                                                                                                                  key={mic._id_}
                                                                                                                                                  value={mic.nom}>
                                                             { mic.nom}
@@ -641,21 +686,23 @@ class PeerTeacher extends  Component {
                                     <p>
 
                                             <Label className="btn-outline-info">Select student  </Label>
+
                                     <table>
                                         <tr>
                                             {this.state.student && this.state.student.map((team) =><td>  <button id="student"
                                                                                                                  data-toggle="button" aria-pressed="false" autocomplete="off"
                                                                                                                  className="btn btn-outline-primary btn-lg btn-block"
-                                                                                                            onClick={this.findProject.bind(this,team.nom,team.prenom,team.university) }
+                                                                                                            onClick={this.findProject.bind(this,team.nom,team.prenom,team.university,team.email) }
                                                                                                             key={team.nom}
                                                                                                                  value={team.email}>{team.nom} {team.prenom} </button>
                                             </td>)}
 
                                         </tr>
                                     </table>
+
                                 </p>
                                 </Col>
-
+                                    <br/>
                                     <Media >
                                         <Media>
                                         </Media>
@@ -668,14 +715,21 @@ class PeerTeacher extends  Component {
                                                 {this.state.showS === true &&
                                                 <button className="btn btn-outline-info btn-lg btn-sm">university : {this.state.sttt} </button>
                                                 }
+                                                <br/>
+
+
+
                                                 <Media>
                                                     <Media>
 
                                                     </Media>
                                                     <Media body>
-                                                        <Media heading>
+
+                                                            <div className="row">
+                                                                <div className="col">
                                                             <div className="container">
                                                                 <div className="row justify-content-md-center">
+                                                                    {this.state.showS && <button  className="btn  btn-lg btn-block" disabled>Compare Projects : </button>   }
                                                                     <div className="col col-lg-2">
                                                                         {this.state.showS &&
                                                                         <Input type="select" name="select" id="proj1">
@@ -722,7 +776,7 @@ class PeerTeacher extends  Component {
                                         <center>
                                             <div>
                                                 <div className="bg-light border border-primary">
-                                                <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
+                                                <Card style={{width: '40rem',height:'10', backgroundColor:''   }}>
                                                     <CardBody>
                                                         <Radar  data={this.state.dataS}  />
                                                         <Button color="info" id="top">
@@ -741,7 +795,7 @@ class PeerTeacher extends  Component {
                                     <center>
                                         <div>
                                             <div className="bg-light border border-primary">
-                                            <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
+                                            <Card style={{width: '40rem',height:'10', backgroundColor:''   }}>
                                                 <CardBody>
                                                     <Radar  data={this.state.data4}  />
                                                     <Button color="info" id="top1">
@@ -761,13 +815,67 @@ class PeerTeacher extends  Component {
                                             </Card>
 
 
-                                            </div></div>  </center> }
+                                            </div></div>  </center> }</div>
+                                                        <div className="col">
+
+
+
+                                                            <div className="container">
+                                                                <div className="row justify-content-md-center">
+                                                                    {this.state.showS && <button  className="btn  btn-lg btn-block" disabled>Self Evaluation: </button>   }
+
+                                                                </div>
+                                                            </div>
+                                                            {this.state.selfAffiche &&
+                                                            <div className="bg-light border border-primary">
+                                                                <Card style={{width: '25rem',height:'20', backgroundColor:''   }}>
+                                                                    <CardBody>
+                                                                        <table className="table">
+                                                                            <thead className="table table-info">
+                                                                            <tr>
+                                                                                <th>Macro</th>
+                                                                                <th>Note</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            {this.state.statsSelf  && this.state.statsSelf.map((team) =>  <tbody className="table table-active" key={team.micro}  >
+
+                                                                                <tr>
+
+                                                                                    <td>{team.macro}</td>
+                                                                                    <td>{team.note === 0 && "not yet"}{team.note !== 0 && team.note}</td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            )}
+
+                                                                        </table>
+
+
+                                                                        <Button color="info" id="top8">
+                                                                            self Evaluation Result !
+                                                                        </Button>{` `}
+
+                                                                        <UncontrolledTooltip placement="top" target="top8" delay={1}>
+
+                                                                            <h3>Average :{this.state.notefinalS}/20  <br/>  which equals {this.state.pourcentS } %</h3>
+                                                                        </UncontrolledTooltip>
+
+                                                                    </CardBody>
+                                                                </Card>
+
+
+                                                            </div> }
+
+
+
+
+                                                    </div>
+                                                            </div>
 
 
 
 
 
-                                   </Media></Media></Media></Media></Media></Media>
+                                   </Media></Media></Media></Media></Media>
                                 </row>
 
 

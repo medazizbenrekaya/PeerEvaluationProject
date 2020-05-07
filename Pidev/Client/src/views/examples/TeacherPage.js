@@ -224,8 +224,7 @@ class TeacherPage extends  Component {
                                 <button onClick={this.fileUploadHandler}>upload</button>
                             </div>
 
-
-                            <div className="card">
+                            <div className="card" style={{backgroundColor:"#EFF6F4"}}>
                                 <h4 className="card-title">
                                     {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
                                 </h4>
@@ -252,6 +251,7 @@ class TeacherPage extends  Component {
                                     <i className="fa fa-cog"/> edit
                                 </Button>
                                 <br/>
+                                <div   className="bg-light border border-secondary">
                                 {this.state.show2?
                                     <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>   :null}
                                 {this.state.show2?   <label>First Name</label>  :null}
@@ -280,6 +280,7 @@ class TeacherPage extends  Component {
                                                                          label="Choose a country"
                                                                          variant="outlined"
 
+
                                                                      />)}
                                 /> :null}
                                 {this.state.show2?     <label>University</label>  :null}
@@ -296,7 +297,7 @@ class TeacherPage extends  Component {
                                         renderInput={(params) => <TextField {...params} label="Choose an University" variant="outlined" />}
                                         onChange={this.editUniversity.bind(this)}
                                     />
-                                    :null}
+                                    :null}</div>
 
 
 
@@ -304,10 +305,7 @@ class TeacherPage extends  Component {
                         </Row>
                         <br/>
                         <br/>
-                        <div className="nav-tabs-navigation">
-                            <div className="nav-tabs-wrapper">
-                            </div>
-                        </div>
+
                         <>
                             <ExamplesNavbar />
 

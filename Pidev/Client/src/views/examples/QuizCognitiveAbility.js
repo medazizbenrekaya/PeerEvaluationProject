@@ -10,6 +10,7 @@ import DemoFooter from "../../components/Footers/DemoFooter";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
+import {Container} from "reactstrap";
 
 class QuizCognitiveAbility extends  Component {
     state = {
@@ -145,6 +146,17 @@ class QuizCognitiveAbility extends  Component {
                     <div className="section profile-content">
                 <div className="app">
                     <NavBarStudent/>
+                    <div className="owner">
+                        <div className="avatar">
+                            <img
+                                alt="..."
+                                className="img-circle img-no-padding img-responsive"
+                                src={require('assets/img/faces/ca.jpg')}
+                                width={150}
+                            />
+                        </div>
+
+                    </div>
                     <div className="container"><div className="bg-light border border-primary">
 
 
@@ -175,6 +187,17 @@ class QuizCognitiveAbility extends  Component {
                 <div className="section profile-content">
             <div className="app">
                 <NavBarStudent/>
+                <div className="owner">
+                    <div className="avatar">
+                        <img
+                            alt="..."
+                            className="img-circle img-no-padding img-responsive"
+                            src={require('assets/img/faces/ca.jpg')}
+                            width={150}
+                        />
+                    </div>
+
+                </div>
                 <div className="container"><div className="bg-light border border-primary">
                 <button className="btn btn-outline-info">Validate macro skill : Cognitive Ability</button>
                 <h3 className="title" >  {questions}</h3>

@@ -145,6 +145,17 @@ class QuizProfessionalism extends  Component {
                     <div className="section profile-content">
                         <div className="app">
                             <NavBarStudent/>
+                            <div className="owner">
+                                <div className="avatar">
+                                    <img
+                                        alt="..."
+                                        className="img-circle img-no-padding img-responsive"
+                                        src={require('assets/img/faces/p.jpg')}
+                                        width={150}
+                                    />
+                                </div>
+
+                            </div>
                             <div className="container"><div className="bg-light border border-primary">
 
                                 <h2>final score is <strong>{this.state.score}</strong> points of {QP.length * 2}</h2>
@@ -173,6 +184,17 @@ class QuizProfessionalism extends  Component {
                 <div className="section profile-content">
                     <div className="app">
                         <NavBarStudent/>
+                        <div className="owner">
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/p.jpg')}
+                                    width={150}
+                                />
+                            </div>
+
+                        </div>
                         <div className="container"><div className="bg-light border border-primary">
                 <button className="btn btn-outline-info" >Validate macro skill : Professionalism</button>
                 <h3 className="title" >  {questions}</h3>

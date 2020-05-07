@@ -56,7 +56,7 @@ function NavBarStudent() {
             }}
         >
             <SideNav.Toggle />
-            <SideNav.Nav defaultSelected="home">
+            <SideNav.Nav >
                 <NavItem eventKey="home">
                     <NavIcon>
                         <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
@@ -89,7 +89,7 @@ function NavBarStudent() {
                         <i className="fa fa-check-circle-o" style={{ fontSize: '1.75em' }}  />
                     </NavIcon>
                     <NavText>
-                        Self Evaluation
+                        <a href="/SelfEvaluationStudent"><strong>Self Evaluation</strong></a>
                     </NavText>
                     <NavItem eventKey="SE/C">
 

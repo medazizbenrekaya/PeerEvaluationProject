@@ -29,7 +29,7 @@ function NavBarAdmin() {
             }}
         >
             <SideNav.Toggle />
-            <SideNav.Nav defaultSelected="dashboard">
+            <SideNav.Nav >
                 <NavItem eventKey="dashboard">
                     <NavIcon>
                         <i className="fa fa-dashboard" style={{ fontSize: '1.75em' }} />

@@ -33,6 +33,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {c} from '../../assets/countries.js';
 import {University} from "../../assets/University";
 import {Radar} from "react-chartjs-2";
+import {red} from "@material-ui/core/colors";
 
 function countryToFlag(isoCode) {
     return typeof String.fromCodePoint !== 'undefined'
@@ -58,66 +59,8 @@ const useStyles = makeStyles({
 class ProfilePage extends Component {
 
     componentDidMount() {
-        this.setState({show1:true})
-        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
-            this.setState({tab2:res.data})
-            console.log('succes')
-
-        });
-        const t = {
-            email: jwt_decode(localStorage.token).user.email }
-
-        axios.post("http://localhost:3000/users/projects",t).then(res => {
-            this.setState({tab6 : res.data})
-            console.log(res.data)
-            console.log('succes')
-        });
-        var notefinal5 = 0
-        var nb5 = 0
-
-        const st = {
-            email: jwt_decode(localStorage.token).user.email ,
-
-        }
-        const s =     axios.post("http://localhost:3000/users/statsSelfNote",st).then(res => {
-
-            this.setState({stats:res.data})
-            console.log(this.state.stats)
 
 
-            this.state.stats.map(e=>{
-                nb5 = nb5 + 1
-                notefinal5 = notefinal5 + e.note
-
-                this.state.tab7.push(e.micro)
-                this.state.tab8.push(e.note)
-
-            })
-            this.setState({notefinal5:Number(notefinal5/nb5).toFixed(2)})
-            this.setState({pourcent5 : Number(((notefinal5/nb5)*100)/20).toFixed(2)})
-            console.log(this.state.tab7)
-            console.log(this.state.tab8)
-
-            const d = {
-                labels: ['Communication', 'Leadership', 'Effectiveness','Professionalism','Managing Skills','Cognitive ability'],
-
-                datasets: [
-                    {
-                        label: 'My Self Evaluation ! ',
-                        backgroundColor: 'rgb(0,255,0)',
-                        borderColor: 'rgba(179,181,198,1)',
-                        pointBackgroundColor: 'rgb(0,128,0)',
-                        pointBorderColor: 'rgb(0,128,0)',
-                        pointHoverBackgroundColor: 'rgb(0,128,0)',
-                        pointHoverBorderColor: 'rgb(0,128,0)',
-                        data:this.state.tab8 && this.state.tab8
-                        //  data: [12,20,10,8,18,16,19]
-                    }
-                ]
-            };
-            this.setState({data:d})
-
-        });
     }
 
     constructor(props){
@@ -125,43 +68,7 @@ class ProfilePage extends Component {
     this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:'',stats:'',tab7:[],tab8:[],data:{}};
 
   }
-  improve(nom)
-  {
-      if (nom === 'Leadership')
-      {
-          this.props.history.push("/selfEvaluation");
-      }
-      else if (nom === 'Communication')
-      {
-          this.props.history.push("/QuizCommunication");
-      }
-      else if (nom === 'Effectiveness' ){
 
-          this.props.history.push("/QuizEffectivness");
-
-      }
-      else if (nom === 'Professionalism')
-      {
-          this.props.history.push("/QuizProfessionalism");
-      }
-      else if (nom === 'Managing Skils')
-      {
-          this.props.history.push("/QuizManaging");
-      }
-      else if (nom === 'Cognitive Ability')
-      {
-          this.props.history.push("/QuizCognitiveAbility");
-      }
-
-
-
-  }
-
-     detail(id) {
-       axios.get("http://localhost:3000/users/details/"+id).then(res => {
-         console.log('succes')
-       });
-     }
 
 
      editNom(){
@@ -221,15 +128,7 @@ class ProfilePage extends Component {
 
 
     }
-    back()
-    {
-        this.setState({show1:true,show:false})
-        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
-            this.setState({tab2:res.data})
-            console.log('succes')
 
-        });
-    }
 
 
   show(a){
@@ -308,9 +207,8 @@ class ProfilePage extends Component {
                 <button onClick={this.fileUploadHandler}>upload</button>
               </div>
 
-
-              <div className="card">
-                <h4 className="card-title">
+              <div className="card" style={{backgroundColor:"#EFF6F4"}}>
+                <h4 className="card-title" >
                   {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
                 </h4>
                 <h6 className="card-subtitle">{jwt_decode(localStorage.token).user.role}</h6>
@@ -332,10 +230,12 @@ class ProfilePage extends Component {
               <Col className="ml-auto mr-auto text-center" md="6">
 
                 <br/>
+
                   <Button className="btn-round" color="default" onClick={this.editable.bind(this)} outline>
                       <i className="fa fa-cog"/> edit
                   </Button>
               <br/>
+                  <div   className="bg-light border border-secondary">
                   {this.state.show2?
                 <Input placeholder="" type="text" id="id" value={jwt_decode(localStorage.token).user._id} hidden/>   :null}
                   {this.state.show2?   <label>First Name</label>  :null}
@@ -380,119 +280,13 @@ class ProfilePage extends Component {
                           renderInput={(params) => <TextField {...params} label="Choose an University" variant="outlined" margin="normal" />}
                           onChange={this.editUniversity.bind(this)}
                       />
-                      :null}
+                      :null}</div>
 
 
 
               </Col>
             </Row>
             <br/>
-            <div className="nav-tabs-navigation">
-              <div className="nav-tabs-wrapper">
-
-                <h4>My Macro skills : </h4>
-                  <table className="table">
-                      <thead className="table table-info">
-                      <tr>
-                          <th>Name</th>
-                          <th>Type</th>
-                          <th>Number of Micro Skills</th>
-                          <th>Actions</th>
-                      </tr>
-                      </thead>
-
-
-                  {this.state.tab2   && this.state.tab2.map((t) =>
-                      <tbody className="table table-active" key={t._id}  >
-
-                      <tr>
-                          <td>{t.nom}
-                          </td>
-
-                          <td>{t.type}</td>
-                          <td>{t.macroskills.length}</td>
-                          <td><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button>
-                              {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation</button>}
-
-                          </td>
-                      </tr>
-
-                      </tbody>
-                      )}
-                 </table>
-
-
-
-
-                {this.state.show?
-                  <table className="table">
-                      <thead className="table table-info">
-                      <tr>
-                          <td>Micro Skills of {this.state.nomMicro}</td>
-                      </tr>
-                      </thead>
-                {this.state.tab1 && this.state.tab1.map((detail) => <tbody className="table table-active"  key={detail.nom} >
-
-
-                    <tr>
-                      <td >{detail.nom}</td>
-                    </tr>
-
-
-                    </tbody>
-
-              )}
-                      <tr><td colSpan="1">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
-                  </table> :null}
-
-
-
-                      <div className="bg-light border border-primary">
-                      <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
-                          <CardBody>
-                              <Radar  data={this.state.data}  />
-                              <Button color="info" id="top4">
-                                   self Evaluation Result !
-                              </Button>{` `}
-                              <UncontrolledTooltip placement="top" target="top4" delay={1}>
-                                  <h3>Average :{this.state.notefinal5}/20  <br/>  which equals {this.state.pourcent5 } %</h3>
-                              </UncontrolledTooltip>
-
-                          </CardBody>
-                      </Card>
-
-
-                  </div>
-
-
-
-              </div>
-            </div>
-            <div className="nav-tabs-navigation">
-              <div className="nav-tabs-wrapper">
-
-                <h4>My Project : </h4>
-                  <table className="table">
-                      <thead className="table table-info">
-                      <tr>
-                          <th>Name</th>
-
-                      </tr>
-                      </thead>
-
-
-                      {this.state.tab6   && this.state.tab6.map((t) =>
-                          <tbody className="table table-active" key={t}  >
-
-                          <tr>
-                              <td>{t}</td>
-
-                          </tr>
-                          </tbody>
-                      )}
-                  </table>
-              </div>
-            </div>
 
           </Container>
         </div>

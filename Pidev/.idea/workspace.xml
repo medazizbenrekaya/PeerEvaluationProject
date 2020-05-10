@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b469a40-5563-4776-94f3-1acf66cd84a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/workshop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/src/views/examples/workshopstudent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/workshop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/workshop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarStudent.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarStudent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarTeacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbars/NavBarTeacher.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/views/examples/MacroSkillsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/views/examples/MacroSkillsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/workshop.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/workshop.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -117,6 +106,7 @@
       <workItem from="1588601106506" duration="9480000" />
       <workItem from="1588688505412" duration="8141000" />
       <workItem from="1588757291410" duration="1438000" />
+      <workItem from="1589035559318" duration="5576000" />
     </task>
     <task id="LOCAL-00001" summary="added role">
       <created>1585252811222</created>

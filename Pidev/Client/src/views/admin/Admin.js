@@ -291,6 +291,15 @@ class Admin extends Component {
                                       </tr>
                                       </tbody>
                                   )}
+                                  <tfoot className="table table-info">
+                                  <tr>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Text</th>
+                                    <th>Action</th>
+
+                                  </tr>
+                                  </tfoot>
 
                                 </table>
 

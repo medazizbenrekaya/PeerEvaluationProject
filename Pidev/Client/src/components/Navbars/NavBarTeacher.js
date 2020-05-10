@@ -19,6 +19,8 @@ function NavBarTeacher() {
             else if (selected === 'profile')
             {
                 document.location.href="/teacher-page";
+
+
             }
             else if (selected === 'workshops')
             {
@@ -35,7 +37,7 @@ function NavBarTeacher() {
         }}
     >
         <SideNav.Toggle />
-        <SideNav.Nav defaultSelected="home">
+        <SideNav.Nav >
             <NavItem eventKey="home">
                 <NavIcon>
                     <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
@@ -44,12 +46,13 @@ function NavBarTeacher() {
                     Home
                 </NavText>
             </NavItem>
-            <NavItem eventKey="profile">
-                <NavIcon>
+            <NavItem eventKey="profile" >
+                <NavIcon >
                     <i className="fa fa-user" style={{ fontSize: '1.75em' }} />
                 </NavIcon>
                 <NavText>
                     Profile
+
                 </NavText>
 
             </NavItem>

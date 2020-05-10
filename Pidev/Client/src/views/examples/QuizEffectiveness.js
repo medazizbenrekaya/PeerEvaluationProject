@@ -9,6 +9,7 @@ import ProfilePageHeader from "../../components/Headers/ProfilePageHeader";
 import DemoFooter from "../../components/Footers/DemoFooter";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 class QuizEffectiveness extends  Component {
     state = {
@@ -35,14 +36,20 @@ class QuizEffectiveness extends  Component {
     }
     nextQuestionHandler = () => {
         const {score , userAwnser , answers } = this.state
-        this.setState({
-            currentQuestion: this.state.currentQuestion + 1
-        })
-        console.log(this.state.currentQuestion)
-        if(userAwnser === answers){
+        if (userAwnser === null)
+        {
+            alert('You have to choose a response')
+        }
+        else {
             this.setState({
-                score: score + 2
+                currentQuestion: this.state.currentQuestion + 1
             })
+            console.log(this.state.currentQuestion)
+            if (userAwnser === answers) {
+                this.setState({
+                    score: score + 2
+                })
+            }
         }
     }
     finishHandler = () =>{
@@ -130,21 +137,35 @@ class QuizEffectiveness extends  Component {
                     <NavbarProfile/>
                     <ProfilePageHeader/>
 
-                <div className="app">
+                    <div className="section profile-content">
+                        <div className="app">
+                            <NavBarStudent/>
+                            <div className="owner">
+                                <div className="avatar">
+                                    <img
+                                        alt="..."
+                                        className="img-circle img-no-padding img-responsive"
+                                        src={require('assets/img/faces/e.jpg')}
+                                        width={150}
+                                    />
+                                </div>
 
-                    <h2>final score is {this.state.score} points of {QE.length * 2}</h2>
+                            </div>
+                            <div className="container"><div className="bg-light border border-primary">
+
+                                <h2>final score is <strong>{this.state.score}</strong> points of {QE.length * 2}</h2>
                     <h3>{this.state.result}</h3>
                     <p>the correct answers for questions was : </p>
                     <ul>
                         {QE.map((item,index) => (
                             <li key={index} className="options">
-                                Q: {item.question}
+                                Q: {item.question} <br/>
                                 R: {item.answer}
                             </li>
                             )
                         )}
                     </ul>
-                </div>
+                            </div></div></div></div>
                     <DemoFooter/>
                     </>
             )
@@ -155,9 +176,23 @@ class QuizEffectiveness extends  Component {
                 <ProfilePageHeader/>
 
 
-            <div className="app">
-                <p className="titre" >Validate macro skill : Effectiveness</p>
-                <h2 >  {questions}</h2>
+                <div className="section profile-content">
+                    <div className="app">
+                        <NavBarStudent/>
+                        <div className="owner">
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/e.jpg')}
+                                    width={150}
+                                />
+                            </div>
+
+                        </div>
+                        <div className="container"><div className="bg-light border border-primary">
+                <button className="btn btn-outline-info" >Validate macro skill : Effectiveness</button>
+                <h3 className="title">  {questions}</h3>
                 <span > Question {currentQuestion + 1}  out of  {QE.length  }  </span>
                  {options.map(option =>(
                      <p className="options">
@@ -168,10 +203,10 @@ class QuizEffectiveness extends  Component {
                     >
                         {option}</option></p>
                 ))}
-                {currentQuestion < QE.length - 1 &&  <button disabled={this.state.disabled} onClick={this.nextQuestionHandler}>Next</button> }
-                {currentQuestion === QE.length - 1 &&  <button onClick={this.finishHandler}>Finish</button> }
+                {currentQuestion < QE.length - 1 &&  <button disabled={this.state.disabled}  className="btn btn-success" onClick={this.nextQuestionHandler}>Next</button> }
+                {currentQuestion === QE.length - 1 &&  <button className="btn btn-success" onClick={this.finishHandler}>Finish</button> }
 
-            </div>
+                        </div></div></div></div>
                 <DemoFooter/>
                 </>
         );

@@ -20,6 +20,7 @@ import React,{Component} from "react";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
+import jwt_decode from "jwt-decode";
 
 // reactstrap components
 import {
@@ -85,7 +86,8 @@ function NavbarProfile() {
                         tag={Link}
                         onClick={logout}
                     >
-                        Peer Evaluation
+
+                            Peer Evaluation
 
                     </NavbarBrand>
                     <button
@@ -108,7 +110,9 @@ function NavbarProfile() {
                         <NavItem >
                             <NavLink
                                      onClick={() => setLoginModal(true)}>
-                                <i className="nc-icon nc-layout-11" /> Logout
+                                <div className="btn btn-danger btn-lg btn-sm">
+                                <i className="nc-icon nc-layout-11" /> Logout <br/>
+                              {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}</div>
                             </NavLink>
                             <Modal
                                 isOpen={loginModal}
@@ -125,10 +129,10 @@ function NavbarProfile() {
                                     >
                                         <span aria-hidden={true}>×</span>
                                     </button>
-                                    <p>Logout</p>
+                                    <p>{jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom} Are you sure to logout ?</p>
                                 </div>
                                 <div className="modal-body">
-                                    <Button block className="btn-round" color="default" onClick={logout} to="/index" tag={Link}>
+                                    <Button block className="btn-outline-danger" color="default" onClick={logout} to="/index" tag={Link}>
                                         Logout
                                     </Button>
                                 </div>

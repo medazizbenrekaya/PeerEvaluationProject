@@ -48,6 +48,8 @@ import QuizManaging from "./views/examples/QuizManaging";
 import QuizCognitiveAbility from "./views/examples/QuizCognitiveAbility";
 import MacroSkillsPage from "./views/examples/MacroSkillsPage";
 import PeerTeacher from "./views/examples/PeerTeacher";
+import Historique from "./views/examples/historique";
+import SelfEvaluationStudent from "./views/examples/SelfEvaluationStudent";
 
 
 
@@ -96,6 +98,10 @@ ReactDOM.render(
           path="/admin"
           render={props => <Admin {...props} />}
           />
+      <Route
+          path="/historique"
+          render={props => <Historique {...props} />}
+      />
           
       <Route
           path="/test"
@@ -144,6 +150,10 @@ ReactDOM.render(
       <Route
           path="/PeerTeacher"
           render={props =><PeerTeacher{...props} />}
+      />
+      <Route
+          path="/SelfEvaluationStudent"
+          render={props =><SelfEvaluationStudent{...props} />}
       />
       <Redirect to="/index" />
     </Switch>

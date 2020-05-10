@@ -29,6 +29,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import  "../../assets/css/colors.css";
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
+import red from "@material-ui/core/colors/red";
 
 
 
@@ -169,23 +170,29 @@ class Evaluation extends  Component {
                                 <img
                                     alt="..."
                                     className="img-circle img-no-padding img-responsive"
-                                    src={require("assets/img/faces/student.png")}
+                                    src={require("assets/img/faces/eval.jpg")}
+                                    height={150}
                                 />
                             </div>
                             <div className="name">
-                                <h4 className="title">
-                                    You will evaluate {this.state.TEST && this.state.TEST['nom'] + ' '+ this.state.TEST['prenom']} <br />
+                                <h4 className="btn btn-secondary btn-lg btn-block">
+                                Peer Evaluation Form
                                 </h4>
-                                <h6 className="description">{jwt_decode(localStorage.token).user.role}</h6>
+
                             </div>
                         </div>
+
                         <Row>
+
                             <Col className="ml-auto mr-auto text-center" md="6">
-                                <p>
-                                  Peer Evaluation !
+                                <button className="btn btn-outline-primary btn-lg btn-block" >
+
+                                    You will evaluate {this.state.TEST && this.state.TEST['nom'] + ' '+ this.state.TEST['prenom']}
+
+                                        <Label for="exampleEmail">Evaluator : {jwt_decode(localStorage.token).user.nom }  {jwt_decode(localStorage.token).user.prenom}</Label>
 
 
-                                </p>
+                                </button>
                                 <br />
 
 
@@ -195,11 +202,8 @@ class Evaluation extends  Component {
                         <br />
                         <div>
                             <Form>
+
                                 <FormGroup>
-                                    <Label for="exampleEmail">Evaluator : {jwt_decode(localStorage.token).user.nom }  {jwt_decode(localStorage.token).user.prenom}</Label>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="exampleSelect">Select Macro !</Label>
 
                                     {this.state.TEST && this.state.TEST['microskills'].map((team) => <table key={team.nom} className="table" border="3">
                                             <thead className="table table-info">
@@ -235,7 +239,7 @@ class Evaluation extends  Component {
                                     )}
                                 </FormGroup>
 
-                                <Button onClick={this.historique.bind(this)} >Valider!</Button>
+                                <center> <Button onClick={this.historique.bind(this)} >Valider!</Button></center>
 
                             </Form>
                         </div>

@@ -33,7 +33,7 @@ class MacroSkillsPage extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,show5:false,
             visible1: false,
             visible2: false,
             visible3: false,
@@ -90,7 +90,7 @@ class MacroSkillsPage extends  Component {
         this.state.m.push(bod2)
         console.log(this.state.m)
         let x = document.getElementById('nommacro').value
-        this.setState({ms : this.state.ms +  x +'  |  ' })
+        this.setState({ms : this.state.ms +  x +'  |  ',show5:true })
         document.getElementById('nommacro').value = ''
         document.getElementById('descmacro').value = ''
         }
@@ -226,37 +226,25 @@ class MacroSkillsPage extends  Component {
                     <Container>
 
                         <div className="owner">
-
-                            <div className="card">
-                                <h4 className="card-title">
-                                    {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/skillss.jpg')}
+                                    height={150}
+                                />
+                            </div>
+                            <div className="name">
+                                <h4 className="btn btn-secondary btn-lg btn-block">
+                                  Macro Skills Management Space
                                 </h4>
-                                <h6 className="card-subtitle">{jwt_decode(localStorage.token).user.role}</h6>
+
                             </div>
                         </div>
-                        <Row>
-                            <Col className="ml-auto mr-auto text-center" md="6">
-
-                                <br/>
-                                <br/>
+                        <br />
+                        <br />
 
 
-                            </Col>
-                        </Row>
-                        <br/>
-                        <br/>
-                        <div className="nav-tabs-navigation">
-                            <div className="nav-tabs-wrapper">
-                            </div>
-                        </div>
-                        <>
-                            <ExamplesNavbar />
-                            <div>
-                                <div className="title"><center><h2>Macro skills management</h2></center></div>
-                                <div className="filter" />
-                                <Container>
-                                    <Row>
-                                        <Col>
                                             <div className="nav-tabs-navigation">
                                                 <div className="nav-tabs-wrapper">
                                                     <Nav id="tabs" role="tablist" tabs>
@@ -264,17 +252,17 @@ class MacroSkillsPage extends  Component {
                                                             <NavLink
                                                                 className={this.state.activeTab === "1" ? "active" : ""}
                                                                 onClick={() => {this.toggle("1")}}>
-                                                                Add MacroSkills
+                                                                <strong> Add MacroSkills</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
                                                             <NavLink
-                                                                className={this.state.activeTab === "2 "? "active" : ""}
+                                                                className={this.state.activeTab === "2" ? "active" : ""}
                                                                 onClick={() => {
                                                                     this.toggle("2");
                                                                 }}
                                                             >
-                                                                See MacroSkills
+                                                                <strong>See MacroSkills</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
@@ -282,7 +270,7 @@ class MacroSkillsPage extends  Component {
                                                                 className={this.state.activeTab === "3" ? "active" : ""}
                                                                 onClick={() => {this.toggle("3")}}
                                                             >
-                                                                Affect MacroSkills
+                                                                <strong>Affect MacroSkills</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                     </Nav>
@@ -291,11 +279,12 @@ class MacroSkillsPage extends  Component {
                                             <TabContent activeTab={this.state.activeTab} className="text-center">
                                                 <TabPane tabId="1">
                                                     <div>
-                                                        <div className="filter" />
+                                                        <div className="container" />
                                                         <Container>
+                                                            <div className="bg-light border border-primary">
                                                             <Row>
                                                                 <Col className="ml-auto mr-auto" md="8">
-                                                                    <h2 className="text-center">ADD MacroSkill</h2>
+                                                                    <h1><strong>Add Macro Skill</strong></h1>
                                                                     <Form className="contact-form">
                                                                         <Row>
                                                                             <Col md="6">
@@ -308,6 +297,7 @@ class MacroSkillsPage extends  Component {
 
                                                                         </Row>
 
+
                                                                         <label>Description</label>
                                                                         <Input
                                                                             rows="4"
@@ -316,20 +306,27 @@ class MacroSkillsPage extends  Component {
                                                                         <Alert color="danger" isOpen={this.state.visible2} toggle={this.onDismiss2.bind(this)}>
                                                                             <b>C'est un champ obilgatoire</b>
                                                                         </Alert>
+                                                                        <br/>
+
                                                                         <Row>
-                                                                            <label>Type</label>
-                                                                            <select name="type" id="type">
+
+
+                                                                            <select name="type" id="type" className="custom-select" >
+
                                                                                 <option>Hard Skills</option>
                                                                                 <option>Soft Skills</option>
                                                                             </select>
+
                                                                         </Row>
+                                                                        <br/>
 
                                                                         <Row>
 
                                                                             <Container>
+                                                                                <div className="bg-light border border-secondary">
                                                                                 <Row>
                                                                                     <Col className="ml-auto mr-auto" md="8">
-                                                                                        <h2 className="text-center">Add MicroSkill for This MacroSkill</h2>
+                                                                                        <h3 className="text-center"><strong>Add MicroSkill for This MacroSkill</strong></h3>
                                                                                         <Form className="contact-form">
                                                                                             <Row>
                                                                                                 <Col md="6">
@@ -351,39 +348,46 @@ class MacroSkillsPage extends  Component {
                                                                                                 <Col className="ml-auto mr-auto" md="4">
                                                                                                     <Button className="mr-1 btn btn-outline-danger btn-sm" color="orange" size="lg"
                                                                                                             onClick={this.addmacro.bind(this)}>
-                                                                                                        ADD Macro
+                                                                                                        ADD Micro
                                                                                                     </Button>
                                                                                                 </Col>
                                                                                             </Row>
+                                                                                            <br/>
+                                                                                            {this.state.show5 &&
                                                                                             <Row>
-                                                                                                <label>names of microskill already added     :</label>
+                                                                                                <label> microskill already
+                                                                                                    added :</label>
                                                                                                 <ListGroup>
-                                                                                                    <ListGroupItem color="success">{this.state.ms}</ListGroupItem>
+                                                                                                    <ListGroupItem
+                                                                                                        className="btn-outline-primary">{this.state.ms}</ListGroupItem>
                                                                                                 </ListGroup>
 
                                                                                             </Row>
+                                                                                            }
                                                                                         </Form>
                                                                                     </Col>
                                                                                 </Row>
+                                                                                </div>
                                                                             </Container>
                                                                         </Row>
                                                                         <Row>
                                                                             <Col className="ml-auto mr-auto" md="4">
-                                                                                <Button className="btn-fill" color="danger" size="lg" onClick={this.Ajouter.bind(this)}>
-                                                                                    ADD
+                                                                                <Button className="btn-success"  size="lg" onClick={this.Ajouter.bind(this)}>
+                                                                                    ADD Macro
                                                                                 </Button>
                                                                             </Col>
                                                                         </Row>
                                                                     </Form>
                                                                 </Col>
-                                                            </Row>
+                                                            </Row></div>
                                                         </Container>
                                                     </div>
                                                 </TabPane>
                                                 <TabPane tabId="2">
                                                     <Col className="ml-auto mr-auto" md="8">
 
-                                                        <h1>Macro Skills Table</h1>
+                                                        <h1><strong>Macro Skills Table</strong></h1>
+                                                        <br/>
                                                         <center> <table>
                                                             <tr>
                                                                 <td>Filter
@@ -403,7 +407,7 @@ class MacroSkillsPage extends  Component {
                                                                 </td>
                                                             </tr>
                                                         </table></center>
-                                                        <br/>   <br/>   <br/>
+                                                       <br/>
 
                                                         <table className="table-responsive-md">
                                                             <tr>
@@ -468,16 +472,16 @@ class MacroSkillsPage extends  Component {
                                                     <p>Here are your messages.</p>
                                                 </TabPane>
                                             </TabContent>
-                                        </Col>
 
-                                    </Row>
+
+
 
                                 </Container>
                             </div>
-                        </>
 
-                    </Container>
-                </div>
+
+
+
                 <DemoFooter/>
             </>
         );

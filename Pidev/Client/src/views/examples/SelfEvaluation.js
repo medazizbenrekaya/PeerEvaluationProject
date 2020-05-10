@@ -10,6 +10,7 @@ import DemoFooter from "../../components/Footers/DemoFooter";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {log} from "async";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 class SelfEvaluation extends  Component {
     state = {
@@ -36,14 +37,20 @@ class SelfEvaluation extends  Component {
     }
     nextQuestionHandler = () => {
         const {score , userAwnser , answers } = this.state
-        this.setState({
-            currentQuestion: this.state.currentQuestion + 1
-        })
-        console.log(this.state.currentQuestion)
-        if(userAwnser === answers){
+        if (userAwnser === null)
+        {
+            alert('You have to choose a response')
+        }
+        else {
             this.setState({
-                score: score + 2
+                currentQuestion: this.state.currentQuestion + 1
             })
+            console.log(this.state.currentQuestion)
+            if (userAwnser === answers) {
+                this.setState({
+                    score: score + 2
+                })
+            }
         }
     }
     finishHandler = () =>{
@@ -132,21 +139,35 @@ class SelfEvaluation extends  Component {
   <>
       <NavbarProfile/>
       <ProfilePageHeader/>
-                <div className="app">
+      <div className="section profile-content">
+          <div className="app">
+              <NavBarStudent/>
+              <div className="owner">
+                  <div className="avatar">
+                      <img
+                          alt="..."
+                          className="img-circle img-no-padding img-responsive"
+                          src={require('assets/img/faces/l.png')}
+                          width={150}
+                      />
+                  </div>
 
-                    <h2>final score is {this.state.score} points of {QuizData.length * 2}</h2>
+              </div>
+              <div className="container"><div className="bg-light border border-primary">
+
+                  <h2>final score is <strong>{this.state.score}</strong> points of {QuizData.length * 2}</h2>
                     <h3>{this.state.result}</h3>
                     <p>the correct answers for questions was : </p>
                     <ul>
                         {QuizData.map((item,index) => (
                             <li key={index} className="options">
-                                Q: {item.question}
+                                Q: {item.question}<br/>
                                 R: {item.answer}
                             </li>
                             )
                         )}
                     </ul>
-                </div>
+              </div></div></div></div>
       <DemoFooter/>
       </>
             )
@@ -157,9 +178,24 @@ class SelfEvaluation extends  Component {
                 <ProfilePageHeader/>
 
 
-            <div className="app">
-                <p className="titre" >Validate macro skill : LEADERSHIP</p>
-                <h2 >  {questions}</h2>
+                <div className="section profile-content">
+                    <div className="app">
+                        <NavBarStudent/>
+
+                        <div className="owner">
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/l.png')}
+                                    width={150}
+                                />
+                            </div>
+
+                        </div>
+                        <div className="container"><div className="bg-light border border-primary">
+                <button className="btn btn-outline-info" >Validate macro skill : LEADERSHIP</button>
+                <h3 className="title">  {questions}</h3>
                 <span > Question {currentQuestion + 1}  out of  {QuizData.length  }  </span>
                  {options.map(option =>(
                      <p className="options">
@@ -170,10 +206,10 @@ class SelfEvaluation extends  Component {
                     >
                         {option}</option></p>
                 ))}
-                {currentQuestion < QuizData.length - 1 &&  <button disabled={this.state.disabled} onClick={this.nextQuestionHandler}>Next</button> }
-                {currentQuestion === QuizData.length - 1 &&  <button onClick={this.finishHandler}>Finish</button> }
+                {currentQuestion < QuizData.length - 1 &&  <button className="btn btn-success" disabled={this.state.disabled} onClick={this.nextQuestionHandler}>Next</button> }
+                {currentQuestion === QuizData.length - 1 &&  <button className="btn btn-success" onClick={this.finishHandler}>Finish</button> }
 
-            </div>
+                        </div></div></div></div>
                 <DemoFooter/>
                 </>
         );

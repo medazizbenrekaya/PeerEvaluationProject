@@ -19,20 +19,18 @@ import {
     Modal, Form
 } from "reactstrap";
 import Pie from 'react-chartjs-2';
-import Pagination from "react-js-pagination";
+
 
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
-import jwt_decode from "jwt-decode";
+
 import axios from "axios";
 import {Component} from "react"
-import index from "async";
+
 import NavBarAdmin from "../../components/Navbars/NavBarAdmin";
 
 
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 
 
 class Admin extends Component {

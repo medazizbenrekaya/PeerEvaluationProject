@@ -6,7 +6,7 @@ import React,{Component} from "react";
 import {
     Button,
     Label,
-    FormGroup,
+
     Input,
     NavItem,
     NavLink,
@@ -14,24 +14,21 @@ import {
     TabContent,
     TabPane,
     Container,
-    Row, CardImg, CardText,
-    CardTitle, CardSubtitle,
+    Row,
     Col, Card, CardBody,
-    ListGroup, ListGroupItem, Table, Media, UncontrolledTooltip
+  Media, UncontrolledTooltip
 } from "reactstrap";
 
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import {Link} from "react-router-dom";
-import {Radar,Bar} from 'react-chartjs-2';
-import {Carousel} from 'primereact/carousel';
-import NavBarStudent from "../../components/Navbars/NavBarStudent";
+
+import {Radar} from 'react-chartjs-2';
+
 import NavBarTeacher from "../../components/Navbars/NavBarTeacher";
 
 
@@ -158,7 +155,7 @@ class PeerTeacher extends  Component {
         var T = []
         const n ={ nom:a}
         console.log(n.nom)
-        test2: axios.post("http://localhost:3000/project/get",n).then(res => {
+        axios.post("http://localhost:3000/project/get",n).then(res => {
             this.setState({p : res.data,proj:n.nom})
             var x = this.state.p['team']['members']
             this.setState({team:x})
@@ -191,7 +188,7 @@ class PeerTeacher extends  Component {
         var nb2 = 0
 
         console.log(x)
-        const s =   axios.post("http://localhost:3000/users/stats",x).then(res => {
+         axios.post("http://localhost:3000/users/stats",x).then(res => {
 
         this.setState({stats3:res.data})
         console.log(this.state.stats3)
@@ -241,7 +238,7 @@ class PeerTeacher extends  Component {
         var nb4 = 0
 
 
-        const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
+      axios.post("http://localhost:3000/users/stats",x).then(res => {
 
             this.setState({stats2:res.data})
             console.log(this.state.stats2)
@@ -293,7 +290,7 @@ class PeerTeacher extends  Component {
         }
         var notefinal3 = 0
         var nb3 = 0
-        const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
+       axios.post("http://localhost:3000/users/stats",x).then(res => {
 
             this.setState({stats2:res.data})
             console.log(this.state.stats2)
@@ -355,8 +352,7 @@ class PeerTeacher extends  Component {
         }
         var notefinal5 = 0
         var nb5 = 0
-
-        const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
+         axios.post("http://localhost:3000/users/stats",x).then(res => {
 
             this.setState({stats2:res.data})
             console.log(this.state.stats2)

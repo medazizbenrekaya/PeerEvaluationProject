@@ -12,8 +12,7 @@ import {
     Col,
     Button, Alert,
 } from "reactstrap";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
-// import Button from '@material-ui/core/Button';
+
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -53,6 +52,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import {connectProps} from "@devexpress/dx-react-core";
+import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData/Get';
 
@@ -139,7 +139,8 @@ const mapAppointmentData = appointment => ({
     title: appointment.nom,
     startDate: appointment.datedebut,
     endDate: appointment.datefin,
-    nbplace: appointment.nbplace
+    nbplace: appointment.nbplace,
+
 });
 
 class AppointmentFormContainerBasic extends React.PureComponent {
@@ -334,7 +335,7 @@ class Workshopcalender extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"",tab1:'',show2:false,tab2:'',show:false,show1:false,
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,
             visible1: false,
             visible2: false,
             visible3: false,
@@ -439,7 +440,7 @@ class Workshopcalender extends  Component {
             ide:jwt_decode(localStorage.token).user._id}
         console.log(bod)
         axios.post("http://localhost:3000/ws/reserver",bod).then(res => {
-            if(res.data==="il n\'ya plus de place"){
+            if(res.data==="il n'ya plus de place"){
                 this.setState({visible1:true})
             }
             else if(res.data==="USER EXIST"){
@@ -460,7 +461,7 @@ class Workshopcalender extends  Component {
             currentDate, currentViewName,
             editingFormVisible
         } = this.state;
-        const { classes } = this.props;
+
 
         const formattedData = data
             ? data.map(mapAppointmentData) : [];
@@ -473,35 +474,30 @@ class Workshopcalender extends  Component {
 
 
                 <div className="section profile-content">
-                    <NavBarTeacher/>
+                    <NavBarStudent/>
                     <Container>
-
                         <div className="owner">
-
-                            <div className="card">
-                                <h4 className="card-title">
-                                    {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/workshop.jpg')}
+                                />
+                            </div>
+                            <div className="name">
+                                <h4 className="btn btn-secondary btn-lg btn-block">
+                                    Workshops  Space
                                 </h4>
-                                <h6 className="card-subtitle">{jwt_decode(localStorage.token).user.role}</h6>
+
                             </div>
                         </div>
-                        <Row>
-                            <Col className="ml-auto mr-auto text-center" md="6">
-
-                                <br/>
-                                <br/>
 
 
-                            </Col>
-                        </Row>
                         <br/>
                         <br/>
-                        <div className="nav-tabs-navigation">
-                            <div className="nav-tabs-wrapper">
-                            </div>
-                        </div>
+
                         <>
-                            <ExamplesNavbar />
+
                             <div>
                                 <Container>
                                     <Row>
@@ -513,14 +509,14 @@ class Workshopcalender extends  Component {
                                                             <NavLink
                                                                 className={this.state.activeTab === "1" ? "active" : ""}
                                                                 onClick={() => {this.toggle("1")}}>
-                                                                Workshop
+                                                                <strong>Workshop</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
                                                             <NavLink
                                                                 className={this.state.activeTab === "2" ? "active" : ""}
                                                                 onClick={() => {this.toggle("2")}}>
-                                                                Reservation
+                                                                <strong>Reservation</strong>
                                                             </NavLink>
                                                         </NavItem>
 
@@ -529,9 +525,9 @@ class Workshopcalender extends  Component {
                                             </div>
                                             <TabContent activeTab={this.state.activeTab} className="text-center">
                                                 <TabPane tabId="1">
-                                                    <Col className="ml-auto mr-auto">
-
-                                                        <h1>Workshops Table</h1>
+                                                    <Col className="ml-auto mr-auto" md="16">
+                                                        <div className="bg-light border border-primary">
+                                                        <h1><strong>Workshops Calender</strong></h1>
                                                         <br/>   <br/>   <br/>
                                                         <div className="table-responsive">
 
@@ -583,27 +579,27 @@ class Workshopcalender extends  Component {
 
 
                                                             </Paper>
-                                                        </div></Col>
+                                                        </div></div></Col>
 
                                                 </TabPane>
                                                 <TabPane tabId="2">
                                                     <Col className="ml-auto mr-auto">
 
-                                                        <center><h1>Workshops Table</h1>
+                                                        <center> <h1><strong>Workshops Reservation</strong></h1>
                                                             <Alert color="danger" isOpen={this.state.visible1} toggle={this.onDismiss1.bind(this)}>
-                                                                <b>il n'ya plus de place</b>
+                                                                <b>there is no room left</b>
                                                             </Alert>
                                                             <Alert color="danger" isOpen={this.state.visible2} toggle={this.onDismiss2.bind(this)}>
                                                                 <b>USER EXIST</b>
                                                             </Alert>
                                                             <Alert color="danger" isOpen={this.state.visible3} toggle={this.onDismiss3.bind(this)}>
-                                                                <b>réservation effectuer</b>
+                                                                <b>Reservation Done</b>
                                                             </Alert></center>
                                                         <br/>   <br/>   <br/>
                                                         <div className="table-responsive">
 
                                                             <center><table >
-                                                                <thead >
+                                                                <thead className="table table-info" >
                                                                 <tr>
                                                                     <th>Name</th>
                                                                     <th>description</th>

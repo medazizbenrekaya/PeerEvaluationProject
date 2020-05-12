@@ -7,21 +7,14 @@ import {
     Button,
     Label,
     FormGroup,
-    Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
     Container,
     Row,
-    Col,Form,FormText,
-    ListGroup, ListGroupItem,Table
+    Col,Form,
 } from "reactstrap";
 
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
@@ -29,7 +22,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import  "../../assets/css/colors.css";
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
-import red from "@material-ui/core/colors/red";
+
 
 
 
@@ -118,19 +111,10 @@ class Evaluation extends  Component {
 
     find(a){
 
-        const members =     axios.post("http://localhost:3000/ms/find/"+a).then(res => {
-
-
+              axios.post("http://localhost:3000/ms/find/"+a).then(res => {
             this.setState({tab2:res.data,show1:true})
-
                 this.setState({tab2:res.data,show1:true})
-
-
-
             console.log("succes")
-
-
-
         });
     }
     show(b,a){

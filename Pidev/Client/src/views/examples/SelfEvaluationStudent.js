@@ -3,21 +3,13 @@ import React from "react";
 // reactstrap components
 import {
     Button,
-    Label,
-    FormGroup,
-    Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
+
     Container,
-    Row,
-    Col, Form, Card, CardBody, UncontrolledTooltip
+   Card, CardBody, UncontrolledTooltip
 } from "reactstrap";
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
@@ -25,15 +17,11 @@ import NavBarStudent from "../../components/Navbars/NavBarStudent";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Component} from "react"
-import index from "async";
 
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import {c} from '../../assets/countries.js';
-import {University} from "../../assets/University";
+
+
 import {Radar} from "react-chartjs-2";
-import {red} from "@material-ui/core/colors";
+
 
 
 
@@ -43,7 +31,7 @@ class SelfEvaluationStudent extends Component {
 
     componentDidMount() {
         this.setState({show1:true})
-        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
+      axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
             this.setState({tab2:res.data})
             console.log('succes')
 
@@ -56,7 +44,7 @@ class SelfEvaluationStudent extends Component {
             email: jwt_decode(localStorage.token).user.email ,
 
         }
-        const s =     axios.post("http://localhost:3000/users/statsSelfNote",st).then(res => {
+         axios.post("http://localhost:3000/users/statsSelfNote",st).then(res => {
 
             this.setState({stats:res.data})
             console.log(this.state.stats)
@@ -144,7 +132,7 @@ class SelfEvaluationStudent extends Component {
     back()
     {
         this.setState({show1:true,show:false})
-        const micro = axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
+         axios.post("http://localhost:3000/users/find/"+jwt_decode(localStorage.token).user.email).then(res => {
             this.setState({tab2:res.data})
             console.log('succes')
 
@@ -157,7 +145,7 @@ class SelfEvaluationStudent extends Component {
 
 
 
-    const micro = axios.post("http://localhost:3000/ms/find/"+a).then(res => {
+    axios.post("http://localhost:3000/ms/find/"+a).then(res => {
       this.setState({tab1:res.data,tab2:'',nomMicro:a})
       console.log('succes')
 

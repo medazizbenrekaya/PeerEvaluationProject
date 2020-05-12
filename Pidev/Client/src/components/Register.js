@@ -45,12 +45,14 @@ class Register extends Component {
             role:document.getElementById('role').value,
             image: document.getElementById('image').value
         };
-        this.state.email1=bod.email
-        this.state.nom1=bod.nom
-        this.state.password1=bod.password
-        this.state.prenom1=bod.prenom
-        this.state.role1=bod.role
-        this.state.pass2=document.getElementById('password2').value
+        this.setState({       email1:bod.email,
+            nom1:bod.nom,
+            password1:bod.password,
+            prenom1:bod.prenom,
+            role1:bod.role,
+            pass2:document.getElementById('password2').value})
+
+
          if (this.state.email1.length === 0) {
              this.setState({visible1:true})
          }

@@ -3,21 +3,16 @@ import React from "react";
 // reactstrap components
 import {
     Button,
-    Label,
-    FormGroup,
+
     Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
+
     Container,
     Row,
-    Col, Form, Card, CardBody, UncontrolledTooltip
+    Col
 } from "reactstrap";
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
@@ -25,15 +20,14 @@ import NavBarStudent from "../../components/Navbars/NavBarStudent";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Component} from "react"
-import index from "async";
+
 
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import {c} from '../../assets/countries.js';
 import {University} from "../../assets/University";
-import {Radar} from "react-chartjs-2";
-import {red} from "@material-ui/core/colors";
+
 
 function countryToFlag(isoCode) {
     return typeof String.fromCodePoint !== 'undefined'
@@ -136,7 +130,7 @@ class ProfilePage extends Component {
 
 
 
-    const micro = axios.post("http://localhost:3000/ms/find/"+a).then(res => {
+     axios.post("http://localhost:3000/ms/find/"+a).then(res => {
       this.setState({tab1:res.data,tab2:'',nomMicro:a})
       console.log('succes')
 
@@ -168,24 +162,9 @@ class ProfilePage extends Component {
 
   render()
 {
-  const listmacro = jwt_decode(localStorage.token).user.microskills.map(
-      (link) =><li key={link.nom}> <table border="3" width="500">
-        <thead>
-        <tr>
-          <td>Macro Skills</td>
-          <td>Type</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td ><button id="macro" value={link.nom} onClick={this.show.bind(this)}>{link.nom}</button></td>
-          <td> {link.type}</td>
-        </tr>
-        </tbody>
-      </table>
-      </li>
 
-  );
+
+
   return (
       <>
         <NavbarProfile/>

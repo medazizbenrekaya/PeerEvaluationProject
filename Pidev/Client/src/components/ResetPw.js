@@ -20,12 +20,12 @@ import React, { Component } from "react";
 
 
 // reactstrap components
-import {Button, Card, Form, Input, Container, Row, Col, Alert} from "reactstrap";
+import {Button, Card, Input, Container, Row, Col, Alert} from "reactstrap";
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
+
 class ResetPw extends Component {
     constructor(props) {
         super(props);
@@ -48,9 +48,9 @@ class ResetPw extends Component {
             token: document.getElementById('token').value,
             password : document.getElementById('password').value
         };
-        this.state.password1=bod.password
-        this.state.token=bod.token
-        this.state.pass2=document.getElementById('password2').value
+        this.setState({password1:bod.password,token:bod.token,pass2:document.getElementById('password2').value})
+
+
         if(this.state.token.length===0){
             this.setState({visible:true})}
 

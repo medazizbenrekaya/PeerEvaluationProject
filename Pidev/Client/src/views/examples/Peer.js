@@ -6,23 +6,16 @@ import React,{Component} from "react";
 import {
     Button,
     Label,
-    FormGroup,
-    Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
+
     Container,
-    Row,CardImg, CardText,
-    CardTitle, CardSubtitle,
+    Row,
     Col,Card,CardBody, UncontrolledTooltip,
-    ListGroup, ListGroupItem,Table,Media
+    Table,Media
 } from "reactstrap";
 
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
@@ -30,7 +23,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {Radar} from 'react-chartjs-2';
-import {Carousel} from 'primereact/carousel';
+
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
 
@@ -47,8 +40,7 @@ class Peer extends  Component {
             email: jwt_decode(localStorage.token).user.email }
 
 
-
-        test2: axios.post("http://localhost:3000/users/projects",t).then(res => {
+           axios.post("http://localhost:3000/users/projects",t).then(res => {
             this.setState({project : res.data}
 
             )
@@ -66,7 +58,7 @@ descrip(a){
     this.setState({show:true,tab2:[],tab3:[],v:[]})
     var T = []
     const n ={ nom:a}
-    test2: axios.post("http://localhost:3000/project/get",n).then(res => {
+    axios.post("http://localhost:3000/project/get",n).then(res => {
         this.setState({p : res.data})
         var x = this.state.p['team']['members']
         this.setState({team:x})
@@ -99,7 +91,7 @@ descrip(a){
     }
     var notef = 0
     var nb = 0
-    const s =     axios.post("http://localhost:3000/users/stats",st).then(res => {
+      axios.post("http://localhost:3000/users/stats",st).then(res => {
 
             this.setState({stats:res.data})
             console.log(this.state.stats)
@@ -151,7 +143,7 @@ descrip(a){
         var notefinal2 = 0
         var nb2 = 0
 
-        const s =     axios.post("http://localhost:3000/users/stats",x).then(res => {
+       axios.post("http://localhost:3000/users/stats",x).then(res => {
 
             this.setState({stats2:res.data})
             console.log(this.state.stats2)
@@ -170,7 +162,7 @@ descrip(a){
 
             const d2 = {
                 //labels: ['Communication', 'Leadership', 'Effectiveness', 'LeaderShip','Professionalism','Managing Skills','Cognitive ability'],
-                labels: this.state.tab4 && this.state.tab4,
+                labels: this.state.tab2 && this.state.tab2,
                 datasets: [
                     {
                         label: 'Your Evaluation ! ',
@@ -203,14 +195,14 @@ descrip(a){
     }
 
     mySelfEval(){
-        this.setState({tab4:[],tab5:[],nomc:'my',prenomc:'self evaluation',comparer:false,myself:true})
+        this.setState({tab4S:[],tab5S:[],nomc:'my',prenomc:'self evaluation',comparer:false,myself:true})
         const x = {
             email: jwt_decode(localStorage.token).user.email
         }
         var notefinal5 = 0
         var nb5 = 0
 
-        const s =     axios.post("http://localhost:3000/users/statsSelfNote",x).then(res => {
+         axios.post("http://localhost:3000/users/statsSelfNote",x).then(res => {
 
             this.setState({stats:res.data})
             console.log(this.state.stats)
@@ -219,17 +211,17 @@ descrip(a){
                 nb5 = nb5 + 1
                 notefinal5 = notefinal5 + e.note
 
-                this.state.tab4.push(e.micro)
-                this.state.tab5.push(e.note)
+                this.state.tab4S.push(e.macro)
+                this.state.tab5S.push(e.note)
 
             })
             this.setState({notefinal5:Number(notefinal5/nb5).toFixed(2)})
             this.setState({pourcent5 : Number(((notefinal5/nb5)*100)/20).toFixed(2)})
-            console.log(this.state.tab4)
-            console.log(this.state.tab5)
+            console.log(this.state.tab4S)
+            console.log(this.state.tab5S)
 
             const d2 = {
-                labels: ['Communication', 'Leadership', 'Effectiveness', 'Professionalism','Managing Skills','Cognitive ability'],
+                labels: this.state.tab2 && this.state.tab2,
 
                 datasets: [
                     {
@@ -251,7 +243,7 @@ descrip(a){
                         pointBorderColor: 'rgb(63, 108, 150)',
                         pointHoverBackgroundColor: 'rgb(63, 108, 150)',
                         pointHoverBorderColor: 'rgb(63, 108, 150)',
-                        data:this.state.tab5 && this.state.tab5
+                        data:this.state.tab5S && this.state.tab5S
 
                     }
                 ]

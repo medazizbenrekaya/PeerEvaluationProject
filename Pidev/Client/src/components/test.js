@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import IndexHeader from "./Headers/IndexHeader";
 import DemoFooter from "./Footers/DemoFooter";
 import ExamplesNavbar from "./Navbars/ExamplesNavbar";
-import {Button, Card, Col, Container, Form, Input, Row} from "reactstrap";
 
 class Test extends Component {
     render() {

@@ -10,7 +10,7 @@ import DemoFooter from "../../components/Footers/DemoFooter";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
-import {Container} from "reactstrap";
+
 
 class QuizCognitiveAbility extends  Component {
     state = {

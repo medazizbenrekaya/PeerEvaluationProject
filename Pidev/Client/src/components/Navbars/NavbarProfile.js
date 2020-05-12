@@ -16,9 +16,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React,{Component} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-// nodejs library that concatenates strings
+
 import classnames from "classnames";
 import jwt_decode from "jwt-decode";
 
@@ -36,13 +36,10 @@ import {
 
 function NavbarProfile() {
     const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
-    const [navbarCollapse, setNavbarCollapse] = React.useState(false);
+    const [navbarCollapse] = React.useState(false);
     const [loginModal, setLoginModal] = React.useState(false);
 
-    const toggleNavbarCollapse = () => {
-        setNavbarCollapse(!navbarCollapse);
-        document.documentElement.classList.toggle("nav-open");
-    };
+
     const logout=()=>{
         localStorage.clear()
         console.log(localStorage)

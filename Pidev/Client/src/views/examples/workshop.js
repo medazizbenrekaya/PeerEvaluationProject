@@ -22,13 +22,13 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import {KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+
 
 class WorkshopPage extends  Component {
     constructor(props){
         super(props)
         this.state = {m: [],x:[],ms:'',
-            activeTab:"",tab1:'',show2:false,tab2:'',show:false,show1:false,
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,
             visible1: false,
             visible2: false,
             visible3: false,
@@ -155,33 +155,27 @@ class WorkshopPage extends  Component {
                     <Container>
 
                         <div className="owner">
-
-                            <div className="card">
-                                <h4 className="card-title">
-                                    {jwt_decode(localStorage.token).user.nom} {jwt_decode(localStorage.token).user.prenom}<br/>
+                            <div className="avatar">
+                                <img
+                                    alt="..."
+                                    className="img-circle img-no-padding img-responsive"
+                                    src={require('assets/img/faces/workshop.jpg')}
+                                />
+                            </div>
+                            <div className="name">
+                                <h4 className="btn btn-secondary btn-lg btn-block">
+                                    Workshops Management Space
                                 </h4>
-                                <h6 className="card-subtitle">{jwt_decode(localStorage.token).user.role}</h6>
+
                             </div>
                         </div>
-                        <Row>
-                            <Col className="ml-auto mr-auto text-center" md="6">
 
-                                <br/>
-                                <br/>
-
-
-                            </Col>
-                        </Row>
                         <br/>
                         <br/>
-                        <div className="nav-tabs-navigation">
-                            <div className="nav-tabs-wrapper">
-                            </div>
-                        </div>
                         <>
-                            <ExamplesNavbar />
+
                             <div>
-                                <div className="title"><center><h2>Worshop management</h2></center></div>
+
                                 <div className="filter" />
                                 <Container>
                                     <Row>
@@ -193,17 +187,17 @@ class WorkshopPage extends  Component {
                                                             <NavLink
                                                                 className={this.state.activeTab === "1" ? "active" : ""}
                                                                 onClick={() => {this.toggle("1")}}>
-                                                                Add Workshop
+                                                                <strong>Add Workshop</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
                                                             <NavLink
-                                                                className={this.state.activeTab === "2 "? "active" : ""}
+                                                                className={this.state.activeTab === "2" ? "active" : ""}
                                                                 onClick={() => {
                                                                     this.toggle("2");
                                                                 }}
                                                             >
-                                                                See All workshop
+                                                                <strong>See All workshop</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                     </Nav>
@@ -212,12 +206,13 @@ class WorkshopPage extends  Component {
                                             <TabContent activeTab={this.state.activeTab} className="text-center">
                                                 <TabPane tabId="1">
                                                     <div>
-                                                        <div className="filter" />
+                                                        <div className="container" />
                                                         <Container>
+                                                            <div className="bg-light border border-primary">
                                                             <Row>
-                                                                <Col className="ml-auto mr-auto">
-                                                                    <h2 className="text-center">ADD Workshop</h2>
-                                                                    <Form className="contact-form">
+                                                                <Col className="ml-auto mr-auto" md="8">
+                                                                    <h1><strong>Add Workshops</strong></h1>
+                                                                    <div className="contact-form">
                                                                         <Row>
                                                                                 <label>Name</label>
                                                                                 <Input placeholder="Name" type="text" id="nom" />
@@ -268,28 +263,27 @@ class WorkshopPage extends  Component {
                                                                                 </Alert>
                                                                             </Col>
                                                                         </Row>
-                                                                    </Form>
+                                                                    </div>
                                                                 </Col>
-                                                            </Row>
+                                                            </Row></div>
                                                         </Container>
                                                     </div>
                                                 </TabPane>
                                                 <TabPane tabId="2">
-                                                    <Col className="ml-auto mr-auto">
+                                                    <Col className="ml-auto mr-auto" md="8">
 
-                                                        <h1>Workshops Table</h1>
-                                                        <br/>   <br/>   <br/>
+                                                        <h1><strong>Workshops Table</strong></h1>
+                                                        <br/>
                                                         <table className="table-responsive-md">
                                                             <tr>
                                                                 <td> <Input type="text" id="text" placeholder="workshop name" onChange={this.find.bind(this)}  /></td>
-
                                                             </tr>
 
                                                         </table>
-                                                        <div className="table-responsive">
+                                                        <div >
 
                                                             <center><table >
-                                                                <thead >
+                                                                <thead className="table table-info" >
                                                                 <tr>
                                                                     <th>Name</th>
                                                                     <th>description</th>

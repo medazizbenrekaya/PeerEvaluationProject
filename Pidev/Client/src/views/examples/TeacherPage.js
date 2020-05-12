@@ -21,22 +21,12 @@ import React,{Component} from "react";
 // reactstrap components
 import {
     Button,
-    Label,
-    FormGroup,
+
     Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
+
     Container,
     Row,
-    Col, Card,
-    InputGroupAddon,
-    InputGroupText,
-    Form,
-    ListGroup,
-    ListGroupItem
+    Col,
 
 
 } from "reactstrap";
@@ -49,9 +39,6 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import SectionNavigation from "../index-sections/SectionNavigation";
-import NucleoIcons from "../NucleoIcons";
-import SectionProgress from "../index-sections/SectionProgress";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
@@ -109,14 +96,7 @@ class TeacherPage extends  Component {
         //this.state.activeTab=tab
 
     }
-    toggle  (tab) {
-      if(this.state.activeTab!==tab){
-          this.setState({activeTab:tab})
 
-      }
-
-        //this.state.activeTab=tab
-}
     editPays()
     {
         const t = {

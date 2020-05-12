@@ -4,37 +4,25 @@ import React from "react";
 // reactstrap components
 import {
     Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
-    Container,
+
     Row,
     Col,
-    Button,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Modal, Form
+
 } from "reactstrap";
-import Pie from 'react-chartjs-2';
+
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
-import jwt_decode from "jwt-decode";
+
 import axios from "axios";
 import {Component} from "react"
-import index from "async";
+
 import NavBarAdmin from "../../components/Navbars/NavBarAdmin";
 
 
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Pagination from '@material-ui/lab/Pagination';
 
 
 class Historique extends Component {

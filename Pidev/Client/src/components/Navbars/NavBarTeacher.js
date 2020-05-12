@@ -1,11 +1,11 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+
+import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import jwt_decode from "jwt-decode";
+
 
 function NavBarTeacher() {
 

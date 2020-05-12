@@ -13,13 +13,13 @@ import {
     Col,
     Form,
     ListGroup,
-    ListGroupItem, Alert, Card
+    ListGroupItem, Alert,
 
 
 } from "reactstrap";
 
 
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import NavBarTeacher from "../../components/Navbars/NavBarTeacher";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
@@ -102,8 +102,8 @@ class MacroSkillsPage extends  Component {
             nom: document.getElementById('nommacro').value,
             description:document.getElementById('descmacro').value
         };
-        this.state.nommacr=bod2.nom
-        this.state.descmacr=bod2.description
+
+        this.setState({nommacr:bod2.nom,descmacr:bod2.description})
         if (this.state.nommacr.length === 0) {
             this.setState({visible3:true})
         }
@@ -130,8 +130,8 @@ class MacroSkillsPage extends  Component {
             type:document.getElementById('type').value,
             macroskills: this.state.m
         };
-        this.state.nom=bod.nom
-        this.state.desc=bod.description
+        this.setState({nom:bod.nom,desc:bod.description})
+
         if (this.state.nom.length === 0) {
             this.setState({visible1:true})
         }
@@ -309,7 +309,7 @@ class MacroSkillsPage extends  Component {
                                                             <Row>
                                                                 <Col className="ml-auto mr-auto" md="8">
                                                                     <h1><strong>Add Macro Skill</strong></h1>
-                                                                    <Form className="contact-form">
+                                                                    <div className="contact-form">
                                                                         <Row>
                                                                             <Col md="6">
                                                                                 <label>Name</label>
@@ -401,7 +401,7 @@ class MacroSkillsPage extends  Component {
                                                                                 </Button>
                                                                             </Col>
                                                                         </Row>
-                                                                    </Form>
+                                                                    </div>
                                                                 </Col>
                                                             </Row></div>
                                                         </Container>
@@ -413,6 +413,7 @@ class MacroSkillsPage extends  Component {
                                                         <h1><strong>Macro Skills Table</strong></h1>
                                                         <br/>
                                                         <center> <table>
+                                                            <tbody>
                                                             <tr>
                                                                 <td>Filter
                                                                 </td>
@@ -429,15 +430,16 @@ class MacroSkillsPage extends  Component {
                                                                         </option>
                                                                     </Input >
                                                                 </td>
-                                                            </tr>
+                                                            </tr></tbody>
                                                         </table></center>
                                                        <br/>
 
                                                         <table className="table-responsive-md">
+                                                            <tbody>
                                                             <tr>
                                                                 <td> <Input type="text" id="text" placeholder="macro or micro skill name" onChange={this.find.bind(this)}  /></td>
 
-                                                            </tr>
+                                                            </tr></tbody>
 
                                                         </table>
                                                         <div className="table-responsive">
@@ -451,24 +453,13 @@ class MacroSkillsPage extends  Component {
                                                                     <th>Actions</th>
                                                                 </tr>
                                                                 </thead>
-                                                                {this.state.tab1   && this.state.tab1.map((team) =>  <tbody className="table table-active" key={team._id}  >
-
+                                                                {this.state.tab1 && this.state.tab1.map((team)=><tbody key={team._id} className="table table-active">
                                                                     <tr>
-                                                                        <td>{team.nom}
-
-                                                                        </td>
+                                                                        <td>{team.nom}</td>
                                                                         <td>{team.type}</td>
-
                                                                         <td>{team.macroskills.length}</td>
-                                                                        <td><button className="btn-info" onClick={this.showMacro.bind(this,team.nom)} >Details</button>
-
-                                                                            <button className="btn-danger" onClick={this.delete.bind(this , team._id)} >Delete</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                )}
-
-                                                            </table>
+                                                                        <td><button className="btn-info" onClick={this.showMacro.bind(this,team.nom)}>Details</button><button className="btn-danger" onClick={this.delete.bind(this , team._id)}>Delete</button></td>
+                                                                    </tr></tbody>)}</table>
                                                             {this.state.show?
                                                                 <table className="table">
                                                                     <thead className="table table-info">

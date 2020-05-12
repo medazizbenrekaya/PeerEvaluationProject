@@ -9,6 +9,12 @@ var micro = require('../models/microskills')
 
 
 
+router.get("/",(req,res,next)=>{
+   project.find({},{nom:1,_id:0},(err,users)=>{
+        if(err) res.json(err)
+        else res.json(users)
+    })
+})
 router.post("/ajouter", (req, res) => {
     var p = new project(req.body);
     p.save((err, c) => {
@@ -103,28 +109,19 @@ router.post("/verifvoteur",  (req, res) => {
 })
 
 router.post("/affecter", (req, res) => {
-
-   var i = 0
-    project.findOne({nom: req.body.name}, (err, t) => {
-
-            t.team.members.forEach( a => {
-                i = i + 1
-                     micro.findOne({nom:req.body.mic},(err,m) => {
-                      a.microskills.push(m)
-
-                console.log(a.microskills)
-                         a.microskills.save
-                         a.save
-                         console.log(i)
-                         t.team.members.save()
-                     })
-
-
-
-           })
+           project.findOne({nom: req.body.name}, (err, t) => {
+                t.team.members.forEach( (a,i) => {
+                    i = i + 1
+                    micro.findOne({nom:req.body.mic},(err,m) => {
+                        a.microskills.push(m)
+                            a.microskills.save
+                            a.save
+                            if(i == t.team.members.length  ){
+                                project2.findOneAndUpdate({ nom : req.body.name}, t, { new : true,useFindAndModify: false},(err,t) => {res.json('done')})
+                            }
+                    })
                 })
-
-
+            })
 
 
 })

@@ -38,10 +38,12 @@ class MacroSkillsPage extends  Component {
             visible2: false,
             visible3: false,
             visible4: false,
-            nommacr:'',descmacr:'',nom:'',desc:'',
+            nommacr:'',descmacr:'',nom:'',desc:'',allproj:[],allms:[]
 
         };
     }
+
+
     onDismiss1(){
         this.setState({visible1:false})
     }
@@ -61,6 +63,16 @@ class MacroSkillsPage extends  Component {
             console.log('succes')
 
         });
+
+        axios.get('http://localhost:3000/project').then(res =>{
+            this.setState({allproj:res.data})
+
+        })
+
+        axios.get('http://localhost:3000/ms').then(res =>{
+            this.setState({allms:res.data})
+
+        })
     }
 
     toggle  (tab) {
@@ -71,6 +83,18 @@ class MacroSkillsPage extends  Component {
 
         //this.state.activeTab=tab
 }
+
+    affect(){
+        const t = {
+            name:document.getElementById('affectproj').value,
+            mic:document.getElementById('affectms').value
+        }
+        console.log(t)
+        axios.post("http://localhost:3000/project/affecter",t).then(res => {
+            console.log('succes')
+        });
+        alert('Done !')
+     }
 
 
     addmacro(){
@@ -469,7 +493,79 @@ class MacroSkillsPage extends  Component {
 
                                                 </TabPane>
                                                 <TabPane tabId="3">
-                                                    <p>Here are your messages.</p>
+                                                    <button className="btn btn-success btn-lg btn-block">In Order to affect, you need to select both the team and the macro</button>
+                                                    <br/>
+                                                    <br/>
+                                                    <div className="row">
+                                                        <div className="col">
+                                                    <div className="container">
+
+                                                        <div className="row justify-content-md-center">
+
+                                                        <button  className="btn  btn-lg btn-block" disabled>Select Macro: </button>
+
+
+
+                                                                <Input type="select" name="select" id="affectms">
+
+                                                                    {this.state.allms && this.state.allms.map((ms) =>  <option id="members"
+
+                                                                                                                                              key={ms.nom}
+                                                                                                                                              value={ms.nom}>
+                                                                            { ms.nom}
+
+                                                                        </option>
+                                                                    )}
+
+                                                                </Input>
+
+
+
+
+
+
+                                                        </div>
+
+                                                        <br/>
+                                                    </div>
+                                                        </div>
+                                                        <div className="col">
+                                                            <div className="container">
+                                                                <div className="row justify-content-md-center">
+                                                                    <button  className="btn  btn-lg btn-block" disabled>Select Team: </button>
+
+                                                                        <Input type="select" name="select" id="affectproj">
+                                                                            {this.state.allproj && this.state.allproj.map((member) =>  <option id="members"
+                                                                                                                                                      key={member.nom}
+                                                                                                                                                      value={member.nom}>
+                                                                                    { member.nom}
+
+                                                                                </option>
+                                                                            )}
+
+                                                                        </Input>
+                                                                <br/>
+
+
+                                                                </div>
+
+                                                                <br/>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                <br/>
+                                                <br/>
+                                                <center>
+                                                    <div className="col col-lg-2">
+                                                        <Button className="btn-round" color="primary" outline onClick={this.affect.bind(this)}>
+                                                            Click to confirm!
+
+                                                        </Button>
+
+                                                    </div> </center>
+
+
                                                 </TabPane>
                                             </TabContent>
 

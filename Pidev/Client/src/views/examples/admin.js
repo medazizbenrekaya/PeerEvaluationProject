@@ -19,9 +19,8 @@ import {
     Modal, Form
 } from "reactstrap";
 import Pie from 'react-chartjs-2';
+import Pagination from "react-js-pagination";
 
-// core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
@@ -34,7 +33,6 @@ import NavBarAdmin from "../../components/Navbars/NavBarAdmin";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Pagination from '@material-ui/lab/Pagination';
 
 
 class Admin extends Component {
@@ -49,9 +47,13 @@ class Admin extends Component {
             nbU:0,
             nbA:0,
             nbN:0,
+            activePage: 1
 
         };
 
+    }
+    handlePageChange(pageNumber) {
+        this.setState({activePage: pageNumber});
     }
     onDismiss1(){
         this.setState({loginModal:false})
@@ -386,8 +388,16 @@ class Admin extends Component {
                                                                     </tr>
                                                                     </tbody>
                                                                 )}
-
                                                             </table>
+                                                            <div>
+                                                            {/*<Pagination*/}
+                                                            {/*    activePage={this.state.activePage}*/}
+                                                            {/*    itemsCountPerPage={100}*/}
+                                                            {/*    totalItemsCount={100}*/}
+                                                            {/*    pageRangeDisplayed={100}*/}
+                                                            {/*    onChange={this.handlePageChange}*/}
+                                                            {/*/>*/}
+                                                            </div>
 
 
 

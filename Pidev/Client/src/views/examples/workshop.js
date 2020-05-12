@@ -15,7 +15,6 @@ import {
      Alert,
 } from "reactstrap";
 
-
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import NavbarProfile from "../../components/Navbars/NavbarProfile";
 import NavBarTeacher from "../../components/Navbars/NavBarTeacher";
@@ -23,6 +22,7 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import {KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 
 class WorkshopPage extends  Component {
     constructor(props){
@@ -126,6 +126,20 @@ class WorkshopPage extends  Component {
         });
     }
 
+    find()
+    {
+        const t =
+            {
+                nom:document.getElementById('text').value
+            }
+        axios.post("http://localhost:3000/ws/nom", t ).then(res => {
+            this.setState({tab1:res.data})
+
+            console.log(res.data)
+        });
+    }
+
+
 
 
     render() {
@@ -179,7 +193,7 @@ class WorkshopPage extends  Component {
                                                             <NavLink
                                                                 className={this.state.activeTab === "1" ? "active" : ""}
                                                                 onClick={() => {this.toggle("1")}}>
-                                                                Add MacroSkills
+                                                                Add Workshop
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
@@ -224,6 +238,7 @@ class WorkshopPage extends  Component {
                                                                         </Row>
                                                                         <Row>
                                                                         <label>start-date</label>
+
                                                                         <Input type="date" id="dd" md="6"/>
                                                                             <Alert color="danger" isOpen={this.state.visible3} toggle={this.onDismiss3.bind(this)}>
                                                                                 <b>C'est un champ obilgatoire</b>
@@ -264,6 +279,13 @@ class WorkshopPage extends  Component {
 
                                                         <h1>Workshops Table</h1>
                                                         <br/>   <br/>   <br/>
+                                                        <table className="table-responsive-md">
+                                                            <tr>
+                                                                <td> <Input type="text" id="text" placeholder="workshop name" onChange={this.find.bind(this)}  /></td>
+
+                                                            </tr>
+
+                                                        </table>
                                                         <div className="table-responsive">
 
                                                             <center><table >
@@ -278,11 +300,8 @@ class WorkshopPage extends  Component {
                                                                 </tr>
                                                                 </thead>
                                                                 {this.state.tab1   && this.state.tab1.map((work) =>  <tbody className="table table-active" key={work._id}  >
-
                                                                     <tr>
-                                                                        <td>{work.nom}
-
-                                                                        </td>
+                                                                        <td>{work.nom}</td>
                                                                         <td>{work.description}</td>
                                                                         <td>{work.datedebut}</td>
                                                                         <td>{work.datefin}</td>

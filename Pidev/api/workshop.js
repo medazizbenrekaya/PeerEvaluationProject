@@ -19,6 +19,48 @@ router.post("/ajouter", (req, res) => {
     })
 })
 
+// router.post("/reserver", (req, res) => {
+//     workshop.findOne({_id: req.body.idws}).then( ws => {
+//         user.findOne({_id:req.body.ide}).then(t=> {
+//             ws.etudiants.forEach(e => {
+//                 if (e == req.body.ide) {
+//                     res.json("alrady exist")
+//                 } else if (ws.nbplace === 0) {
+//                     res.json("il n'y a pas des places")
+//                 } else if (Date.parse(ws.datefin.toString())<Date.now()) {
+//                     res.json("terminer")
+//                 } else {
+//                     ws.etudiants.push(t)
+//                     ws.nbplace--
+//                     ws.save()
+//
+//                     var smtpTransport = nodemailer.createTransport({
+//                         service: 'Gmail',
+//                         auth: {
+//                             user: 'benzarb34@gmail.com',
+//                             pass: '50502450'
+//                         }
+//                     });
+//                     var mailOptions = {
+//                         to: t.email,
+//                         from: 'peer@gmail.com',
+//                         subject: 'reservation made',
+//                         text: '\n' +
+//                             'your reservation has been accepted for' + ws.nom + '\n\n' +
+//                             'will begin in :' + ws.datedebut + '\n\n' +
+//                             'will finish in :' + ws.datefin + '\n\n'
+//                     };
+//                     smtpTransport.sendMail(mailOptions, function (err) {
+//                         console.log('mail sent');
+//
+//                     });
+//
+//                     res.json("réservation effectuer")
+//                 }
+//             })
+//         })
+//         })
+// });
 router.post("/reserver", (req, res) => {
     var x = new Boolean(true)
     workshop.findOne({_id: req.body.idws}).then( ws => {
@@ -63,7 +105,6 @@ router.post("/reserver", (req, res) => {
 
                 }
 })})});
-
 router.post('/delete', function(req, res, next) {
     workshop.findOne({_id: req.body.id} , function (err,u) {
 
@@ -72,7 +113,14 @@ router.post('/delete', function(req, res, next) {
     });
 
 });
-
+router.post("/nom", (req, res) => {
+   workshop.find({nom: new RegExp(req.body.nom, 'i')}, (err, c) => {
+        if (err)
+            res.json(err)
+        else
+            res.json(c)
+    })
+})
 router.get("/allworkshop", (req, res) => {
     workshop.find((err, c) => {
 

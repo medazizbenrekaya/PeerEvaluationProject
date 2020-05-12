@@ -39,6 +39,7 @@ import Evaluation from "./views/examples/Evaluation";
 import SelfEvaluation from "./views/examples/SelfEvaluation";
 import Peer from "./views/examples/Peer";
 import WorkshopPage from "./views/examples/workshop";
+import Calender from "./views/examples/workshcalender";
 import WorkshopPage2 from "./views/examples/workshopstudent";
 import Admin from "./views/examples/admin";
 import QuizCommunication from "./views/examples/QuizCommunication";
@@ -52,7 +53,6 @@ import Historique from "./views/examples/historique";
 import SelfEvaluationStudent from "./views/examples/SelfEvaluationStudent";
 
 
-
 // others
 
 ReactDOM.render(
@@ -62,6 +62,10 @@ ReactDOM.render(
       <Route
         path="/nucleo-icons"
         render={props => <NucleoIcons {...props} />}
+      />
+      <Route
+          path="/Calender"
+          render={props => <Calender {...props} />}
       />
       <Route
         path="/landing-page"

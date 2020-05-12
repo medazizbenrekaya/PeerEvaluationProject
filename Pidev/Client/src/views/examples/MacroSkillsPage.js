@@ -38,7 +38,8 @@ class MacroSkillsPage extends  Component {
             visible2: false,
             visible3: false,
             visible4: false,
-            nommacr:'',descmacr:'',nom:'',desc:'',allproj:[],allms:[]
+            visible5:false,
+            nommacr:'',descmacr:'',nom:'',desc:'',allproj:[],allms:[],result:''
 
         };
     }
@@ -79,6 +80,7 @@ class MacroSkillsPage extends  Component {
       if(this.state.activeTab!==tab){
           this.setState({activeTab:tab})
 
+
       }
 
         //this.state.activeTab=tab
@@ -91,9 +93,12 @@ class MacroSkillsPage extends  Component {
         }
         console.log(t)
         axios.post("http://localhost:3000/project/affecter",t).then(res => {
-            console.log('succes')
+            console.log(res.data)
+           this.setState({result:res.data})
+            this.setState({visible5: true})
         });
-        alert('Done !')
+
+
      }
 
 
@@ -534,6 +539,7 @@ class MacroSkillsPage extends  Component {
                                                                                 </option>
                                                                             )}
 
+
                                                                         </Input>
                                                                 <br/>
 
@@ -555,6 +561,19 @@ class MacroSkillsPage extends  Component {
                                                         </Button>
 
                                                     </div> </center>
+                                                    <div>
+                                                        {
+                                                            this.state.result == 'done' && this.state.visible5 == true &&
+                                                            <UncontrolledAlert color="success">
+                                                                <b>Successfully added the Macro </b>
+                                                            </UncontrolledAlert>
+                                                        } </div>
+                                                    <div>
+                                                        { this.state.result == 'non' && this.state.visible5 == true &&
+                                                        <UncontrolledAlert color="danger">
+                                                            <b>This Team already has this Macro</b>
+                                                        </UncontrolledAlert>
+                                                        } </div>
 
 
                                                 </TabPane>

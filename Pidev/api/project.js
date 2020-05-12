@@ -110,17 +110,39 @@ router.post("/verifvoteur",  (req, res) => {
 
 router.post("/affecter", (req, res) => {
            project.findOne({nom: req.body.name}, (err, t) => {
-                t.team.members.forEach( (a,i) => {
-                    i = i + 1
-                    micro.findOne({nom:req.body.mic},(err,m) => {
-                        a.microskills.push(m)
-                            a.microskills.save
-                            a.save
-                            if(i == t.team.members.length  ){
-                                project2.findOneAndUpdate({ nom : req.body.name}, t, { new : true,useFindAndModify: false},(err,t) => {res.json('done')})
-                            }
-                    })
-                })
+                // t.team.members.forEach( (a,i) => {
+                    var x = true
+               var z = 0
+               for(z = 0 ; z<t.team.members.length;z++){
+                   a = t.team.members[z]
+                   var y = 0
+                 for( y =0;y<a.microskills.length;y++) {
+                     if (a.microskills[y].nom == req.body.mic)
+                         x = false
+                 } }
+
+                 if(x == false)
+                     res.json('non')
+                 else {
+
+                     t.team.members.forEach( (a,i) => {
+                         i = i + 1
+                         micro.findOne({nom:req.body.mic},(err,m) => {
+                             a.microskills.push(m)
+                             a.microskills.save
+                             a.save
+                             if (i == t.team.members.length) {
+                                 project2.findOneAndUpdate({nom: req.body.name}, t, {
+                                     new: true,
+                                     useFindAndModify: false
+                                 }, (err, t) => {
+                                     res.json('done')
+                                 })
+                             }
+                         })
+
+                     }) }
+
             })
 
 

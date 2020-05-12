@@ -8,7 +8,12 @@ var ms = require('../models/microskills')
 
 
 
-
+router.get("/",(req,res,next)=>{
+    ms.find({},{nom:1,_id:0},(err,users)=>{
+        if(err) res.json(err)
+        else res.json(users)
+    })
+})
 router.post("/ajouterMS", (req, res) => {
     var micro = new ms(req.body);
     micro.save((err, c) => {
@@ -162,7 +167,9 @@ router.post('/update', function(req, res) {
 router.get('/delete/:id',function (req , res , nect) {
     //remove
     ms.remove({ _id : req.params.id } , function (err, obj) {
+
         if (err) throw err;
+        else res.json('deleted')
 
     });
 });

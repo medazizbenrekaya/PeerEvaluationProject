@@ -531,7 +531,7 @@ class PeerTeacher extends  Component {
                                                     <div className="row justify-content-md-center">
 
                                                         {this.state.show && <button  className="btn  btn-lg btn-block" disabled>Compare Students : </button>   }
-                                                        <div className="col col-lg-2">
+                                                        <div className="col col-lg-4">
 
                                                             {this.state.show === true &&
                                                             <Input type="select" name="select" id="compare">
@@ -553,7 +553,7 @@ class PeerTeacher extends  Component {
                                                             {this.state.show &&   <p>  compare to : </p> }
 
                                                         </div>
-                                                        <div className="col col-lg-2">
+                                                        <div className="col col-lg-4">
                                                             {this.state.show === true &&
                                                             <Input type="select" name="select" id="compare">
 
@@ -730,7 +730,7 @@ class PeerTeacher extends  Component {
                                                             <div className="container">
                                                                 <div className="row justify-content-md-center">
                                                                     {this.state.showS && <button  className="btn  btn-lg btn-block" disabled>Compare Projects : </button>   }
-                                                                    <div className="col col-lg-2">
+                                                                    <div className="col col-lg-4">
                                                                         {this.state.showS &&
                                                                         <Input type="select" name="select" id="proj1">
 
@@ -749,12 +749,13 @@ class PeerTeacher extends  Component {
                                                                     <div className="col-md-auto">
                                                                         {this.state.showS && <p>compare to :</p>}
                                                                     </div>
-                                                                    <div className="col col-lg-2">
+                                                                    <div className="col col-lg-4">
                                                                         {this.state.showS &&
 
                                                                         <Input type="select" name="select" id="">
 
                                                                             {this.state.studentProject && this.state.studentProject.map((a) =>  <option id="sp"
+
                                                                                                                                                         onClick={this.comparP.bind(this,a)}
                                                                                                                                                         key={a._id}
                                                                                                                                                         value={a}>
@@ -828,8 +829,7 @@ class PeerTeacher extends  Component {
                                                             </div>
                                                             {this.state.selfAffiche &&
                                                             <div className="bg-light border border-primary">
-                                                                <Card style={{width: '25rem',height:'20', backgroundColor:''   }}>
-                                                                    <CardBody>
+                                                            <div className="table-responsive">
                                                                         <table className="table">
                                                                             <thead className="table table-info">
                                                                             <tr>
@@ -859,11 +859,9 @@ class PeerTeacher extends  Component {
                                                                             <h3>Average :{this.state.notefinalS}/20  <br/>  which equals {this.state.pourcentS } %</h3>
                                                                         </UncontrolledTooltip>
 
-                                                                    </CardBody>
-                                                                </Card>
 
 
-                                                            </div> }
+                                                            </div></div> }
 
 
 

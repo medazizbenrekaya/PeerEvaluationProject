@@ -197,94 +197,84 @@ class SelfEvaluationStudent extends Component {
               </div>
 
             <br/>
+            <div className="container">
+                <div className="row">
+                    <div className="col"><center> <h4 className="btn btn-info btn-lg btn-sm">My Macro skills : </h4></center>
+                        <br/>
+                        <div className="table-responsive">
+                        <table className="table" >
+                            <thead className="table table-info">
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
 
 
-            <div className="nav-tabs-navigation">
-              <div className="nav-tabs-wrapper">
+                            {this.state.tab2   && this.state.tab2.map((t) =>
+                                <tbody className="table table-active" key={t._id}   >
 
-                <h4 className="btn btn-info btn-lg btn-sm">My Macro skills : </h4>
-                  <bt/>
-                  <table className="table">
-                      <thead className="table table-info">
-                      <tr>
-                          <th>Name</th>
-                          <th>Type</th>
-                          <th>Number of Micro Skills</th>
-                          <th>Actions</th>
-                      </tr>
-                      </thead>
+                                <tr >
+                                    <td >{t.nom}</td>
+                                    <td >{t.type}</td>
 
+                                    <td  ><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button>
+                                        {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation</button>}
 
-                  {this.state.tab2   && this.state.tab2.map((t) =>
-                      <tbody className="table table-active" key={t._id}  >
+                                    </td>
+                                </tr>
 
-                      <tr>
-                          <td>{t.nom}
-                          </td>
-
-                          <td>{t.type}</td>
-                          <td>{t.macroskills.length}</td>
-                          <td><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button>
-                              {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation</button>}
-
-                          </td>
-                      </tr>
-
-                      </tbody>
-                      )}
-                 </table>
+                                </tbody>
+                            )}
+                        </table></div>
 
 
 
 
-                {this.state.show?
-                  <table className="table">
-                      <thead className="table table-info">
-                      <tr>
-                          <td>Micro Skills of {this.state.nomMicro}</td>
-                      </tr>
-                      </thead>
-                {this.state.tab1 && this.state.tab1.map((detail) => <tbody className="table table-active"  key={detail.nom} >
+                        {this.state.show?
+                            <table className="table">
+                                <thead className="table table-info">
+                                <tr>
+                                    <td>Micro Skills of {this.state.nomMicro}</td>
+                                </tr>
+                                </thead>
+                                {this.state.tab1 && this.state.tab1.map((detail) => <tbody className="table table-active"  key={detail.nom} >
 
 
-                    <tr>
-                      <td >{detail.nom}</td>
-                    </tr>
+                                    <tr>
+                                        <td >{detail.nom}</td>
+                                    </tr>
 
 
-                    </tbody>
+                                    </tbody>
 
-              )}
-                      <tr><td colSpan="1">   <button className="btn btn-link" onClick={this.back.bind(this)}>Back</button></td></tr>
-                  </table> :null}
-                  <br/>
+                                )}
+                                <tr><td colSpan="1"> <center>  <button className="btn btn-link btn-lg " onClick={this.back.bind(this)}>Back</button></center></td></tr>
+                            </table> :null}
+                        <br/>
+                    </div>
+                    <div className="col">    <center><h4 className="btn btn-info btn-lg btn-sm">My Self Evaluation Result : </h4></center>
+                        <br/>
+                        <div className="bg-light border border-primary">
+                            <Card style={{width: 'responsive',height:'10', backgroundColor:''   }}>
+                                <CardBody>
+                                    <Radar  data={this.state.data}  />
+                                   <center> <Button  color="info" id="top4">
+                                        self Evaluation Result !
+                                   </Button>{` `}</center>
+                                    <UncontrolledTooltip placement="top" target="top4" delay={1}>
+                                        <h3>Average :{this.state.notefinal5}/20  <br/>  which equals {this.state.pourcent5 } %</h3>
+                                    </UncontrolledTooltip>
 
-
-
-                  <h4 className="btn btn-info btn-lg btn-sm">My Self Evaluation Result : </h4>
-                  <br/>
-                      <div className="bg-light border border-primary">
-                      <Card style={{width: '50rem',height:'10', backgroundColor:''   }}>
-                          <CardBody>
-                              <Radar  data={this.state.data}  />
-                              <Button color="info" id="top4">
-                                   self Evaluation Result !
-                              </Button>{` `}
-                              <UncontrolledTooltip placement="top" target="top4" delay={1}>
-                                  <h3>Average :{this.state.notefinal5}/20  <br/>  which equals {this.state.pourcent5 } %</h3>
-                              </UncontrolledTooltip>
-
-                          </CardBody>
-                      </Card>
+                                </CardBody>
+                            </Card>
 
 
-                  </div>
+                        </div></div>
 
-
-
-              </div>
+                </div>
             </div>
-
 
           </Container>
         </div>

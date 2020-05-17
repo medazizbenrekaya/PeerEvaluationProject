@@ -20,7 +20,14 @@ import {Component} from "react"
 
 
 
+
 import {Radar} from "react-chartjs-2";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/core";
+
+const override = css`
+
+`;
 
 
 
@@ -87,7 +94,7 @@ class SelfEvaluationStudent extends Component {
 
     constructor(props){
     super(props)
-    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:'',stats:'',tab7:[],tab8:[],data:{}};
+    this.state = {show:false,tab1:'',tab2:'',show1:false,selectedFile: null,show2:false,tab3:'',show3:false,tab6:'',stats:'',tab7:[],tab8:[],data:{},loading3:true};
 
   }
   improve(nom)
@@ -208,7 +215,16 @@ class SelfEvaluationStudent extends Component {
                                     <td >{t.type}</td>
 
                                     <td  ><button className="btn-info" onClick={this.show.bind(this,t.nom)} >Details</button>
-                                        {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation</button>}
+                                        {t.etat && <button className="btn-success" disabled>Self Evaluation done <li className="fa fa-check"></li></button>}
+                                        {!t.etat  && <button className="btn-link" onClick={this.improve.bind(this,t.nom)} >Self Evaluation {this.state.loading3 &&
+                                            <ClipLoader
+                                                css={override}
+                                                size={20}
+                                                color={"blue"}
+                                                loading={this.state.loading3}
+                                            />
+                                            }
+                                        </button>}
 
                                     </td>
                                 </tr>

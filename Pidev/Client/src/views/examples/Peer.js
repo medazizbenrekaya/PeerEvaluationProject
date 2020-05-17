@@ -25,6 +25,13 @@ import {Link} from "react-router-dom";
 import {Radar} from 'react-chartjs-2';
 
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/core";
+
+const override = css`
+
+`;
+
 
 
 
@@ -259,7 +266,7 @@ descrip(a){
 
     constructor(props){
         super(props)
-        this.state = {team:'',tab:'',stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},comparer:false,notefinal:'',pourcent:'',notefinal2:'',pourcent2:''};
+        this.state = {team:'',tab:'',loading3:true,stats:'',tab2:[],tab3:[],data :{},project:'',p:'',test:'',show:false,v:[],stats2:'',tab4:[],tab5:[],data2:{},comparer:false,notefinal:'',pourcent:'',notefinal2:'',pourcent2:''};
 
 
     }
@@ -358,8 +365,14 @@ descrip(a){
                                                                         pathname: '/evaluate',
                                                                         X: this.state.p,
                                                                         YO: member
-                                                                    }}> <Button color="warning">Evaluate
-                                                                        !</Button></Link></div>
+                                                                    }}> <Button color="warning">Evaluate ! {this.state.loading3 &&
+                                                                    <ClipLoader
+                                                                        css={override}
+                                                                        size={20}
+                                                                        color={"blue"}
+                                                                        loading={this.state.loading3}
+                                                                    />
+                                                                    }</Button></Link></div>
                                                                     :
                                                                     < label className="label label-success mr-1">Evaluation
                                                                         Done!</label>

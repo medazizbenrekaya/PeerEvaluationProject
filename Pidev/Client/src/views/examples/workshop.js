@@ -1,5 +1,5 @@
 
-import React,{Component} from "react";
+import React, {Component, useState} from "react";
 import {
     Button,
     Input,
@@ -22,13 +22,26 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/core";
+
+
+
+const override = css`
+
+`;
+
+
 
 
 class WorkshopPage extends  Component {
     constructor(props){
         super(props)
+
+
+
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,loading:true,
             visible1: false,
             visible2: false,
             visible3: false,
@@ -83,7 +96,8 @@ class WorkshopPage extends  Component {
             description:document.getElementById('desc').value,
             datedebut:document.getElementById('dd').value,
             datefin:document.getElementById('df').value,
-            nbplace: document.getElementById('nb').value
+            nbplace: document.getElementById('nb').value,
+            nbrplacefinal: document.getElementById('nb').value
         };
         this.state.nom1=bod.nom
         this.state.desc1=bod.description
@@ -111,7 +125,7 @@ class WorkshopPage extends  Component {
                     this.setState({visible6:true})
                 }else{
                 console.log('succes')
-                this.setState({ activeTab:"2"})
+                this.setState({ loading:false})
                 }
             });
 
@@ -120,7 +134,7 @@ class WorkshopPage extends  Component {
     }
     delete(a) {
         const bod={a}
-        axios.get("http://localhost:3000/ws/delete" ,bod).then(res => {
+        axios.post("http://localhost:3000/ws/delete/"+a).then(res => {
             window.location.reload()
             console.log("succes")
         });
@@ -143,6 +157,7 @@ class WorkshopPage extends  Component {
 
 
     render() {
+
         return (
             <>
 
@@ -257,6 +272,15 @@ class WorkshopPage extends  Component {
                                                                             <Col className="ml-auto mr-auto" md="4">
                                                                                 <Button className="btn-fill" color="danger" size="lg" onClick={this.Ajouter.bind(this)}>
                                                                                     ADD
+                                                                                    {this.state.loading &&
+                                                                                    <ClipLoader
+                                                                                        css={override}
+                                                                                        size={20}
+                                                                                        color={"#123abc"}
+                                                                                        loading={this.state.loading}
+                                                                                    />
+                                                                                    }
+                                                                                    {!this.state.loading && <li className="fa fa-check" ></li>}
                                                                                 </Button>
                                                                                 <Alert color="danger" isOpen={this.state.visible6} toggle={this.onDismiss6.bind(this)}>
                                                                                     <b>workshop already exist</b>
@@ -290,19 +314,22 @@ class WorkshopPage extends  Component {
                                                                     <th>Start-date</th>
                                                                     <th>End-date</th>
                                                                     <th>Places number</th>
+                                                                    <th>Participants number</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                                 </thead>
-                                                                {this.state.tab1   && this.state.tab1.map((work) =>  <tbody className="table table-active" key={work._id}  >
+                                                                {this.state.tab1   && this.state.tab1.map((work) =><tbody className="table table-active" key={work._id}>
                                                                     <tr>
                                                                         <td>{work.nom}</td>
                                                                         <td>{work.description}</td>
-                                                                        <td>{work.datedebut}</td>
-                                                                        <td>{work.datefin}</td>
+                                                                        <td>{work.datedebut.substr(0,10)}</td>
+                                                                        <td>{work.datefin.substr(0,10)}</td>
                                                                         <td>{work.nbplace}</td>
+                                                                        <td>{work.nbrplacefinal-work.nbplace}</td>
                                                                     <td>
                                                                         <Button className="btn-danger" onClick={this.delete.bind(this , work._id)} >Delete</Button>
-                                                                        </td>
+
+                                                                    </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 )}
@@ -331,3 +358,5 @@ class WorkshopPage extends  Component {
 }
 
 export default WorkshopPage;
+
+

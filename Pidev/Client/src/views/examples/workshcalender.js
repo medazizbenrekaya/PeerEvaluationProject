@@ -1,5 +1,5 @@
 
-import React,{Component} from "react";
+import React, {Component, useState} from "react";
 import {
 
     NavItem,
@@ -10,7 +10,7 @@ import {
     Container,
     Row,
     Col,
-    Button, Alert,
+    Button, Alert,Input
 } from "reactstrap";
 
 import IconButton from '@material-ui/core/IconButton';
@@ -28,10 +28,11 @@ import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+
 import moment from 'moment';
 import {
     EditingState,
@@ -54,7 +55,15 @@ import {
 import {connectProps} from "@devexpress/dx-react-core";
 import NavBarStudent from "../../components/Navbars/NavBarStudent";
 
+import { withStyles } from '@material-ui/core/styles';
+
+
+
+
+
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData/Get';
+
+
 
 
 
@@ -330,16 +339,27 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     }
 }
 
+
 const AppointmentFormContainer = withStyles(containerStyles, { name: 'AppointmentFormContainer' })(AppointmentFormContainerBasic);
+
+
 class Workshopcalender extends  Component {
     constructor(props){
         super(props)
+        var today = new Date(),date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        console.log(date)
+
+
+
+
         this.state = {m: [],x:[],ms:'',
-            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,
+            activeTab:"1",tab1:'',show2:false,tab2:'',show:false,show1:false,tabW:'',dateJ:date,dateA:'',
             visible1: false,
             visible2: false,
             visible3: false,
             data:[],
+            value:0,
+
             loading: true,
             currentDate: new Date(),
             currentViewName: 'Day',
@@ -360,6 +380,8 @@ class Workshopcalender extends  Component {
         this.currentDateChange = (currentDate) => {
             this.setState({currentDate, loading: true});
         };
+
+
 
 
         this.appointmentForm = connectProps( AppointmentFormContainer,() => {
@@ -401,7 +423,15 @@ class Workshopcalender extends  Component {
             console.log('succes')
 
         });
+        axios.get("http://localhost:3000/WS/MyWS/"+jwt_decode(localStorage.token).user._id).then(res => {
+            this.setState({tabW:res.data})
+            console.log('succes')
+        });
+
+
+
     }
+
     loadData() {
         const { currentDate, currentViewName } = this.state;
         const queryString = makeQueryString(currentDate, currentViewName);
@@ -444,7 +474,7 @@ class Workshopcalender extends  Component {
                 this.setState({visible1:true})
             }
             else if(res.data==="USER EXIST"){
-                this.setState({visible2:true})
+                this.setState({visible2:false})
             }
             else {
             // window.location.reload()
@@ -455,12 +485,17 @@ class Workshopcalender extends  Component {
 
 
 
+
+
+
     render() {
         const {
             data, loading,
             currentDate, currentViewName,
-            editingFormVisible
+            editingFormVisible,value,setValue
         } = this.state;
+
+
 
 
         const formattedData = data
@@ -509,7 +544,7 @@ class Workshopcalender extends  Component {
                                                             <NavLink
                                                                 className={this.state.activeTab === "1" ? "active" : ""}
                                                                 onClick={() => {this.toggle("1")}}>
-                                                                <strong>Workshop</strong>
+                                                                <strong>All Workshops</strong>
                                                             </NavLink>
                                                         </NavItem>
                                                         <NavItem>
@@ -517,6 +552,13 @@ class Workshopcalender extends  Component {
                                                                 className={this.state.activeTab === "2" ? "active" : ""}
                                                                 onClick={() => {this.toggle("2")}}>
                                                                 <strong>Reservation</strong>
+                                                            </NavLink>
+                                                        </NavItem>
+                                                        <NavItem>
+                                                            <NavLink
+                                                                className={this.state.activeTab === "3" ? "active" : ""}
+                                                                onClick={() => {this.toggle("3")}}>
+                                                                <strong>My Workshops</strong>
                                                             </NavLink>
                                                         </NavItem>
 
@@ -606,31 +648,94 @@ class Workshopcalender extends  Component {
                                                                     <th>Start-date</th>
                                                                     <th>End-date</th>
                                                                     <th>Places number</th>
+                                                                    <th>Participants number</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                                 </thead>
                                                                 {this.state.tab1   && this.state.tab1.map((work) =>  <tbody className="table table-active" key={work._id}  >
-
+                                                                    {work.datefin.substr(0, 10) >= this.state.dateA.concat(this.state.dateJ.substr(0, 5), "0", this.state.dateJ.substr(5, 10)) &&
                                                                     <tr>
                                                                         <td>{work.nom}
 
                                                                         </td>
                                                                         <td>{work.description}</td>
-                                                                        <td>{work.datedebut}</td>
-                                                                        <td>{work.datefin}</td>
+                                                                        <td>{work.datedebut.substr(0, 10)}</td>
+                                                                        <td>{work.datefin.substr(0, 10)}</td>
                                                                         <td>{work.nbplace}</td>
+                                                                        <td>{work.nbrplacefinal - work.nbplace}</td>
                                                                         <td>
-                                                                            <Button className="btn-info" onClick={this.delete.bind(this , work._id)} >Reserver</Button>
+                                                                            {work.datedebut.substr(0, 10) > this.state.dateA.concat(this.state.dateJ.substr(0, 5), "0", this.state.dateJ.substr(5, 10)) &&
+                                                                            <Button className="btn-info"
+                                                                                    onClick={this.delete.bind(this, work._id)}>Reserver
+                                                                            </Button>
+                                                                            }
+                                                                            {work.datedebut.substr(0, 10) <= this.state.dateA.concat(this.state.dateJ.substr(0, 5), "0", this.state.dateJ.substr(5, 10)) &&
+                                                                            <Button className="btn-danger" disabled>Started
+                                                                            </Button>
+                                                                            }
+
                                                                         </td>
                                                                     </tr>
+                                                                    }
                                                                     </tbody>
                                                                 )}
+
 
                                                             </table>
 
                                                             </center>
 
                                                         </div></Col>
+
+                                                </TabPane>
+                                                <TabPane tabId="3">
+                                                    <Col className="ml-auto mr-auto">
+
+                                                        <center> <h1><strong>My Up Comming Workshops</strong></h1>
+                                                        </center>
+                                                        <br/>   <br/>   <br/>
+                                                        <div className="table-responsive">
+
+                                                            <center><table >
+                                                                <thead className="table table-info" >
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>description</th>
+                                                                    <th>Start-date</th>
+                                                                    <th>End-date</th>
+                                                                    <th>Participants number</th>
+
+                                                                </tr>
+                                                                </thead>
+                                                                {this.state.tabW   && this.state.tabW.map((work) =>  <tbody className="table table-active" key={work._id}  >
+
+
+
+                                                                        {work.datefin.substr(0,10) >= this.state.dateA.concat(this.state.dateJ.substr(0,5),"0",this.state.dateJ.substr(5,10))  &&
+                                                                        <tr>
+                                                                        <td>{work.nom}</td>
+                                                                        <td>{work.description}</td>
+                                                                            <td>{work.datedebut.substr(0,10)}</td>
+                                                                            <td>{work.datefin.substr(0,10)}</td>
+                                                                            <td>{work.nbrplacefinal - work.nbplace}</td>
+                                                                        </tr>
+                                                                        }
+
+                                                                    </tbody>
+                                                                )}
+
+
+
+                                                            </table>
+
+
+
+
+
+                                                            </center>
+
+                                                        </div></Col>
+
 
                                                 </TabPane>
                                             </TabContent>
@@ -650,5 +755,7 @@ class Workshopcalender extends  Component {
         );
     }
 }
+
+
 
 export default Workshopcalender;

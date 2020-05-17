@@ -13,7 +13,7 @@ import {
     Col,
     Form,
     ListGroup,
-    ListGroupItem, Alert,
+    ListGroupItem, Alert,UncontrolledAlert,
 
 
 } from "reactstrap";
@@ -26,7 +26,13 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/core";
 
+const override = css`
+
+  
+`;
 
 
 class MacroSkillsPage extends  Component {
@@ -39,7 +45,7 @@ class MacroSkillsPage extends  Component {
             visible3: false,
             visible4: false,
             visible5:false,
-            nommacr:'',descmacr:'',nom:'',desc:'',allproj:[],allms:[],result:''
+            nommacr:'',descmacr:'',nom:'',desc:'',allproj:[],allms:[],result:'',loading: true,loading1:true,loading3:true
 
         };
     }
@@ -95,7 +101,7 @@ class MacroSkillsPage extends  Component {
         axios.post("http://localhost:3000/project/affecter",t).then(res => {
             console.log(res.data)
            this.setState({result:res.data})
-            this.setState({visible5: true})
+            this.setState({visible5: true,loading3:false})
         });
 
 
@@ -119,7 +125,11 @@ class MacroSkillsPage extends  Component {
         this.state.m.push(bod2)
         console.log(this.state.m)
         let x = document.getElementById('nommacro').value
-        this.setState({ms : this.state.ms +  x +'  |  ',show5:true })
+        this.setState({ms : this.state.ms +  x +'  |  ',show5:true})
+            if (this.state.m.length >= 3)
+            {
+                this.setState({loading1:false})
+            }
         document.getElementById('nommacro').value = ''
         document.getElementById('descmacro').value = ''
         }
@@ -162,6 +172,7 @@ class MacroSkillsPage extends  Component {
         axios.post("http://localhost:3000/ms/ajouterMS", bod).then(res => {
 
             window.location.reload()
+            this.setState({loading:false})
             console.log('succes')
             window.location.reload(false);
 
@@ -378,6 +389,15 @@ class MacroSkillsPage extends  Component {
                                                                                                     <Button className="mr-1 btn btn-outline-danger btn-sm" color="orange" size="lg"
                                                                                                             onClick={this.addmacro.bind(this)}>
                                                                                                         ADD Micro
+                                                                                                        {this.state.loading1 &&
+                                                                                                        <ClipLoader
+                                                                                                            css={override}
+                                                                                                            size={20}
+                                                                                                            color={"black"}
+                                                                                                            loading={this.state.loading1}
+                                                                                                        />
+                                                                                                        }
+                                                                                                        {!this.state.loading1 && <li className="fa fa-check" ></li>}
                                                                                                     </Button>
                                                                                                 </Col>
                                                                                             </Row>
@@ -403,7 +423,17 @@ class MacroSkillsPage extends  Component {
                                                                             <Col className="ml-auto mr-auto" md="4">
                                                                                 <Button className="btn-success"  size="lg" onClick={this.Ajouter.bind(this)}>
                                                                                     ADD Macro
+                                                                                    {this.state.loading &&
+                                                                                    <ClipLoader
+                                                                                        css={override}
+                                                                                        size={20}
+                                                                                        color={"#123abc"}
+                                                                                        loading={this.state.loading}
+                                                                                    />
+                                                                                    }
+                                                                                    {!this.state.loading && <li className="fa fa-check" ></li>}
                                                                                 </Button>
+
                                                                             </Col>
                                                                         </Row>
                                                                     </div>
@@ -555,8 +585,14 @@ class MacroSkillsPage extends  Component {
                                                 <br/>
                                                 <center>
                                                     <div className="col col-lg-2">
-                                                        <Button className="btn-round" color="primary" outline onClick={this.affect.bind(this)}>
-                                                            Click to confirm!
+                                                        <Button className="btn-round btn-sm" color="primary" outline onClick={this.affect.bind(this)}>Click to confirm!{this.state.loading3 && <ClipLoader
+                                                                css={override}
+                                                                size={20}
+                                                                color={"#123abc"}
+                                                                loading={this.state.loading3}
+                                                            />
+                                                            }
+                                                            {!this.state.loading3 && <li className="fa fa-check" ></li>}
 
                                                         </Button>
 

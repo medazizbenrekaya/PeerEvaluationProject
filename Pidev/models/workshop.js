@@ -6,6 +6,7 @@ var workshopSchema = new mongoose.Schema({
     datedebut:{type : Date},
     datefin:{type : Date},
     nbplace:{type : Number},
+    nbrplacefinal: {type : Number},
     etudiants :[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'etudiant', default: null

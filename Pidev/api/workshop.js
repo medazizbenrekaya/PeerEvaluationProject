@@ -105,11 +105,9 @@ router.post("/reserver", (req, res) => {
 
                 }
 })})});
-router.post('/delete', function(req, res, next) {
-    workshop.findOne({_id: req.body.id} , function (err,u) {
-
-        u.remove(u);
-        res.status(200).json("votre demande refuser")
+router.post('/delete/:id', function(req, res, next) {
+    workshop.remove({ _id : req.params.id } , function (err, obj) {
+        if (err) throw err;
     });
 
 });
@@ -132,6 +130,19 @@ router.get("/allworkshop", (req, res) => {
             })
 
 })
+
+router.get("/MyWS/:id", (req, res) => {
+    workshop.find({etudiants : req.params.id},(err, c) => {
+
+        if(err)
+            res.json(err)
+        else
+            res.json(c)
+
+    })
+
+})
+
 
 
 module.exports = router;

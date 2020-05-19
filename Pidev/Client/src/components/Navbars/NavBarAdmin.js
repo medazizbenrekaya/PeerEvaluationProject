@@ -23,7 +23,7 @@ function NavBarAdmin() {
                 }
                 else if (selected === 'statistique')
                 {
-                    document.location.href="/Workshop-Page2";
+                    document.location.href="/Stat";
                 }
 
             }}

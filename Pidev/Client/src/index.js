@@ -51,6 +51,7 @@ import MacroSkillsPage from "./views/examples/MacroSkillsPage";
 import PeerTeacher from "./views/examples/PeerTeacher";
 import Historique from "./views/examples/historique";
 import SelfEvaluationStudent from "./views/examples/SelfEvaluationStudent";
+import Stat from "./views/examples/stat";
 
 
 // others
@@ -66,6 +67,10 @@ ReactDOM.render(
       <Route
           path="/Calender"
           render={props => <Calender {...props} />}
+      />
+      <Route
+          path="/Stat"
+          render={props => <Stat {...props} />}
       />
       <Route
         path="/landing-page"

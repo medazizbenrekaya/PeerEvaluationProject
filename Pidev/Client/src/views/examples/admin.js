@@ -410,34 +410,34 @@ class Admin extends Component {
                                                 </Row>
                                             </Container>
                                         </div>
-                                        <Button color="primary" size="lg"
-                                                onClick={() => {
-                                                    this.mod(true);}}>
-                                            statstique</Button>
+                                        {/*<Button color="primary" size="lg"*/}
+                                        {/*        onClick={() => {*/}
+                                        {/*            this.mod(true);}}>*/}
+                                        {/*    statstique</Button>*/}
 
-                                        <Modal
-                                            isOpen={this.state.loginModal}
-                                            toggle={() => {
-                                                this.mod(true);
-                                            }}
-                                            modalClassName="modal-register"
-                                        >
-                                            <div className="modal-header no-border-header text-center">
-                                                <button
-                                                    aria-label="Close"
-                                                    className="close"
-                                                    data-dismiss="modal"
-                                                    type="button"
-                                                    onClick={this.state.loginModal}
-                                                >
-                                                    <button onClick={this.onDismiss1.bind(this)}>×</button>
-                                                </button>
-                                                <div>
-                                                    <h2>Pie Example</h2>
-                                                    <Pie data={this.state.data } />
-                                                </div>
-                                            </div>
-                                        </Modal>
+                                        {/*<Modal*/}
+                                        {/*    isOpen={this.state.loginModal}*/}
+                                        {/*    toggle={() => {*/}
+                                        {/*        this.mod(true);*/}
+                                        {/*    }}*/}
+                                        {/*    modalClassName="modal-register"*/}
+                                        {/*>*/}
+                                        {/*    <div className="modal-header no-border-header text-center">*/}
+                                        {/*        <button*/}
+                                        {/*            aria-label="Close"*/}
+                                        {/*            className="close"*/}
+                                        {/*            data-dismiss="modal"*/}
+                                        {/*            type="button"*/}
+                                        {/*            onClick={this.state.loginModal}*/}
+                                        {/*        >*/}
+                                        {/*            <button onClick={this.onDismiss1.bind(this)}>×</button>*/}
+                                        {/*        </button>*/}
+                                        {/*        <div>*/}
+                                        {/*            <h2>Pie Example</h2>*/}
+                                        {/*            <Pie data={this.state.data } />*/}
+                                        {/*        </div>*/}
+                                        {/*    </div>*/}
+                                        {/*</Modal>*/}
                                     </TabPane>
                                     <TabPane tabId="2">
                                         <Col className="ml-auto mr-auto" >
